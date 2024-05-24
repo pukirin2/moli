@@ -1,4 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:moli/bloc/salon/salon_details_bloc.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/model/user/salon_user.dart';
@@ -323,66 +326,73 @@ class TopBarOfSalonDetails extends StatelessWidget {
                           height: 10,
                         ),
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          OpenClosedStatusWidget(
-                            bgDisable: ColorRes.smokeWhite1,
-                            salonData: salonData,
-                          ),
-                          Container(
-                            decoration: const BoxDecoration(
-                              color: ColorRes.themeColor,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(100),
-                              ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 35,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          children: [
+                            OpenClosedStatusWidget(
+                              bgDisable: ColorRes.smokeWhite1,
+                              salonData: salonData,
                             ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 15,
-                              vertical: 8,
-                            ),
-                            child: Text(
-                              AppRes.getGenderTypeInStringFromNumber(context,
-                                  salonData?.genderServed?.toInt() ?? 0),
-                              style: kLightWhiteTextStyle.copyWith(
-                                fontSize: 12,
-                                letterSpacing: 1,
-                              ),
-                            ),
-                          ),
-                          Visibility(
-                            visible: salonData?.topRated == 1,
-                            child: Container(
+                            Container(
                               decoration: const BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [ColorRes.pancho, ColorRes.fallow],
-                                ),
+                                color: ColorRes.themeColor,
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(100),
                                 ),
                               ),
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 10),
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 15,
                                 vertical: 8,
                               ),
                               child: Text(
-                                AppLocalizations.of(context)!
-                                    .topRated
-                                    .toUpperCase(),
+                                AppRes.getGenderTypeInStringFromNumber(context,
+                                    salonData?.genderServed?.toInt() ?? 0),
                                 style: kLightWhiteTextStyle.copyWith(
                                   fontSize: 12,
                                   letterSpacing: 1,
                                 ),
                               ),
                             ),
-                          ),
-                          PageIndicator(
-                            salon: salonData,
-                            pageController: pageController,
-                          ),
-                        ],
+                            Visibility(
+                              visible: salonData?.topRated == 1,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [ColorRes.pancho, ColorRes.fallow],
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                ),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 15,
+                                  vertical: 8,
+                                ),
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .topRated
+                                      .toUpperCase(),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: kLightWhiteTextStyle.copyWith(
+                                    fontSize: 12,
+                                    letterSpacing: 1,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            PageIndicator(
+                              salon: salonData,
+                              pageController: pageController,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -580,31 +590,27 @@ class _PageIndicatorState extends State<PageIndicator> {
       // }
       selectedIndex = widget.pageController?.page?.round() ?? 0;
     });
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: List.generate(widget.salon?.images?.length ?? 0, (index) {
-              return SizedBox(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: selectedIndex == index
-                        ? ColorRes.smokeWhite
-                        : ColorRes.smokeWhite.withOpacity(.3),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  margin: const EdgeInsets.symmetric(horizontal: 1),
-                  height: 2.5,
-                  width: 20,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: List.generate(widget.salon?.images?.length ?? 0, (index) {
+            return Container(
+              decoration: BoxDecoration(
+                color: selectedIndex == index
+                    ? ColorRes.smokeWhite
+                    : ColorRes.smokeWhite.withOpacity(.3),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10),
                 ),
-              );
-            }),
-          ),
+              ),
+              margin: const EdgeInsets.symmetric(horizontal: 1),
+              height: 2.5,
+              width: 20,
+            );
+          }),
         ),
       ),
     );

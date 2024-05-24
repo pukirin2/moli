@@ -90,9 +90,9 @@ class SalonDetailsPage extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.monFriFrom, curentLocale)}'
+                          '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.monFriFrom, locale: curentLocale)}'
                           ' - '
-                          '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.monFriTo, curentLocale)}',
+                          '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.monFriTo, locale: curentLocale)}',
                           style: kSemiBoldTextStyle.copyWith(
                             fontSize: 16,
                             color: ColorRes.charcoal,
@@ -119,9 +119,9 @@ class SalonDetailsPage extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.satSunFrom, curentLocale)}'
+                      '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.satSunFrom, locale: curentLocale)}'
                       ' - '
-                      '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.satSunTo, curentLocale)}',
+                      '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.satSunTo, locale: curentLocale)}',
                       style: kSemiBoldTextStyle.copyWith(
                         fontSize: 16,
                         color: ColorRes.charcoal,

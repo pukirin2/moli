@@ -88,7 +88,7 @@ class ItemUpcomingBooking extends StatelessWidget {
                         ),
                         pattern: 'EE, MMM dd, yyyy',
                         isUtc: false,
-                      )} : ${AppRes.convert24HoursInto12Hours(bookingData.time, curentLocale)}',
+                      )} : ${AppRes.convert24HoursInto12Hours(bookingData.time, locale: curentLocale)}',
                       style: kLightWhiteTextStyle.copyWith(
                         color: ColorRes.themeColor,
                         fontSize: 16,

@@ -240,13 +240,15 @@ class ConfirmBookingScreen extends StatelessWidget {
                                                       hour: AppRes
                                                           .getHourFromTime(AppRes
                                                               .convert24HoursInto12Hours(
-                                                                  slotData.time,
-                                                                  curentLocale)),
+                                                                  slotData.time
+                                                                  // curentLocale
+                                                                  )),
                                                       minute: int.parse(
                                                         AppRes.getMinFromTime(AppRes
                                                             .convert24HoursInto12Hours(
-                                                                slotData.time,
-                                                                curentLocale)),
+                                                                slotData.time
+                                                                // curentLocale
+                                                                )),
                                                       ),
                                                     );
                                                     bookingsBloc.add(
@@ -277,9 +279,9 @@ class ConfirmBookingScreen extends StatelessWidget {
                                                         alignment:
                                                             Alignment.center,
                                                         child: Text(
-                                                          AppRes
-                                                              .convert24HoursInto12Hours(
-                                                                  slotData.time,
+                                                          AppRes.convert24HoursInto12Hours(
+                                                              slotData.time,
+                                                              locale:
                                                                   curentLocale),
                                                           style:
                                                               kBoldWhiteTextStyle

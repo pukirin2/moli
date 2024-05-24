@@ -63,7 +63,7 @@ class ReScheduleBloc extends Bloc<ReScheduleEvent, ReScheduleState> {
   SalonData? salonData;
   List<Services> services = [];
   List<SlotData> slots = [];
-  DateTime? selectedDate;
+  DateTime? selectedDate = DateTime.now();
   TimeOfDay? selectedTime;
   int year = DateTime.now().year;
   int month = DateTime.now().month;

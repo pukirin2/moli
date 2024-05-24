@@ -1,4 +1,5 @@
 import 'package:moli/bloc/bookingdetail/booking_detail_bloc.dart';
+import 'package:moli/bloc/confirmbooking/confirm_booking_bloc.dart';
 import 'package:moli/bloc/reschedule/re_schedule_bloc.dart';
 import 'package:moli/model/slot/slot.dart';
 import 'package:moli/screens/search/filter_bottom_sheet.dart';
@@ -187,20 +188,32 @@ class ReScheduleBottomSheet extends StatelessWidget {
                                     reScheduleBloc.selectedTime?.minute ?? 0;
                                 String selectedTime =
                                     '${hour < 10 ? '0$hour' : '$hour'}${min < 10 ? '0$min' : '$min'}';
+                                var dataTime = slotData.time;
+                                var currentTimeData =
+                                    '${0.convert2Digits(TimeOfDay.now().hour)}${0.convert2Digits(TimeOfDay.now().minute)}';
+                                var compareDate =
+                                    dataTime!.compareTo(currentTimeData);
+                                var isShowDisable = slotData.remainSlot == 0 ||
+                                    (reScheduleBloc.selectedDate?.day ==
+                                            DateTime.now().day &&
+                                        compareDate < 1);
 
                                 return CustomCircularInkWell(
                                   onTap: () {
+                                    if (isShowDisable) {
+                                      return;
+                                    }
                                     if (slotData.remainSlot == 0) {
                                       return;
                                     }
                                     reScheduleBloc.selectedTime = TimeOfDay(
                                       hour: AppRes.getHourFromTime(
                                           AppRes.convert24HoursInto12Hours(
-                                              slotData.time, curentLocale)),
+                                              slotData.time)),
                                       minute: int.parse(
                                         AppRes.getMinFromTime(
                                             AppRes.convert24HoursInto12Hours(
-                                                slotData.time, curentLocale)),
+                                                slotData.time)),
                                       ),
                                     );
                                     reScheduleBloc.add(UpdateDataEvent());
@@ -218,16 +231,16 @@ class ReScheduleBottomSheet extends StatelessWidget {
                                             Radius.circular(5),
                                           ),
                                         ),
-                                        margin: const EdgeInsets.only(
-                                            right: 8, bottom: 3),
+                                        margin: const EdgeInsets.only(right: 8),
                                         alignment: Alignment.center,
                                         child: Text(
                                           AppRes.convert24HoursInto12Hours(
-                                              slotData.time, curentLocale),
+                                              slotData.time,
+                                              locale: curentLocale),
                                           style: kBoldWhiteTextStyle.copyWith(
                                             color: slotData.time == selectedTime
                                                 ? ColorRes.white
-                                                : slotData.remainSlot == 0
+                                                : isShowDisable
                                                     ? ColorRes.darkGray
                                                     : ColorRes.charcoal,
                                             fontSize: 16,
@@ -235,18 +248,60 @@ class ReScheduleBottomSheet extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        slotData.remainSlot == 0
+                                        isShowDisable
                                             ? AppLocalizations.of(context)!
                                                 .notAvailable
                                             : '${slotData.remainSlot} ${AppLocalizations.of(context)!.slotsAvailable}',
                                         style: kRegularTextStyle.copyWith(
-                                          color: slotData.remainSlot == 0
+                                          color: isShowDisable
                                               ? ColorRes.darkGray
                                               : ColorRes.islamicGreen,
                                           fontSize: 13,
                                           letterSpacing: .4,
                                         ),
                                       )
+
+                                      // Container(
+                                      //   height: 40,
+                                      //   width: 95,
+                                      //   decoration: BoxDecoration(
+                                      //     color: slotData.time == selectedTime
+                                      //         ? ColorRes.themeColor
+                                      //         : ColorRes.smokeWhite,
+                                      //     borderRadius: const BorderRadius.all(
+                                      //       Radius.circular(5),
+                                      //     ),
+                                      //   ),
+                                      //   margin: const EdgeInsets.only(
+                                      //       right: 8, bottom: 3),
+                                      //   alignment: Alignment.center,
+                                      //   child: Text(
+                                      //     AppRes.convert24HoursInto12Hours(
+                                      //         slotData.time,
+                                      //         locale: curentLocale),
+                                      //     style: kBoldWhiteTextStyle.copyWith(
+                                      //       color: slotData.time == selectedTime
+                                      //           ? ColorRes.white
+                                      //           : slotData.remainSlot == 0
+                                      //               ? ColorRes.darkGray
+                                      //               : ColorRes.charcoal,
+                                      //       fontSize: 16,
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      // Text(
+                                      //   slotData.remainSlot == 0
+                                      //       ? AppLocalizations.of(context)!
+                                      //           .notAvailable
+                                      //       : '${slotData.remainSlot} ${AppLocalizations.of(context)!.slotsAvailable}',
+                                      //   style: kRegularTextStyle.copyWith(
+                                      //     color: slotData.remainSlot == 0
+                                      //         ? ColorRes.darkGray
+                                      //         : ColorRes.islamicGreen,
+                                      //     fontSize: 13,
+                                      //     letterSpacing: .4,
+                                      //   ),
+                                      // )
                                     ],
                                   ),
                                 );

@@ -427,7 +427,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                                       AppRes
                                                           .convert24HoursInto12Hours(
                                                               bookingData.time,
-                                                              curentLocale),
+                                                              locale:
+                                                                  curentLocale),
                                                       style:
                                                           kRegularThemeTextStyle
                                                               .copyWith(

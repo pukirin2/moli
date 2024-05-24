@@ -104,7 +104,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
             .collection(FirebaseRes.chat)
             .doc(conversation.conversationId)
             .collection(FirebaseRes.chat);
-        print('dataasdas: $drChatMessages');
         getChat();
       },
     );

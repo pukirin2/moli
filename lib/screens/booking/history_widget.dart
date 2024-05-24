@@ -91,7 +91,7 @@ class ItemHistoryBooking extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '${AppRes.formatDate(AppRes.parseDate(bookingData.date ?? '', pattern: 'yyyy-MM-dd', isUtc: false, locale: curentLoca), pattern: 'dd MMM, yyyy - EE', isUtc: false, locale: curentLoca)} - ${AppRes.convert24HoursInto12Hours(bookingData.time, curentLoca)}',
+                          '${AppRes.formatDate(AppRes.parseDate(bookingData.date ?? '', pattern: 'yyyy-MM-dd', isUtc: false, locale: curentLoca), pattern: 'dd MMM, yyyy - EE', isUtc: false, locale: curentLoca)} - ${AppRes.convert24HoursInto12Hours(bookingData.time, locale: curentLoca)}',
                           style: kLightWhiteTextStyle.copyWith(
                             color: ColorRes.themeColor,
                             fontSize: 14,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:moli/bloc/profile/profile_bloc.dart';
@@ -58,13 +59,15 @@ class ProfileTopBarWidget extends StatelessWidget {
                             child: SizedBox(
                                 width: 110,
                                 height: 110,
-                                child: FadeInImage.assetNetwork(
-                                    placeholder: '1',
-                                    image:
-                                        '${ConstRes.itemBaseUrl}${salonUser?.data?.profileImage ?? ''}',
-                                    fit: BoxFit.cover,
-                                    imageErrorBuilder: errorBuilderForImage,
-                                    placeholderErrorBuilder: loadingImage)))),
+                                child: salonUser?.data?.profileImage != null
+                                    ? CachedNetworkImage(
+                                        imageUrl:
+                                            '${ConstRes.itemBaseUrl}${salonUser?.data?.profileImage ?? ''}',
+                                        fit: BoxFit.cover,
+                                        placeholder: (context, url) =>
+                                            const Loading(),
+                                        errorWidget: errorBuilderForImage)
+                                    : const ImageNotFound()))),
                     const SizedBox(width: 15),
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

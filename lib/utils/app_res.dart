@@ -108,7 +108,7 @@ class AppRes {
             : AppLocalizations.of(context)!.unisex.toUpperCase();
   }
 
-  static String convert24HoursInto12Hours(String? value, String? locale) {
+  static String convert24HoursInto12Hours(String? value, {String? locale}) {
     DateTime dateTime = DateTime(
       DateTime.now().year,
       1,

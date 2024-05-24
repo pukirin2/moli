@@ -25,6 +25,9 @@ class EditProfileScreen extends StatelessWidget {
         child: Scaffold(body: BlocBuilder<EditProfileBloc, EditProfileState>(
             builder: (context, state) {
           EditProfileBloc editProfileBloc = context.read<EditProfileBloc>();
+          var a = editProfileBloc.imageUrl?.isEmpty ?? true;
+          // print(a);
+
           return Column(children: [
             Container(
                 color: ColorRes.smokeWhite,
@@ -84,7 +87,7 @@ class EditProfileScreen extends StatelessWidget {
                                             fit: BoxFit.cover,
                                             loadingBuilder: loadingImage,
                                             errorBuilder: errorBuilderForImage)
-                                        : editProfileBloc.imageUrl == null
+                                        : a
                                             ? Image(
                                                 height: double.infinity,
                                                 width: double.infinity,

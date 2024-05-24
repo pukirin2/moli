@@ -19,12 +19,12 @@ class CategoriesGridWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // height: 115,
-      height: Get.height * 0.25,
+      height: 115,
+      // height: Get.height * 0.25,
       child: GridView.builder(
         physics: const BouncingScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 1.2 / 1),
+            crossAxisCount: 1, childAspectRatio: 1.2 / 1),
         // itemCount: categories.length >= 4 ? 4 : categories.length,
         itemCount: categories.length,
         scrollDirection: Axis.horizontal,

@@ -97,7 +97,7 @@ class MakePaymentScreen extends StatelessWidget {
                                     Text(
                                       AppRes.convert24HoursInto12Hours(
                                           confirmBookingBloc.getTime(),
-                                          curentLocale),
+                                          locale: curentLocale),
                                       style: kRegularThemeTextStyle.copyWith(
                                         fontSize: 15,
                                       ),
