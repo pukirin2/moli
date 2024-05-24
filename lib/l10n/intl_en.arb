@@ -15,7 +15,6 @@
   "emailAddress": "Email Address",
   "password": "Password",
   "forgotPassword_": "Forgot Password?",
-  "newUserRegisterHere": "New User? Register Here",
   "emailRegistration": "Email Registration",
   "enterYourDetailsAndCompleteProfileForBetterExperience": "Enter your details and complete\nprofile for better experience",
   "fullName": "Fullname",
@@ -229,5 +228,7 @@
   "noSlotsAvailable": "No Slots Available",
   "hello": "Hello",
   "hour": "hour",
-  "min": "min"
+  "min": "min",
+  "newUser": "New User?",
+  "registerHere": "Register Here"
 }

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/bloc/service/service_details_bloc.dart';
 import 'package:moli/model/service/services.dart';
 import 'package:moli/model/service/services_details.dart';
@@ -258,15 +259,21 @@ class TopBarOfServiceDetails extends StatelessWidget {
                       child: PageView(
                         children: List<Widget>.generate(
                             serviceDetails?.data?.images?.length ?? 0, (index) {
-                          return FadeInImage.assetNetwork(
-                            placeholder: '1',
-                            width: double.infinity,
-                            image:
-                                '${ConstRes.itemBaseUrl}${serviceDetails?.data?.images?[index].image}',
-                            fit: BoxFit.cover,
-                            imageErrorBuilder: errorBuilderForImage,
-                            placeholderErrorBuilder: loadingImage,
-                          );
+                          return CachedNetworkImage(
+                              imageUrl:
+                                  '${ConstRes.itemBaseUrl}${serviceDetails?.data?.images?[index].image}',
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => const Loading(),
+                              errorWidget: errorBuilderForImage);
+
+                          // FadeInImage.assetNetwork(
+                          //   placeholder: '1',
+                          //   width: double.infinity,
+                          //   image:
+
+                          //   imageErrorBuilder: errorBuilderForImage,
+                          //   placeholderErrorBuilder: loadingImage,
+                          // );
                         }),
                       ),
                     ),

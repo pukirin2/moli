@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/model/home/home_page_data.dart';
 import 'package:moli/screens/categories/salon_by_cat_screen.dart';
 import 'package:moli/screens/service/service_detail_screen.dart';
@@ -111,19 +112,13 @@ class ItemCategoriesWithSalons extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  child: FadeInImage.assetNetwork(
+                  child: CachedNetworkImage(
                     width: double.infinity,
-                    image:
+                    imageUrl:
                         '${ConstRes.itemBaseUrl}${services!.images!.isNotEmpty ? services?.images![0].image : ''}',
+                    placeholder: (context, url) => const Loading(),
+                    errorWidget: errorBuilderForImage,
                     fit: BoxFit.cover,
-                    placeholder: '1',
-                    placeholderErrorBuilder: loadingImage,
-                    imageErrorBuilder: (context, error, stackTrace) {
-                      return const ImageNotFound(
-                        color: ColorRes.smokeWhite2,
-                        tintcolor: ColorRes.smokeWhite1,
-                      );
-                    },
                   ),
                 ),
                 Container(

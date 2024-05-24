@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/bloc/salonbycat/salon_by_cat_bloc.dart';
 import 'package:moli/model/home/home_page_data.dart' as home_data;
 import 'package:moli/model/user/salon.dart';
@@ -225,15 +226,14 @@ class ItemTopRatedSalon extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(20)),
             child: Stack(
               children: [
-                FadeInImage.assetNetwork(
-                    image:
-                        '${ConstRes.itemBaseUrl}${salonData!.images!.isNotEmpty ? (salonData?.images?[0].image ?? '') : ''}',
+                CachedNetworkImage(
                     height: double.infinity,
                     width: double.infinity,
-                    fit: BoxFit.cover,
-                    placeholderErrorBuilder: loadingImage,
-                    imageErrorBuilder: errorBuilderForImage,
-                    placeholder: '1'),
+                    imageUrl:
+                        '${ConstRes.itemBaseUrl}${salonData!.images!.isNotEmpty ? (salonData?.images?[0].image ?? '') : ''}',
+                    placeholder: (context, url) => const Loading(),
+                    errorWidget: errorBuilderForImage,
+                    fit: BoxFit.cover),
                 Positioned(
                   left: 0,
                   right: 0,
@@ -351,12 +351,15 @@ class TopBarOfCatDetailWidget extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    FadeInImage.assetNetwork(
-                      placeholder: '1',
-                      image: '${ConstRes.itemBaseUrl}${categories.icon}',
-                      height: 60,
-                      imageErrorBuilder: errorBuilderForImage,
-                      placeholderErrorBuilder: loadingImage,
+                    SizedBox(
+                      height: Get.height * 0.15,
+                      child: CachedNetworkImage(
+                          // height: double.infinity,
+                          // width: double.infinity,
+                          imageUrl: '${ConstRes.itemBaseUrl}${categories.icon}',
+                          placeholder: (context, url) => const Loading(),
+                          errorWidget: errorBuilderForImage,
+                          fit: BoxFit.cover),
                     ),
                     const SizedBox(height: 5),
                     Text(

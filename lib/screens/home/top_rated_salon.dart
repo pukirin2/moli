@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/screens/salon/salon_details_screen.dart';
 import 'package:moli/utils/app_res.dart';
@@ -62,15 +63,15 @@ class ItemTopRatedSalon extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(20)),
             child: Stack(
               children: [
-                FadeInImage.assetNetwork(
-                    image:
-                        '${ConstRes.itemBaseUrl}${(salonData.images != null && salonData.images!.isNotEmpty) ? salonData.images![0].image : ''}',
-                    height: double.infinity,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    imageErrorBuilder: errorBuilderForImage,
-                    placeholderErrorBuilder: loadingImage,
-                    placeholder: '1'),
+                CachedNetworkImage(
+                  imageUrl:
+                      '${ConstRes.itemBaseUrl}${(salonData.images != null && salonData.images!.isNotEmpty) ? salonData.images![0].image : ''}',
+                  placeholder: (context, url) => const Loading(),
+                  errorWidget: errorBuilderForImage,
+                  fit: BoxFit.cover,
+                  height: double.infinity,
+                  width: double.infinity,
+                ),
                 Positioned(
                   left: 0,
                   right: 0,

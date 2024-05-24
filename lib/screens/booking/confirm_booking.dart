@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/bloc/bookings/bookings_bloc.dart';
 import 'package:moli/bloc/confirmbooking/confirm_booking_bloc.dart';
 import 'package:moli/model/slot/slot.dart';
@@ -174,7 +175,7 @@ class ConfirmBookingScreen extends StatelessWidget {
                                           child: SizedBox(
                                             width: 30,
                                             height: 30,
-                                            child: CircularProgressIndicator(),
+                                            child: LoadingData(),
                                           ),
                                         )
                                       : bookingsBloc.slots.isEmpty
@@ -428,19 +429,14 @@ class ItemConfirmService extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(
-              width: 130,
-              height: 110,
-              child: FadeInImage.assetNetwork(
-                placeholder: '1',
                 width: 130,
                 height: 110,
-                image:
-                    '${ConstRes.itemBaseUrl}${service != null && service?.images != null && service!.images!.isNotEmpty ? service!.images![0].image : ''}',
-                fit: BoxFit.cover,
-                imageErrorBuilder: errorBuilderForImage,
-                placeholderErrorBuilder: loadingImage,
-              ),
-            ),
+                child: CachedNetworkImage(
+                    imageUrl:
+                        '${ConstRes.itemBaseUrl}${service != null && service?.images != null && service!.images!.isNotEmpty ? service!.images![0].image : ''}',
+                    placeholder: (context, url) => const Loading(),
+                    errorWidget: errorBuilderForImage,
+                    fit: BoxFit.cover)),
             Expanded(
               child: Container(
                 color: ColorRes.smokeWhite2,

@@ -3,7 +3,7 @@ import 'package:moli/model/user/salon_user.dart';
 import 'package:moli/screens/booking/profile_booking_screen.dart';
 import 'package:moli/screens/help&faq/help_and_faq_screen.dart';
 import 'package:moli/screens/payoutHistory/payout_history_screen.dart';
-import 'package:moli/screens/profile/chnage_password_bottom.dart';
+import 'package:moli/screens/profile/change_password_bottom.dart';
 import 'package:moli/screens/profile/delete_account_bottom.dart';
 import 'package:moli/screens/profile/profile_top_bar_widget.dart';
 import 'package:moli/screens/wallet/wallet_screen.dart';

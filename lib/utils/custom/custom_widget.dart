@@ -18,10 +18,10 @@ class AppLogo extends StatelessWidget {
     return Text(
       AppLocalizations.of(context)!.appName.toUpperCase(),
       style: TextStyle(
-        color: textColor ?? ColorRes.white,
-        fontFamily: AssetRes.fnGilroyBlack,
-        fontSize: textSize ?? 22,
-      ),
+          color: textColor ?? ColorRes.white,
+          fontFamily: AssetRes.fnGilroyBlack,
+          fontSize: textSize ?? 22,
+          fontWeight: FontWeight.bold),
     );
   }
 }
@@ -326,7 +326,7 @@ class LoadingData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: color ?? ColorRes.smokeWhite,
+      color: color ?? Colors.transparent,
       child: const Center(
           child: SpinKitCircle(color: ColorRes.themeColor, size: 30)
 
@@ -335,5 +335,19 @@ class LoadingData extends StatelessWidget {
           // ),
           ),
     );
+  }
+}
+
+class Loading extends StatelessWidget {
+  final Color? color;
+
+  const Loading({Key? key, this.color}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        color: color ?? ColorRes.smokeWhite,
+        child: const Center(
+            child: SpinKitCircle(color: ColorRes.themeColor, size: 30)));
   }
 }

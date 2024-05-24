@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/bloc/chat/chat_bloc.dart';
 import 'package:moli/model/chat/chat.dart';
 import 'package:moli/screens/chat/bottom_selected_item_bar.dart';
@@ -57,50 +58,57 @@ class ChatScreen extends StatelessWidget {
                                 ),
                               ),
                               ClipOval(
-                                child: FadeInImage.assetNetwork(
-                                  placeholder: '1',
-                                  image:
-                                      '${ConstRes.itemBaseUrl}${chatBloc.salonData?.images?[0].image ?? (chatBloc.conversation.user?.image ?? '')}',
-                                  fit: BoxFit.cover,
-                                  height: 45,
-                                  width: 45,
-                                  imageErrorBuilder:
-                                      (context, error, stackTrace) {
-                                    return ClipOval(
-                                      child: Container(
-                                        height: 45,
-                                        width: 45,
-                                        padding: const EdgeInsets.only(
-                                            top: 12, left: 5, right: 5),
-                                        color: ColorRes.smokeWhite1,
-                                        child: const Center(
-                                          child: Image(
-                                            image:
-                                                AssetImage(AssetRes.icProfile),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  placeholderErrorBuilder:
-                                      (context, error, stackTrace) {
-                                    return ClipOval(
-                                      child: Container(
-                                        height: 45,
-                                        width: 45,
-                                        padding: const EdgeInsets.only(
-                                            top: 12, left: 5, right: 5),
-                                        color: ColorRes.smokeWhite1,
-                                        child: const Center(
-                                          child: Image(
-                                            image:
-                                                AssetImage(AssetRes.icProfile),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
+                                child: CachedNetworkImage(
+                                    imageUrl:
+                                        '${ConstRes.itemBaseUrl}${chatBloc.salonData?.images?[0].image ?? (chatBloc.conversation.user?.image ?? '')}',
+                                    placeholder: (context, url) =>
+                                        const Loading(),
+                                    errorWidget: errorBuilderForImage,
+                                    height: 45,
+                                    width: 45,
+                                    fit: BoxFit.cover),
+                                // FadeInImage.assetNetwork(
+                                //   placeholder: '1',
+                                //   image:
+
+                                //   fit: BoxFit.cover,
+                                //   imageErrorBuilder:
+                                //       (context, error, stackTrace) {
+                                //     return ClipOval(
+                                //       child: Container(
+                                //         height: 45,
+                                //         width: 45,
+                                //         padding: const EdgeInsets.only(
+                                //             top: 12, left: 5, right: 5),
+                                //         color: ColorRes.smokeWhite1,
+                                //         child: const Center(
+                                //           child: Image(
+                                //             image:
+                                //                 AssetImage(AssetRes.icProfile),
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     );
+                                //   },
+                                //   placeholderErrorBuilder:
+                                //       (context, error, stackTrace) {
+                                //     return ClipOval(
+                                //       child: Container(
+                                //         height: 45,
+                                //         width: 45,
+                                //         padding: const EdgeInsets.only(
+                                //             top: 12, left: 5, right: 5),
+                                //         color: ColorRes.smokeWhite1,
+                                //         child: const Center(
+                                //           child: Image(
+                                //             image:
+                                //                 AssetImage(AssetRes.icProfile),
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     );
+                                //   },
+                                // ),
                               ),
                               const SizedBox(width: 10),
                               Expanded(
@@ -258,16 +266,15 @@ class ChatScreen extends StatelessWidget {
                                                 child: ClipRRect(
                                                   borderRadius:
                                                       BorderRadius.circular(5),
-                                                  child:
-                                                      FadeInImage.assetNetwork(
-                                                    placeholder: '1',
-                                                    image:
-                                                        '${ConstRes.itemBaseUrl}${chatMessage.image}',
-                                                    imageErrorBuilder:
-                                                        errorBuilderForImage,
-                                                    placeholderErrorBuilder:
-                                                        loadingImage,
-                                                  ),
+                                                  child: CachedNetworkImage(
+                                                      imageUrl:
+                                                          '${ConstRes.itemBaseUrl}${chatMessage.image}',
+                                                      placeholder:
+                                                          (context, url) =>
+                                                              const Loading(),
+                                                      errorWidget:
+                                                          errorBuilderForImage,
+                                                      fit: BoxFit.cover),
                                                 ),
                                               ),
                                               SizedBox(

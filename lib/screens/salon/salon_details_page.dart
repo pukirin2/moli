@@ -29,41 +29,24 @@ class SalonDetailsPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              salonDetailsBloc.salonData?.salonAbout ?? '',
-              style: kLightWhiteTextStyle.copyWith(
-                color: ColorRes.empress,
-                fontSize: 16,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(salonDetailsBloc.salonData?.salonAbout ?? '',
+                  style: kLightWhiteTextStyle.copyWith(
+                      color: ColorRes.empress, fontSize: 16))),
+          const SizedBox(height: 10),
           Container(
             color: ColorRes.smokeWhite,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             child: Row(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.contactUs,
-                      style: kSemiBoldThemeTextStyle,
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    Text(
-                      AppLocalizations.of(context)!.forQuestionsAndQueries,
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(AppLocalizations.of(context)!.contactUs,
+                      style: kSemiBoldThemeTextStyle),
+                  const SizedBox(height: 2),
+                  Text(AppLocalizations.of(context)!.forQuestionsAndQueries,
                       style: kLightWhiteTextStyle.copyWith(
-                        color: ColorRes.empress,
-                      ),
-                    ),
-                  ],
-                ),
+                          color: ColorRes.empress))
+                ]),
                 const Spacer(),
                 RoundCornerWithImageWidget(
                   image: AssetRes.icCall,

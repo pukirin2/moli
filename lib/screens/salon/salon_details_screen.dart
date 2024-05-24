@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/bloc/salon/salon_details_bloc.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/model/user/salon_user.dart';
@@ -278,18 +279,26 @@ class TopBarOfSalonDetails extends StatelessWidget {
                 children: [
                   Expanded(
                     child: PageView(
+                      physics: const BouncingScrollPhysics(),
                       controller: pageController,
                       children: List<Widget>.generate(
                           salonData?.images?.length ?? 0, (index) {
-                        return FadeInImage.assetNetwork(
-                          placeholder: '1',
-                          width: double.infinity,
-                          image:
-                              '${ConstRes.itemBaseUrl}${salonData?.images?[index].image}',
-                          imageErrorBuilder: errorBuilderForImage,
-                          placeholderErrorBuilder: loadingImage,
-                          fit: BoxFit.cover,
-                        );
+                        return CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl:
+                                '${ConstRes.itemBaseUrl}${salonData?.images?[index].image}',
+                            placeholder: (context, url) => const Loading(),
+                            errorWidget: errorBuilderForImage);
+
+                        // FadeInImage.assetNetwork(
+                        //   placeholder: 'asset/loading.gif',
+                        //   width: double.infinity,
+                        //   image:
+                        //       '${ConstRes.itemBaseUrl}${salonData?.images?[index].image}',
+                        //   imageErrorBuilder: errorBuilderForImage,
+                        //   placeholderErrorBuilder: loadingImage,
+                        //   fit: BoxFit.cover,
+                        // );
                       }),
                     ),
                   ),

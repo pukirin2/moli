@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/model/bookings/booking.dart';
 import 'package:moli/screens/bookingdetail/booking_detail_screen.dart';
 import 'package:moli/utils/app_res.dart';
@@ -56,19 +57,14 @@ class ItemUpcomingBooking extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(
-              height: 110,
-              width: 110,
-              child: FadeInImage.assetNetwork(
-                width: 110,
-                image:
-                    '${ConstRes.itemBaseUrl}${bookingData.salonData!.images != null && bookingData.salonData!.images!.isNotEmpty ? bookingData.salonData!.images![0].image : ''}',
                 height: 110,
-                fit: BoxFit.cover,
-                imageErrorBuilder: errorBuilderForImage,
-                placeholderErrorBuilder: loadingImage,
-                placeholder: '1',
-              ),
-            ),
+                width: 110,
+                child: CachedNetworkImage(
+                    imageUrl:
+                        '${ConstRes.itemBaseUrl}${bookingData.salonData!.images != null && bookingData.salonData!.images!.isNotEmpty ? bookingData.salonData!.images![0].image : ''}',
+                    placeholder: (context, url) => const Loading(),
+                    errorWidget: errorBuilderForImage,
+                    fit: BoxFit.cover)),
             Expanded(
               child: Container(
                 color: ColorRes.lavender50,

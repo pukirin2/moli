@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/bloc/home/home_bloc.dart';
 import 'package:moli/model/home/home_page_data.dart';
 import 'package:moli/model/user/salon_user.dart';
@@ -198,20 +199,30 @@ class BannerWidget extends StatelessWidget {
               Banners? banners = homePageData?.data?.banners?[index];
 
               return Container(
+                  clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.transparent)),
                   margin: const EdgeInsets.symmetric(horizontal: 7.5),
                   child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                       child: Stack(children: [
-                        FadeInImage.assetNetwork(
-                            image:
-                                '${ConstRes.itemBaseUrl}${banners?.image ?? ''}',
-                            fit: BoxFit.cover,
+                        SizedBox(
                             width: double.infinity,
                             height: double.infinity,
-                            placeholder: '1',
-                            placeholderErrorBuilder: loadingImage),
+                            child: CachedNetworkImage(
+                                imageUrl:
+                                    '${ConstRes.itemBaseUrl}${banners?.image ?? ''}',
+                                placeholder: (context, url) => const Loading(),
+                                errorWidget: errorBuilderForImage,
+                                fit: BoxFit.cover)),
+                        // FadeInImage.assetNetwork(
+                        //     image:
+                        //         '${ConstRes.itemBaseUrl}${banners?.image ?? ''}',
+                        //     fit: BoxFit.cover,
+                        //     width: double.infinity,
+                        //     height: double.infinity,
+                        //     placeholder: '1',
+                        //     placeholderErrorBuilder: loadingImage),
                         Directionality(
                             textDirection: TextDirection.ltr,
                             child: Align(

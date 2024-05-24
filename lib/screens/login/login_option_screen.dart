@@ -42,144 +42,133 @@ class LoginOptionScreen extends StatelessWidget {
                       return Stack(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Expanded(
-                                  child: Center(
-                                    child: AppLogo(
-                                      textSize: 40,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .signInToContinue,
-                                  style: kSemiBoldWhiteTextStyle,
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .findAndBookHairCutMassageSpaWaxingColoringServicesAnytime,
-                                  style: kLightWhiteTextStyle,
-                                ),
-                                const SizedBox(
-                                  height: 35,
-                                ),
-                                Visibility(
-                                  visible: Platform.isIOS,
-                                  child: IconWithTextButton(
-                                    image: AssetRes.icApple,
-                                    text: AppLocalizations.of(context)!
-                                        .signInWithApple,
-                                    onPressed: () {
-                                      context
-                                          .read<LoginBloc>()
-                                          .add(LoginClickEvent(0));
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                IconWithTextButton(
-                                  image: AssetRes.icGoogle,
-                                  text: AppLocalizations.of(context)!
-                                      .signInWithGoogle,
-                                  iconPadding: 8,
-                                  onPressed: () {
-                                    context
-                                        .read<LoginBloc>()
-                                        .add(LoginClickEvent(1));
-                                  },
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                IconWithTextButton(
-                                  image: AssetRes.icEmail,
-                                  text: AppLocalizations.of(context)!
-                                      .signInWithEmail,
-                                  iconPadding: 6,
-                                  onPressed: () {
-                                    Get.to(() => const EmailLoginScreen());
-                                  },
-                                ),
-                                const SizedBox(
-                                  height: 35,
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .byContinuingWithAnyOptions,
-                                  style: kLightWhiteTextStyle,
-                                ),
-                                Row(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    const Expanded(
+                                      child: Center(
+                                        child: AppLogo(
+                                          textSize: 40,
+                                        ),
+                                      ),
+                                    ),
                                     Text(
-                                      AppLocalizations.of(context)!.youAgreeTo,
+                                      AppLocalizations.of(context)!
+                                          .signInToContinue,
+                                      style: kSemiBoldWhiteTextStyle.copyWith(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      AppLocalizations.of(context)!
+                                          .findAndBookHairCutMassageSpaWaxingColoringServicesAnytime,
                                       style: kLightWhiteTextStyle,
                                     ),
                                     const SizedBox(
-                                      width: 5,
+                                      height: 35,
                                     ),
-                                    CustomCircularInkWell(
-                                      onTap: () {
-                                        Get.to(
-                                          () => const WebViewScreen(),
-                                          arguments:
+                                    Visibility(
+                                      visible: Platform.isIOS,
+                                      child: IconWithTextButton(
+                                        image: AssetRes.icApple,
+                                        text: AppLocalizations.of(context)!
+                                            .signInWithApple,
+                                        onPressed: () {
+                                          context
+                                              .read<LoginBloc>()
+                                              .add(LoginClickEvent(0));
+                                        },
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    IconWithTextButton(
+                                      image: AssetRes.icGoogle,
+                                      text: AppLocalizations.of(context)!
+                                          .signInWithGoogle,
+                                      iconPadding: 8,
+                                      onPressed: () {
+                                        context
+                                            .read<LoginBloc>()
+                                            .add(LoginClickEvent(1));
+                                      },
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    IconWithTextButton(
+                                      image: AssetRes.icEmail,
+                                      text: AppLocalizations.of(context)!
+                                          .signInWithEmail,
+                                      iconPadding: 6,
+                                      onPressed: () {
+                                        Get.to(() => const EmailLoginScreen());
+                                      },
+                                    ),
+                                    const SizedBox(
+                                      height: 35,
+                                    ),
+                                    Text(
+                                      AppLocalizations.of(context)!
+                                          .byContinuingWithAnyOptions,
+                                      style: kLightWhiteTextStyle,
+                                    ),
+                                    Row(children: [
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .youAgreeTo,
+                                        style: kLightWhiteTextStyle,
+                                      ),
+                                      const SizedBox(width: 5),
+                                      CustomCircularInkWell(
+                                          onTap: () {
+                                            Get.to(
+                                              () => const WebViewScreen(),
+                                              arguments:
+                                                  AppLocalizations.of(context)!
+                                                      .termsOfUse,
+                                            );
+                                          },
+                                          child: Text(
                                               AppLocalizations.of(context)!
                                                   .termsOfUse,
-                                        );
-                                      },
-                                      child: Text(
-                                        AppLocalizations.of(context)!
-                                            .termsOfUse,
-                                        style: kBoldWhiteTextStyle.copyWith(
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      AppLocalizations.of(context)!.and,
-                                      style: kLightWhiteTextStyle,
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Expanded(
-                                      child: CustomCircularInkWell(
-                                        onTap: () {
-                                          Get.to(
-                                            () => const WebViewScreen(),
-                                            arguments:
-                                                AppLocalizations.of(context)!
-                                                    .privacyPolicy,
-                                          );
-                                        },
-                                        child: Text(
-                                          AppLocalizations.of(context)!
-                                              .privacyPolicy,
-                                          style: kBoldWhiteTextStyle.copyWith(
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 35,
-                                ),
-                              ],
-                            ),
-                          ),
+                                              style:
+                                                  kBoldWhiteTextStyle.copyWith(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold))),
+                                      const SizedBox(width: 5),
+                                      Text(AppLocalizations.of(context)!.and,
+                                          style: kLightWhiteTextStyle),
+                                      const SizedBox(width: 5),
+                                      Expanded(
+                                          child: CustomCircularInkWell(
+                                              onTap: () {
+                                                Get.to(
+                                                  () => const WebViewScreen(),
+                                                  arguments:
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .privacyPolicy,
+                                                );
+                                              },
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .privacyPolicy,
+                                                  style: kBoldWhiteTextStyle
+                                                      .copyWith(
+                                                          fontSize: 15,
+                                                          fontWeight: FontWeight
+                                                              .bold))))
+                                    ]),
+                                    const SizedBox(height: 35)
+                                  ])),
                           const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             child: BackButton(

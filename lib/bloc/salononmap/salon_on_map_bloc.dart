@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_marker/marker_icon.dart';
 import 'package:moli/model/cat/categories.dart';
 import 'package:moli/model/salonbycoordinates/salon_by_coordinates.dart';
@@ -261,14 +262,11 @@ class _CustomMarkerState extends State<CustomMarker> {
                   height: 90,
                   width: 90,
                   child: ClipOval(
-                    child: FadeInImage.assetNetwork(
-                      placeholder: '1',
-                      image: widget.imageUrl,
-                      fit: BoxFit.cover,
-                      placeholderErrorBuilder: loadingImage,
-                      imageErrorBuilder: errorBuilderForImage,
-                    ),
-                  ),
+                      child: CachedNetworkImage(
+                          imageUrl: widget.imageUrl,
+                          placeholder: (context, url) => const Loading(),
+                          errorWidget: errorBuilderForImage,
+                          fit: BoxFit.cover)),
                 ),
               ),
             ),

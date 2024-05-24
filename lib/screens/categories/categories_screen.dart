@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/model/home/home_page_data.dart';
 import 'package:moli/screens/categories/salon_by_cat_screen.dart';
 import 'package:moli/utils/color_res.dart';
@@ -53,16 +54,16 @@ class CategoriesScreen extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(22),
                             child: AspectRatio(
-                              aspectRatio: 1 / 1,
-                              child: FadeInImage.assetNetwork(
-                                image:
-                                    '${ConstRes.itemBaseUrl}${category.icon}',
-                                imageErrorBuilder: errorBuilderForImage,
-                                placeholder: '1',
-                                placeholderErrorBuilder:
-                                    loadingImageTransParent,
-                              ),
-                            ),
+                                aspectRatio: 1 / 1,
+                                child: CachedNetworkImage(
+                                    height: double.infinity,
+                                    width: double.infinity,
+                                    imageUrl:
+                                        '${ConstRes.itemBaseUrl}${category.icon}',
+                                    placeholder: (context, url) =>
+                                        const Loading(),
+                                    errorWidget: errorBuilderForImage,
+                                    fit: BoxFit.cover)),
                           ),
                         ),
                         Padding(

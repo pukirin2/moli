@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/bloc/fav/favourite_bloc.dart';
 import 'package:moli/bloc/fav/favourite_state.dart';
 import 'package:moli/model/user/salon.dart';
@@ -82,16 +83,15 @@ class ItemSalon extends StatelessWidget {
                   aspectRatio: 1 / 1,
                   child: Stack(
                     children: [
-                      FadeInImage.assetNetwork(
-                        width: double.infinity,
-                        height: double.infinity,
-                        image:
-                            '${ConstRes.itemBaseUrl}${salonData!.images!.isNotEmpty ? (salonData?.images?[0].image ?? '') : ''}',
-                        fit: BoxFit.cover,
-                        imageErrorBuilder: errorBuilderForImage,
-                        placeholderErrorBuilder: loadingImage,
-                        placeholder: '1',
-                      ),
+                      CachedNetworkImage(
+                          width: double.infinity,
+                          height: double.infinity,
+                          imageUrl:
+                              '${ConstRes.itemBaseUrl}${salonData!.images!.isNotEmpty ? (salonData?.images?[0].image ?? '') : ''}',
+                          placeholder: (context, url) => const Loading(),
+                          errorWidget: errorBuilderForImage,
+                          fit: BoxFit.cover)
+
                       // const Padding(
                       //   padding:
                       //       EdgeInsets.symmetric(horizontal: 10, vertical: 8),

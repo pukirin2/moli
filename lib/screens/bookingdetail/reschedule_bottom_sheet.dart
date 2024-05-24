@@ -147,7 +147,7 @@ class ReScheduleBottomSheet extends StatelessWidget {
                   height: 10,
                 ),
                 SizedBox(
-                  height: 60,
+                  height: 80,
                   child: state is ReScheduleInitial
                       ? const Center(
                           child: SizedBox(

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/bloc/bookingdetail/booking_detail_bloc.dart';
 import 'package:moli/model/bookings/booking.dart';
 import 'package:moli/model/setting/setting.dart';
@@ -241,18 +242,16 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                                 left: Radius.circular(10),
                                               ),
                                               child: AspectRatio(
-                                                aspectRatio: 1 / 1,
-                                                child: FadeInImage.assetNetwork(
-                                                  placeholder: '1',
-                                                  image:
-                                                      '${ConstRes.itemBaseUrl}${bookingData.salonData?.images != null && bookingData.salonData!.images!.isNotEmpty ? bookingData.salonData?.images![0].image : ''}',
-                                                  fit: BoxFit.cover,
-                                                  placeholderErrorBuilder:
-                                                      loadingImage,
-                                                  imageErrorBuilder:
-                                                      errorBuilderForImage,
-                                                ),
-                                              ),
+                                                  aspectRatio: 1 / 1,
+                                                  child: CachedNetworkImage(
+                                                      imageUrl:
+                                                          '${ConstRes.itemBaseUrl}${bookingData.salonData?.images != null && bookingData.salonData!.images!.isNotEmpty ? bookingData.salonData?.images![0].image : ''}',
+                                                      placeholder:
+                                                          (context, url) =>
+                                                              const Loading(),
+                                                      errorWidget:
+                                                          errorBuilderForImage,
+                                                      fit: BoxFit.cover)),
                                             ),
                                             Expanded(
                                               child: Container(

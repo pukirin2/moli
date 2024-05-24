@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
@@ -37,16 +38,14 @@ class GalleryScreen extends StatelessWidget {
                     ),
                   ),
                   ClipOval(
-                    child: FadeInImage.assetNetwork(
-                      image:
-                          '${ConstRes.itemBaseUrl}${salonData!.images!.isNotEmpty ? salonData.images?.first.image : ''}',
-                      fit: BoxFit.cover,
-                      imageErrorBuilder: errorBuilderForImage,
-                      placeholderErrorBuilder: loadingImage,
-                      placeholder: '1',
-                      height: 45,
-                      width: 45,
-                    ),
+                    child: CachedNetworkImage(
+                        height: 45,
+                        width: 45,
+                        imageUrl:
+                            '${ConstRes.itemBaseUrl}${salonData!.images!.isNotEmpty ? salonData.images?.first.image : ''}',
+                        placeholder: (context, url) => const Loading(),
+                        errorWidget: errorBuilderForImage,
+                        fit: BoxFit.cover),
                   ),
                   const SizedBox(width: 10),
                   Column(
@@ -86,13 +85,12 @@ class GalleryScreen extends StatelessWidget {
                     detectionRegExp: RegExp("#"),
                   ),
                 ),
-                FadeInImage.assetNetwork(
-                  placeholder: '1',
-                  image: '${ConstRes.itemBaseUrl}${gallery?.image}',
-                  fit: BoxFit.fitWidth,
+                CachedNetworkImage(
                   width: double.infinity,
-                  placeholderErrorBuilder: loadingImage,
-                  imageErrorBuilder: errorBuilderForImage,
+                  imageUrl: '${ConstRes.itemBaseUrl}${gallery?.image}',
+                  placeholder: (context, url) => const Loading(),
+                  errorWidget: errorBuilderForImage,
+                  fit: BoxFit.fitWidth,
                 ),
               ],
             ),

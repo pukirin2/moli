@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/bloc/edit/edit_profile_bloc.dart';
 import 'package:moli/screens/login/email_registration_screen.dart';
 import 'package:moli/screens/main/main_screen.dart';
@@ -60,6 +61,7 @@ class EditProfileScreen extends StatelessWidget {
                           Container(
                               width: 120,
                               height: 120,
+                              clipBehavior: Clip.hardEdge,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: ColorRes.themeColor,
@@ -93,17 +95,18 @@ class EditProfileScreen extends StatelessWidget {
                                                 loadingBuilder: loadingImage,
                                                 errorBuilder:
                                                     errorBuilderForImage)
-                                            : FadeInImage.assetNetwork(
+                                            : SizedBox(
                                                 height: double.infinity,
                                                 width: double.infinity,
-                                                image:
-                                                    '${ConstRes.itemBaseUrl}${editProfileBloc.imageUrl}',
-                                                fit: BoxFit.cover,
-                                                placeholder: '1',
-                                                placeholderErrorBuilder:
-                                                    loadingImage,
-                                                imageErrorBuilder:
-                                                    errorBuilderForImage),
+                                                child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        '${ConstRes.itemBaseUrl}${editProfileBloc.imageUrl}',
+                                                    placeholder:
+                                                        (context, url) =>
+                                                            const Loading(),
+                                                    errorWidget:
+                                                        errorBuilderForImage,
+                                                    fit: BoxFit.cover)),
                                     Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Align(
