@@ -172,7 +172,7 @@ class MakePaymentScreen extends StatelessWidget {
                                       width: 5,
                                     ),
                                     Text(
-                                      '${AppRes.currency}${(service.price?.toInt() ?? 0) - AppRes.calculateDiscountByPercentage(service.price?.toInt() ?? 0, service.discount?.toInt() ?? 0).toInt()}',
+                                      '${AppRes.currency}${AppRes.formatCurrency((service.price?.toInt() ?? 0) - AppRes.calculateDiscountByPercentage(service.price?.toInt() ?? 0, service.discount?.toInt() ?? 0).toInt())}',
                                       style: kSemiBoldThemeTextStyle.copyWith(
                                         fontSize: 18,
                                       ),
@@ -287,7 +287,7 @@ class MakePaymentScreen extends StatelessWidget {
                                 ),
                                 const Spacer(),
                                 Text(
-                                  '${AppRes.currency}${confirmBookingBloc.getSubTotalAmount()}',
+                                  '${AppRes.currency}${AppRes.formatCurrency(confirmBookingBloc.getSubTotalAmount())}',
                                   style: kSemiBoldThemeTextStyle.copyWith(
                                     fontSize: 18,
                                   ),
@@ -385,7 +385,7 @@ class MakePaymentScreen extends StatelessWidget {
                                 ),
                                 const Spacer(),
                                 Text(
-                                  '${AppRes.currency}${confirmBookingBloc.getTotalPayableAmount()}',
+                                  '${AppRes.currency}${AppRes.formatCurrency(confirmBookingBloc.getTotalPayableAmount())}',
                                   style: kRegularThemeTextStyle.copyWith(
                                     fontSize: 18,
                                     color: ColorRes.white,

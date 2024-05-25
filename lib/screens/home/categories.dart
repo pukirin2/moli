@@ -41,16 +41,16 @@ class CategoriesGridWidget extends StatelessWidget {
               );
             },
             child: Container(
-              decoration: const BoxDecoration(
-                  color: ColorRes.lavender,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              decoration: BoxDecoration(
+                  color: ColorRes.lavender.withOpacity(0.5),
+                  borderRadius: const BorderRadius.all(Radius.circular(10))),
               margin: const EdgeInsets.all(2.5),
               child: Column(
                 children: [
                   const SizedBox(height: 10),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(0),
                       child: AspectRatio(
                         aspectRatio: 1 / 1,
                         child: CachedNetworkImage(
@@ -66,7 +66,10 @@ class CategoriesGridWidget extends StatelessWidget {
                     child: Text(
                       category.title ?? '',
                       style: kRegularThemeTextStyle.copyWith(
+                        // color: ColorRes.themeColor.withOpacity(0.9),
+                        color: ColorRes.black,
                         fontSize: 14,
+                        // fontWeight: FontWeight.bold
                       ),
                     ),
                   ),

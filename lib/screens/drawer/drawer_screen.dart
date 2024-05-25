@@ -238,6 +238,7 @@ class TopBarDrawerWidget extends StatelessWidget {
             const Image(
               image: AssetImage(AssetRes.icHorizontalBg),
               height: 200,
+              width: double.infinity,
               fit: BoxFit.cover,
             ),
             BackdropFilter(

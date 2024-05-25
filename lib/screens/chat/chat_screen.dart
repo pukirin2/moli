@@ -49,13 +49,11 @@ class ChatScreen extends StatelessWidget {
                               CustomCircularInkWell(
                                 onTap: () => Get.back(),
                                 child: Container(
-                                  height: 40,
-                                  width: 55,
-                                  padding: const EdgeInsets.all(5),
-                                  child: const Image(
-                                    image: AssetImage(AssetRes.icBack),
-                                  ),
-                                ),
+                                    height: 40,
+                                    width: 55,
+                                    padding: const EdgeInsets.all(5),
+                                    child: const Icon(Icons.arrow_back_rounded,
+                                        color: ColorRes.themeColor, size: 30)),
                               ),
                               ClipOval(
                                 child: CachedNetworkImage(

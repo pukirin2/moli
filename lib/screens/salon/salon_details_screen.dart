@@ -1,7 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:moli/bloc/salon/salon_details_bloc.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/model/user/salon_user.dart';
@@ -98,7 +95,8 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                               const SalonAwardsPage(),
                             ]))
                       ])))
-              : const LoadingImage();
+              // : const LoadingImage();
+              : const LoadingData();
         })));
   }
 }
@@ -204,13 +202,13 @@ class TopBarOfSalonDetails extends StatelessWidget {
       backgroundColor: ColorRes.smokeWhite,
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: BgRoundImageWidget(
-          image: AssetRes.icBack,
+        child: BgRoundIconWidget(
+          icon: Icons.arrow_back_rounded,
           imagePadding: 6,
-          imageColor: !toolbarIsExpand ? ColorRes.mortar : ColorRes.white,
+          iconColor: !toolbarIsExpand ? ColorRes.mortar : ColorRes.white,
           bgColor: !toolbarIsExpand
               ? ColorRes.smokeWhite1
-              : ColorRes.white.withOpacity(0.2),
+              : ColorRes.lavender.withOpacity(0.5),
           onTap: () => Get.back(),
         ),
       ),
@@ -235,7 +233,7 @@ class TopBarOfSalonDetails extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(8),
-          child: BgRoundImageWidget(
+          child: BgRoundIconWidget(
             onTap: () async {
               BranchUniversalObject buo = BranchUniversalObject(
                 canonicalIdentifier: 'flutter/branch',
@@ -263,12 +261,12 @@ class TopBarOfSalonDetails extends StatelessWidget {
                 );
               } else {}
             },
-            image: AssetRes.icShare,
+            icon: Icons.share_sharp,
             imagePadding: 8,
-            imageColor: !toolbarIsExpand ? ColorRes.mortar : ColorRes.white,
+            iconColor: !toolbarIsExpand ? ColorRes.mortar : ColorRes.white,
             bgColor: !toolbarIsExpand
                 ? ColorRes.smokeWhite1
-                : ColorRes.white.withOpacity(0.2),
+                : ColorRes.lavender.withOpacity(0.5),
           ),
         ),
       ],
@@ -550,12 +548,10 @@ class _ToggleImageWidgetState extends State<ToggleImageWidget> {
       },
       image: isFav ? AssetRes.icFav : AssetRes.icUnFavourite,
       imagePadding: isFav ? 9 : 10,
-      imageColor: isFav
-          ? ColorRes.bitterSweet
-          : (!widget.toolbarIsExpand ? ColorRes.mortar : ColorRes.white),
+      imageColor: isFav ? ColorRes.themeColor : ColorRes.mortar,
       bgColor: !widget.toolbarIsExpand
           ? ColorRes.smokeWhite1
-          : ColorRes.white.withOpacity(0.2),
+          : ColorRes.lavender.withOpacity(0.5),
     );
   }
 }

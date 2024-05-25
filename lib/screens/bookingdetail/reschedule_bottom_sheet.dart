@@ -150,13 +150,7 @@ class ReScheduleBottomSheet extends StatelessWidget {
                 SizedBox(
                   height: 80,
                   child: state is ReScheduleInitial
-                      ? const Center(
-                          child: SizedBox(
-                            width: 30,
-                            height: 30,
-                            child: CircularProgressIndicator(),
-                          ),
-                        )
+                      ? const LoadingData()
                       : reScheduleBloc.slots.isEmpty
                           ? Container(
                               decoration: const BoxDecoration(

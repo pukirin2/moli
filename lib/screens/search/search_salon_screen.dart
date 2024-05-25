@@ -2,7 +2,6 @@ import 'package:moli/bloc/searchsalon/search_salon_bloc.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/screens/fav/salon_screen.dart';
 import 'package:moli/screens/search/filter_bottom_sheet.dart';
-import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
 import 'package:moli/utils/style_res.dart';
@@ -58,25 +57,24 @@ class _SearchSalonScreenState extends State<SearchSalonScreen> {
                       ),
                     ),
                     CustomCircularInkWell(
-                      onTap: () {
-                        Get.bottomSheet(
-                          FilterBottomSheet(
-                            catId: searchSalonBloc.catId ?? '',
-                          ),
-                          isScrollControlled: true,
-                          ignoreSafeArea: false,
-                        ).then((value) {
-                          if (value != null && value is String) {
-                            searchSalonBloc.setCatId(value);
-                          }
-                        });
-                      },
-                      child: const Image(
-                        image: AssetImage(AssetRes.icFilter),
-                        height: 30,
-                        width: 30,
-                      ),
-                    ),
+                        onTap: () {
+                          Get.bottomSheet(
+                            FilterBottomSheet(
+                              catId: searchSalonBloc.catId ?? '',
+                            ),
+                            isScrollControlled: true,
+                            ignoreSafeArea: false,
+                          ).then((value) {
+                            if (value != null && value is String) {
+                              searchSalonBloc.setCatId(value);
+                            }
+                          });
+                        },
+                        child: const Icon(
+                          Icons.filter_list_outlined,
+                          size: 30,
+                          color: ColorRes.themeColor,
+                        )),
                   ],
                 ),
               ),

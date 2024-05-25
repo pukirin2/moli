@@ -43,13 +43,10 @@ class EditProfileScreen extends StatelessWidget {
                               Get.back();
                             },
                             child: const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Image(
-                                image: AssetImage(AssetRes.icBack),
-                                height: 30,
-                              ),
-                            ),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                child: Icon(Icons.arrow_back_rounded,
+                                    size: 30, color: ColorRes.themeColor)),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15),

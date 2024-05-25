@@ -52,13 +52,10 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                         Get.back();
                       },
                       child: const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: Image(
-                          image: AssetImage(AssetRes.icBack),
-                          height: 30,
-                        ),
-                      ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: Icon(Icons.arrow_back_rounded,
+                              color: ColorRes.themeColor, size: 30)),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -518,7 +515,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      '${AppRes.currency}${(serviceData?.price?.toInt() ?? 0) - AppRes.calculateDiscountByPercentage(serviceData?.price?.toInt() ?? 0, serviceData?.discount?.toInt() ?? 0).toInt()}',
+                                                      '${AppRes.currency}${AppRes.formatCurrency((serviceData?.price?.toInt() ?? 0) - AppRes.calculateDiscountByPercentage(serviceData?.price?.toInt() ?? 0, serviceData?.discount?.toInt() ?? 0).toInt())}',
                                                       style:
                                                           kSemiBoldThemeTextStyle
                                                               .copyWith(
@@ -629,7 +626,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                                 ),
                                                 const Spacer(),
                                                 Text(
-                                                  '${AppRes.currency}${bookingData.getOrderSummary().subtotal}',
+                                                  '${AppRes.currency}${AppRes.formatCurrency(bookingData.getOrderSummary().subtotal ?? 0)}',
                                                   style: kSemiBoldThemeTextStyle
                                                       .copyWith(
                                                     fontSize: 18,
@@ -700,7 +697,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                                 ),
                                                 const Spacer(),
                                                 Text(
-                                                  '${AppRes.currency}${bookingData.getOrderSummary().payableAmount}',
+                                                  '${AppRes.currency}${AppRes.formatCurrency(bookingData.getOrderSummary().payableAmount ?? 0)}',
                                                   style: kSemiBoldThemeTextStyle
                                                       .copyWith(
                                                     fontSize: 18,

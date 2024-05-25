@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:moli/bloc/salon/salon_details_bloc.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/screens/booking/confirm_booking.dart';
@@ -180,6 +181,8 @@ class _ItemServiceTYpeWidgetState extends State<ItemServiceTYpeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var price =
+        '${AppRes.currency}${AppRes.formatCurrency((widget.service?.price ?? 0) - AppRes.calculateDiscountByPercentage(widget.service?.price?.toInt() ?? 0, widget.service?.discount?.toInt() ?? 0).toInt())}';
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 8),
         decoration: const BoxDecoration(
@@ -192,13 +195,13 @@ class _ItemServiceTYpeWidgetState extends State<ItemServiceTYpeWidget> {
               SizedBox(
                   width: 130,
                   height: 110,
-                  child: FadeInImage.assetNetwork(
-                      placeholder: '1',
-                      image:
-                          '${ConstRes.itemBaseUrl}${widget.service!.images!.isNotEmpty ? widget.service?.images?.first.image : ''}',
-                      fit: BoxFit.cover,
-                      imageErrorBuilder: errorBuilderForImage,
-                      placeholderErrorBuilder: loadingImage)),
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        '${ConstRes.itemBaseUrl}${widget.service!.images!.isNotEmpty ? widget.service?.images?.first.image : ''}',
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => const Loading(),
+                    errorWidget: errorBuilderForImage,
+                  )),
               Expanded(
                   child: Container(
                       color: isAdded ? ColorRes.lavender : ColorRes.smokeWhite2,
@@ -218,8 +221,13 @@ class _ItemServiceTYpeWidgetState extends State<ItemServiceTYpeWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(children: [
-                                      Text(
-                                          '${AppRes.currency}${(widget.service?.price?.toInt() ?? 0) - AppRes.calculateDiscountByPercentage(widget.service?.price?.toInt() ?? 0, widget.service?.discount?.toInt() ?? 0).toInt()}',
+                                      // AppRes.formatCurrency(widget.service?.price ?? 0)
+
+                                      // Text(
+                                      //     '${AppRes.currency}${(widget.service?.price?.toInt() ?? 0) - AppRes.calculateDiscountByPercentage(widget.service?.price?.toInt() ?? 0, widget.service?.discount?.toInt() ?? 0).toInt()}',
+                                      //     style: kBoldThemeTextStyle.copyWith(
+                                      //         fontSize: 18)),
+                                      Text(price,
                                           style: kBoldThemeTextStyle.copyWith(
                                               fontSize: 18)),
                                       Padding(

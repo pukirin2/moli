@@ -1,7 +1,6 @@
 import 'package:moli/bloc/bookinghistory/booking_history_bloc.dart';
 import 'package:moli/screens/booking/history_widget.dart';
 import 'package:moli/screens/main/main_screen.dart';
-import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
 import 'package:moli/utils/style_res.dart';
@@ -28,9 +27,8 @@ class MyBookingScreen extends StatelessWidget {
               bottom: false,
               child: Row(
                 children: [
-                  BgRoundImageWidget(
-                    image: AssetRes.icMenu,
-                    imagePadding: 8,
+                  BgRoundIconWidget(
+                    icon: Icons.menu_open_sharp,
                     onTap: onMenuClick,
                   ),
                   const SizedBox(

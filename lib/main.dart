@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // print(Platform.localeName.split('_')[0]);
     return GetMaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         title: 'Moli',
         theme: ThemeData(
             scaffoldBackgroundColor: ColorRes.white,
+            // scaffoldBackgroundColor: ColorRes.themeColor.withOpacity(0.6),
             textTheme: const TextTheme(
                 displaySmall: TextStyle(color: ColorRes.white),
                 displayLarge: TextStyle(color: ColorRes.white),

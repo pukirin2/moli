@@ -1,8 +1,8 @@
 import 'package:moli/bloc/messageuser/message_user_bloc.dart';
 import 'package:moli/screens/main/main_screen.dart';
 import 'package:moli/screens/message/messages_list_widget.dart';
-import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
+import 'package:moli/utils/custom/custom_widget.dart';
 import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,9 +26,8 @@ class MessageScreen extends StatelessWidget {
               bottom: false,
               child: Row(
                 children: [
-                  BgRoundImageWidget(
-                    image: AssetRes.icMenu,
-                    imagePadding: 8,
+                  BgRoundIconWidget(
+                    icon: Icons.menu_open_sharp,
                     onTap: onMenuClick,
                   ),
                   const SizedBox(
@@ -48,35 +47,40 @@ class MessageScreen extends StatelessWidget {
           BlocBuilder<MessageUserBloc, MessageUserState>(
             builder: (context, state) {
               return Expanded(
-                child: Column(
-                  children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        color: ColorRes.smokeWhite,
-                        borderRadius: BorderRadius.all(Radius.circular(100)),
-                      ),
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: AppLocalizations.of(context)!.search,
-                          hintStyle: kRegularTextStyle.copyWith(
-                            color: ColorRes.darkGray,
+                child: state is MessageUserInitial
+                    ? const LoadingData()
+                    : Column(
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: ColorRes.smokeWhite,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100)),
+                            ),
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: AppLocalizations.of(context)!.search,
+                                hintStyle: kRegularTextStyle.copyWith(
+                                  color: ColorRes.darkGray,
+                                ),
+                              ),
+                              style: kRegularTextStyle.copyWith(
+                                color: ColorRes.charcoal50,
+                              ),
+                              onChanged: (value) {
+                                context
+                                    .read<MessageUserBloc>()
+                                    .filterData(value);
+                              },
+                            ),
                           ),
-                        ),
-                        style: kRegularTextStyle.copyWith(
-                          color: ColorRes.charcoal50,
-                        ),
-                        onChanged: (value) {
-                          context.read<MessageUserBloc>().filterData(value);
-                        },
+                          const MessagesListWidget(),
+                        ],
                       ),
-                    ),
-                    const MessagesListWidget(),
-                  ],
-                ),
               );
             },
           ),

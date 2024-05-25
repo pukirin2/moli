@@ -172,12 +172,17 @@ class ToolBarWidget extends StatelessWidget {
                 Get.back();
               },
               child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: Image(
-                  image: AssetImage(AssetRes.icBack),
-                  height: 30,
-                ),
-              ),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: Icon(
+                    Icons.arrow_back_rounded,
+                    size: 30,
+                    color: ColorRes.themeColor,
+                  )
+                  // Image(
+                  //   image: AssetImage(AssetRes.icBack),
+                  //   height: 30,
+                  // ),
+                  ),
             ),
             Row(
               children: [
@@ -328,7 +333,11 @@ class LoadingData extends StatelessWidget {
     return Container(
       color: color ?? Colors.transparent,
       child: const Center(
-          child: SpinKitCircle(color: ColorRes.themeColor, size: 30)
+          child: SpinKitSpinningLines(
+        color: ColorRes.themeColor,
+        size: 30,
+        itemCount: 4,
+      )
 
           // CircularProgressIndicator(
           //   color: ColorRes.themeColor,
@@ -346,8 +355,12 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: color ?? ColorRes.smokeWhite,
+        color: color ?? ColorRes.transparent,
         child: const Center(
-            child: SpinKitCircle(color: ColorRes.themeColor, size: 30)));
+            child: SpinKitSpinningLines(
+          color: ColorRes.themeColor,
+          size: 30,
+          itemCount: 4,
+        )));
   }
 }

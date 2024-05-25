@@ -1,11 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:moli/bloc/profile/profile_bloc.dart';
 import 'package:moli/model/user/salon_user.dart';
 import 'package:moli/screens/edit_profile_screen.dart';
 import 'package:moli/screens/main/main_screen.dart';
-import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
@@ -33,10 +30,8 @@ class ProfileTopBarWidget extends StatelessWidget {
             bottom: false,
             child: Column(children: [
               Row(children: [
-                BgRoundImageWidget(
-                    image: AssetRes.icMenu,
-                    imagePadding: 8,
-                    onTap: onMenuClick),
+                BgRoundIconWidget(
+                    icon: Icons.menu_open_sharp, onTap: onMenuClick),
                 const SizedBox(width: 15),
                 Text(AppLocalizations.of(context)!.profile,
                     style: kLightWhiteTextStyle.copyWith(
@@ -73,7 +68,8 @@ class ProfileTopBarWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(salonUser?.data?.fullname?.capitalize ?? '',
-                              style: kBoldThemeTextStyle),
+                              style: kBoldThemeTextStyle.copyWith(
+                                  fontWeight: FontWeight.bold)),
                           const SizedBox(height: 5),
                           Row(children: [
                             Text(AppLocalizations.of(context)!.totalBookings,

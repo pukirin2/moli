@@ -116,6 +116,9 @@ dependencies:
 
   table_calendar: ^3.0.8
 
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.10
+
 
 dev_dependencies:
   flutter_test:
@@ -200,8 +203,30 @@ flutter:
     - family: RedditSansVariableFont
       fonts:
         - asset: font/RedditSans-VariableFont_wght.ttf
+
+
+
 flutter_intl:
   enabled: true
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "asset/icon.png"
+  min_sdk_android: 21
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+  background_image: asset/splash.png
+  # image: assets/image/icon_splash.png
+  android_12:
+    image: asset/icon_splash.png
+    icon_background_color: "#ffffff"
+    image_dark: asset/icon_splash.png
+    icon_background_color_dark: "#121212"
 
 
 

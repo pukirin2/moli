@@ -316,4 +316,9 @@ class AppRes {
   static int? findSelectLanguageCode(List<String> languageCode) {
     return languageCode.indexOf(SharePref.selectedLanguage);
   }
+
+  static String? formatCurrency(num price) {
+    final NumberFormat usCurrency = NumberFormat('#,##0', 'en_US');
+    return usCurrency.format(price);
+  }
 }

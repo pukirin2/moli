@@ -223,7 +223,8 @@ class BgRoundImageWidget extends StatelessWidget {
         height: height ?? 40,
         width: width ?? 40,
         decoration: BoxDecoration(
-          color: bgColor ?? ColorRes.themeColor10,
+          // color: bgColor ?? ColorRes.themeColor10,
+          color: bgColor ?? ColorRes.lavender,
           borderRadius: const BorderRadius.all(Radius.circular(100)),
         ),
         padding: EdgeInsets.all(imagePadding ?? 0),
@@ -232,6 +233,49 @@ class BgRoundImageWidget extends StatelessWidget {
           color: imageColor,
         ),
       ),
+    );
+  }
+}
+
+class BgRoundIconWidget extends StatelessWidget {
+  final IconData icon;
+  final double? imagePadding;
+  final double? height;
+  final double? width;
+  final Color? iconColor;
+  final Color? bgColor;
+  final Function()? onTap;
+
+  const BgRoundIconWidget({
+    Key? key,
+    required this.icon,
+    this.imagePadding,
+    this.onTap,
+    this.iconColor,
+    this.bgColor,
+    this.height,
+    this.width,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomCircularInkWell(
+      onTap: onTap,
+      child: Container(
+          height: height ?? 40,
+          width: width ?? 40,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: bgColor ?? ColorRes.lavender,
+            borderRadius: const BorderRadius.all(Radius.circular(100)),
+          ),
+          padding: EdgeInsets.all(imagePadding ?? 0),
+          child: Icon(icon, color: iconColor ?? ColorRes.themeColor)
+          // Image(
+          //   image: AssetImage(image),
+          //   color: imageColor,
+          // ),
+          ),
     );
   }
 }

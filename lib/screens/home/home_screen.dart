@@ -11,7 +11,6 @@ import 'package:moli/screens/nearbysalon/near_by_salon_screen.dart';
 import 'package:moli/screens/notification/notification_screen.dart';
 import 'package:moli/screens/search/search_screen.dart';
 import 'package:moli/screens/toprated/top_rated_salon_screen.dart';
-import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
@@ -52,10 +51,8 @@ class HomeScreen extends StatelessWidget {
                   bottom: false,
                   child: Row(
                     children: [
-                      BgRoundImageWidget(
-                          image: AssetRes.icMenu,
-                          imagePadding: 8,
-                          onTap: onMenuClick),
+                      BgRoundIconWidget(
+                          icon: Icons.menu_open_sharp, onTap: onMenuClick),
                       const SizedBox(width: 15),
                       Expanded(
                           child: Column(
@@ -75,9 +72,8 @@ class HomeScreen extends StatelessWidget {
                                     fontSize: 14))
                           ])),
                       const SizedBox(width: 15),
-                      BgRoundImageWidget(
-                        image: AssetRes.icSearch,
-                        imagePadding: 12,
+                      BgRoundIconWidget(
+                        icon: Icons.search_rounded,
                         onTap: () {
                           Get.to(() => SearchScreen());
                         },
@@ -85,9 +81,8 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         width: 15,
                       ),
-                      BgRoundImageWidget(
-                        image: AssetRes.icNotification,
-                        imagePadding: 10,
+                      BgRoundIconWidget(
+                        icon: Icons.notifications,
                         onTap: () {
                           Get.to(() => const NotificationScreen());
                         },

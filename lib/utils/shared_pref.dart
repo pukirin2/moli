@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharePref {
   SharedPreferences? _sharedPreferences;
+
   static String selectedLanguage = Platform.localeName.split('_')[0];
 
   Future<SharePref> init() async {

@@ -147,7 +147,7 @@ class ItemCategoriesWithSalons extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            '${AppRes.currency}${services?.price ?? ''}',
+                            '${AppRes.currency}${AppRes.formatCurrency((services?.price ?? 0) - AppRes.calculateDiscountByPercentage(services?.price?.toInt() ?? 0, services?.discount?.toInt() ?? 0).toInt())}',
                             style: kBoldThemeTextStyle.copyWith(
                               fontSize: 20,
                             ),

@@ -366,7 +366,7 @@ class ConfirmBookingScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '${AppRes.currency}${bookingsBloc.totalRates()}',
+                                      '${AppRes.currency}${AppRes.formatCurrency(bookingsBloc.totalRates())}',
                                       style: kBoldThemeTextStyle,
                                     ),
                                     Text(
@@ -470,7 +470,7 @@ class ItemConfirmService extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  '${AppRes.currency}${(service?.price?.toInt() ?? 0) - AppRes.calculateDiscountByPercentage(service?.price?.toInt() ?? 0, service?.discount?.toInt() ?? 0).toInt()}',
+                                  '${AppRes.currency}${(AppRes.formatCurrency((service?.price ?? 0) - AppRes.calculateDiscountByPercentage(service?.price?.toInt() ?? 0, service?.discount?.toInt() ?? 0).toInt()))}',
                                   style: kBoldThemeTextStyle.copyWith(
                                     fontSize: 18,
                                   ),

@@ -177,13 +177,13 @@ class TopBarOfServiceDetails extends StatelessWidget {
       backgroundColor: ColorRes.smokeWhite,
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: BgRoundImageWidget(
-          image: AssetRes.icBack,
+        child: BgRoundIconWidget(
+          icon: Icons.arrow_back_rounded,
           imagePadding: 6,
-          imageColor: !toolbarIsExpand ? ColorRes.mortar : ColorRes.white,
+          iconColor: !toolbarIsExpand ? ColorRes.mortar : ColorRes.white,
           bgColor: !toolbarIsExpand
               ? ColorRes.smokeWhite1
-              : ColorRes.white.withOpacity(0.2),
+              : ColorRes.lavender.withOpacity(0.5),
           onTap: () => Get.back(),
         ),
       ),
@@ -241,7 +241,7 @@ class TopBarOfServiceDetails extends StatelessWidget {
             imageColor: !toolbarIsExpand ? ColorRes.mortar : ColorRes.white,
             bgColor: !toolbarIsExpand
                 ? ColorRes.smokeWhite1
-                : ColorRes.white.withOpacity(0.2),
+                : ColorRes.lavender.withOpacity(0.5),
           ),
         ),
       ],
@@ -374,7 +374,7 @@ class TopBarOfServiceDetails extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    '${AppRes.currency}${((serviceDetails?.data?.price ?? 0) - AppRes.calculateDiscountByPercentage(serviceDetails?.data?.price, serviceDetails?.data?.discount)).toStringAsFixed(1)}',
+                                    '${AppRes.currency}${AppRes.formatCurrency((serviceDetails?.data?.price ?? 0) - AppRes.calculateDiscountByPercentage(serviceDetails?.data?.price?.toInt() ?? 0, serviceDetails?.data?.discount?.toInt() ?? 0).toInt())}',
                                     style: kBoldThemeTextStyle.copyWith(
                                       fontSize: 24,
                                     ),
@@ -387,7 +387,7 @@ class TopBarOfServiceDetails extends StatelessWidget {
                                             null &&
                                         serviceDetails?.data?.discount != 0,
                                     child: Text(
-                                      '${AppRes.currency}${serviceDetails?.data?.price ?? 0}',
+                                      '${AppRes.currency}${AppRes.formatCurrency(serviceDetails?.data?.price ?? 0)}',
                                       style: kLightWhiteTextStyle.copyWith(
                                         color: ColorRes.empress,
                                         decoration: TextDecoration.lineThrough,
@@ -489,12 +489,11 @@ class _ToggleImageWidgetState extends State<ToggleImageWidget> {
       image:
           (isFav != null && isFav!) ? AssetRes.icFav : AssetRes.icUnFavourite,
       imagePadding: (isFav != null && isFav!) ? 9 : 10,
-      imageColor: (isFav != null && isFav!)
-          ? ColorRes.bitterSweet
-          : (!widget.toolbarIsExpand ? ColorRes.mortar : ColorRes.white),
+      imageColor:
+          (isFav != null && isFav!) ? ColorRes.themeColor : ColorRes.mortar1,
       bgColor: !widget.toolbarIsExpand
           ? ColorRes.smokeWhite1
-          : ColorRes.white.withOpacity(0.2),
+          : ColorRes.lavender.withOpacity(0.5),
     );
   }
 }

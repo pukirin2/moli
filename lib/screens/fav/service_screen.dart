@@ -126,7 +126,7 @@ class ItemService extends StatelessWidget {
                                     const SizedBox(height: 5),
                                     Row(children: [
                                       Text(
-                                          '${AppRes.currency}${(services?.price?.toInt() ?? 0) - AppRes.calculateDiscountByPercentage(services?.price?.toInt() ?? 0, services?.discount?.toInt() ?? 0).toInt()}',
+                                          '${AppRes.currency}${AppRes.formatCurrency((services?.price ?? 0) - AppRes.calculateDiscountByPercentage(services?.price?.toInt() ?? 0, services?.discount?.toInt() ?? 0).toInt())}',
                                           style: kBoldThemeTextStyle.copyWith(
                                               fontSize: 18)),
                                       Padding(

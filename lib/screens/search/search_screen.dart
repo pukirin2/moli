@@ -3,7 +3,6 @@ import 'package:moli/bloc/search/search_event.dart';
 import 'package:moli/bloc/search/search_state.dart';
 import 'package:moli/screens/search/search_salon_screen.dart';
 import 'package:moli/screens/search/search_service_screen.dart';
-import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
 import 'package:moli/utils/style_res.dart';
@@ -38,13 +37,10 @@ class SearchScreen extends StatelessWidget {
                         Get.back();
                       },
                       child: const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: Image(
-                          image: AssetImage(AssetRes.icBack),
-                          height: 30,
-                        ),
-                      ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: Icon(Icons.arrow_back_rounded,
+                              size: 30, color: ColorRes.themeColor)),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
