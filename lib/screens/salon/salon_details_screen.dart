@@ -38,6 +38,7 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
 
   @override
   void initState() {
+    super.initState();
     scrollController.addListener(() {
       toolbarIsExpand = !(scrollController.offset >=
           scrollController.position.maxScrollExtent - 120);
@@ -49,7 +50,13 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
         setState(() {});
       }
     });
-    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
+    pageController.dispose();
   }
 
   @override
@@ -576,6 +583,12 @@ class _PageIndicatorState extends State<PageIndicator> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.pageController!.dispose();
+    super.dispose();
   }
 
   @override

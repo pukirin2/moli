@@ -7,7 +7,6 @@ import 'package:moli/model/user/salon.dart';
 import 'package:moli/screens/fav/service_screen.dart';
 import 'package:moli/screens/salon/salon_details_screen.dart';
 import 'package:moli/screens/toprated/top_rated_salon_screen.dart';
-import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
@@ -410,12 +409,10 @@ class TopBarOfCatDetailWidget extends StatelessWidget {
                     Get.back();
                   },
                   child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    child: Image(
-                      image: AssetImage(AssetRes.icBack),
-                      height: 30,
-                    ),
-                  ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      child: Icon(Icons.arrow_back_rounded,
+                          size: 30, color: ColorRes.themeColor)),
                 ),
               ),
             ],

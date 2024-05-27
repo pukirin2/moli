@@ -87,7 +87,7 @@ class SalonOnMapBloc extends Bloc<SalonOnMapEvent, SalonOnMapState> {
     return ClusterManager<Place>(
       items,
       _updateMarkers,
-      // markerBuilder: _markerBuilder,
+      markerBuilder: _markerBuilder,
       levels: [1, 4.25, 6.75, 8.25, 11.5, 14.5, 16.0, 16.5, 20.0],
       extraPercent: 0.2,
     );
@@ -135,23 +135,20 @@ class SalonOnMapBloc extends Bloc<SalonOnMapEvent, SalonOnMapState> {
     canvas.drawCircle(Offset(size / 2, size / 2), size / 2.0, paint1);
     canvas.drawCircle(Offset(size / 2, size / 2), size / 2.2, paint2);
     canvas.drawCircle(Offset(size / 2, size / 2), size / 2.8, paint1);
-
     if (text != null) {
       TextPainter painter = TextPainter(textDirection: TextDirection.ltr);
       painter.text = TextSpan(
-        text: text,
-        style: TextStyle(
-            fontSize: size / 3,
-            color: Colors.white,
-            fontWeight: FontWeight.normal),
-      );
+          text: text,
+          style: TextStyle(
+              fontSize: size / 3,
+              color: Colors.white,
+              fontWeight: FontWeight.normal));
       painter.layout();
       painter.paint(
         canvas,
         Offset(size / 2 - painter.width / 2, size / 2 - painter.height / 2),
       );
     }
-
     final img = await pictureRecorder.endRecording().toImage(size, size);
     final data = await img.toByteData(format: ImageByteFormat.png) as ByteData;
 

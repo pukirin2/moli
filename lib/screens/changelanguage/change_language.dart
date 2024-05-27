@@ -45,7 +45,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
     // 'عربي',
     // 'dansk',
     // 'Nederlands',
-    'English',
+    'Tiếng Anh',
     // 'Français',
     // 'Deutsch',
     // 'Ελληνικά',

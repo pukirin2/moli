@@ -35,6 +35,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
 
   @override
   void initState() {
+    super.initState();
     scrollController.addListener(() {
       toolbarIsExpand = !(scrollController.offset >=
           scrollController.position.maxScrollExtent - 120);
@@ -46,7 +47,12 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
         setState(() {});
       }
     });
-    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
   }
 
   @override
