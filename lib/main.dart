@@ -21,7 +21,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSwatch(
               primarySwatch: MaterialColor(
                   ColorRes.themeColor.value, getSwatch(ColorRes.themeColor)),
-            ).copyWith(background: ColorRes.white)),
+            ).copyWith(surface: ColorRes.white)),
         home: const WelComeScreen());
   }
 

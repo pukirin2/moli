@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_marker/marker_icon.dart';
+import 'package:google_maps_cluster_manager_2/google_maps_cluster_manager_2.dart';
 import 'package:moli/model/cat/categories.dart';
 import 'package:moli/model/salonbycoordinates/salon_by_coordinates.dart';
 import 'package:moli/model/user/salon.dart';
@@ -16,7 +17,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
+// import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 part 'salon_on_map_event.dart';

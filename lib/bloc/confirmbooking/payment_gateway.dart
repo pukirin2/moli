@@ -5,7 +5,7 @@ import 'package:moli/service/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
-import 'package:flutter_paystack/flutter_paystack.dart';
+// import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
 import 'package:get/get.dart';
@@ -103,7 +103,7 @@ calculateAmount(String amount) {
 }
 
 class PaystackPayment {
-  var plugin = PaystackPlugin();
+  // var plugin = PaystackPlugin();
 
   void makePayment(
       {required String amount,
@@ -112,41 +112,41 @@ class PaystackPayment {
       required String currency,
       required String authKey,
       required Function(String response) onSuccess}) async {
-    await plugin.initialize(publicKey: publicKey);
-    _getAccessCodeFrmInitialization(authKey: authKey, amount: amount).then(
-      (value) async {
-        Charge charge = Charge()
-          ..amount = int.parse(calculateAmount(amount))
-          ..accessCode = value?.data?.accessCode
-          ..email = email
-          ..currency = currency;
+    // await plugin.initialize(publicKey: publicKey);
+    // _getAccessCodeFrmInitialization(authKey: authKey, amount: amount).then(
+    //   (value) async {
+    //     Charge charge = Charge()
+    //       ..amount = int.parse(calculateAmount(amount))
+    //       ..accessCode = value?.data?.accessCode
+    //       ..email = email
+    //       ..currency = currency;
 
-        await plugin
-            .checkout(
-          Get.context!,
-          method: CheckoutMethod.selectable,
+    //     await plugin
+    //         .checkout(
+    //       Get.context!,
+    //       method: CheckoutMethod.selectable,
 
-          // Defaults to CheckoutMethod.selectable
-          charge: charge,
-          fullscreen: true,
-          hideEmail: true,
-          logo: Text(AppLocalizations.of(Get.context!)!.appName),
-        )
-            .then(
-          (value) async {
-            await http.get(
-              Uri.parse(
-                  'https://api.paystack.co/transaction/verify/${value.reference}'),
-              headers: {'Authorization': 'Bearer $authKey'},
-            ).then(
-              (value) {
-                onSuccess(value.body);
-              },
-            );
-          },
-        );
-      },
-    );
+    //       // Defaults to CheckoutMethod.selectable
+    //       charge: charge,
+    //       fullscreen: true,
+    //       hideEmail: true,
+    //       logo: Text(AppLocalizations.of(Get.context!)!.appName),
+    //     )
+    //         .then(
+    //       (value) async {
+    //         await http.get(
+    //           Uri.parse(
+    //               'https://api.paystack.co/transaction/verify/${value.reference}'),
+    //           headers: {'Authorization': 'Bearer $authKey'},
+    //         ).then(
+    //           (value) {
+    //             onSuccess(value.body);
+    //           },
+    //         );
+    //       },
+    //     );
+    //   },
+    // );
   }
 
   Future<PaystackResponse?> _getAccessCodeFrmInitialization(

@@ -1,0 +1,84 @@
+{
+    "project_info": {
+        "project_number": "729910983148",
+        "project_id": "mrosa-d86fc",
+        "storage_bucket": "mrosa-d86fc.appspot.com"
+    },
+    "client": [
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:729910983148:android:8040bc28dc994a6606e8c9",
+                "android_client_info": {
+                    "package_name": "com.mlt.moli"
+                }
+            },
+            "oauth_client": [
+                {
+                    "client_id": "729910983148-qtmb30fgml0b2s00h2d96ldlaktb8sk8.apps.googleusercontent.com",
+                    "client_type": 1,
+                    "android_info": {
+                        "package_name": "com.mlt.moli",
+                        "certificate_hash": "9c6466229ace0e2b781b56cf940ac8e0d75fce0b"
+                    }
+                },
+                {
+                    "client_id": "729910983148-krnf8331982ofejurq18fmkblq5com0j.apps.googleusercontent.com",
+                    "client_type": 3
+                }
+            ],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyDbkdPAm3oS28PqRb0SJWPPbmNPXY5dIv4"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [
+                        {
+                            "client_id": "729910983148-krnf8331982ofejurq18fmkblq5com0j.apps.googleusercontent.com",
+                            "client_type": 3
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:729910983148:android:f6d42cc79002915806e8c9",
+                "android_client_info": {
+                    "package_name": "com.mlt.moli_manager"
+                }
+            },
+            "oauth_client": [
+                {
+                    "client_id": "729910983148-o5pr4d6b587utcd2qmir8bemla9lacek.apps.googleusercontent.com",
+                    "client_type": 1,
+                    "android_info": {
+                        "package_name": "com.mlt.moli_manager",
+                        "certificate_hash": "3a95364c046d4ab9010534a70e42703fe030a3df"
+                    }
+                },
+                {
+                    "client_id": "729910983148-krnf8331982ofejurq18fmkblq5com0j.apps.googleusercontent.com",
+                    "client_type": 3
+                }
+            ],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyDbkdPAm3oS28PqRb0SJWPPbmNPXY5dIv4"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [
+                        {
+                            "client_id": "729910983148-krnf8331982ofejurq18fmkblq5com0j.apps.googleusercontent.com",
+                            "client_type": 3
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "configuration_version": "1"
+}
