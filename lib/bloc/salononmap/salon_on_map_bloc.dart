@@ -87,7 +87,29 @@ class SalonOnMapBloc extends Bloc<SalonOnMapEvent, SalonOnMapState> {
     return ClusterManager<Place>(
       items,
       _updateMarkers,
-      markerBuilder: _markerBuilder,
+      // markerBuilder: _markerBuilder,
+      markerBuilder: (cluster) async {
+        return Marker(
+          markerId: MarkerId(cluster.getId()),
+          position: cluster.location,
+          onTap: () {
+            for (var salon in cluster.items) {
+              for (int i = 0; i < items.length; i++) {
+                if (salon.salon?.id == items[i].salon?.id) {
+                  pageController.animateToPage(
+                    i,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  );
+                }
+              }
+            }
+          },
+          icon: await _getMarkerBitmap(
+              cluster.isMultiple ? 125 : 75, cluster.items.toList(),
+              text: cluster.isMultiple ? cluster.count.toString() : null),
+        );
+      },
       levels: [1, 4.25, 6.75, 8.25, 11.5, 14.5, 16.0, 16.5, 20.0],
       extraPercent: 0.2,
     );
