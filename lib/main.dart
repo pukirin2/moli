@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:moli/screens/welcome/welcome_screen.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
@@ -10,13 +11,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/route_manager.dart';
 
+import 'firebase_options.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   SharePref sharePref = await SharePref().init();
   SharePref.selectedLanguage = sharePref.getString(ConstRes.languageCode) ??
       Platform.localeName.split('_')[0];
+  await FlutterBranchSdk.init(enableLogging: true, disableTracking: false);
   runApp(const RestartWidget(child: MyApp()));
 }
 

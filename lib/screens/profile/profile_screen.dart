@@ -25,7 +25,7 @@ import 'package:get/get.dart';
 class ProfileScreen extends StatelessWidget {
   final Function()? onMenuClick;
 
-  const ProfileScreen({Key? key, this.onMenuClick}) : super(key: key);
+  const ProfileScreen({super.key, this.onMenuClick});
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +82,7 @@ class ProfileScreen extends StatelessWidget {
                             ProfileMenuItemWidget(
                                 title: AppLocalizations.of(context)!.wallet,
                                 onTap: () {
-                                  Get.to(() => const WalletScreen());
+                                  // Get.to(() => const WalletScreen());
                                 }),
                             ProfileMenuItemWidget(
                               title: AppLocalizations.of(context)!.bookings,
@@ -199,10 +199,10 @@ class ProfileMenuItemWidget extends StatelessWidget {
   final Function()? onTap;
 
   const ProfileMenuItemWidget({
-    Key? key,
+    super.key,
     required this.title,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -230,10 +230,10 @@ class ToggleButton extends StatefulWidget {
   final bool? value;
 
   const ToggleButton({
-    Key? key,
+    super.key,
     this.onValueChange,
     this.value,
-  }) : super(key: key);
+  });
 
   @override
   State<ToggleButton> createState() => _ToggleButtonState();

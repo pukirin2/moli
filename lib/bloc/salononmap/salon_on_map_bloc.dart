@@ -2,7 +2,8 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_marker/marker_icon.dart';
-import 'package:google_maps_cluster_manager_2/google_maps_cluster_manager_2.dart';
+import 'package:google_maps_cluster_manager_2/google_maps_cluster_manager_2.dart'
+    as cluster;
 import 'package:moli/model/cat/categories.dart';
 import 'package:moli/model/salonbycoordinates/salon_by_coordinates.dart';
 import 'package:moli/model/user/salon.dart';
@@ -76,7 +77,7 @@ class SalonOnMapBloc extends Bloc<SalonOnMapEvent, SalonOnMapState> {
   Set<Marker> marker = {};
   List<Place> items = [];
   late GoogleMapController mapController;
-  late ClusterManager manager;
+  late cluster.ClusterManager manager;
   late Position position;
   UserData? userData;
   List<Widget> widgets = [];
@@ -84,8 +85,8 @@ class SalonOnMapBloc extends Bloc<SalonOnMapEvent, SalonOnMapState> {
   int selectedIndex = -1;
   List<SalonData> salons = [];
 
-  ClusterManager _initClusterManager() {
-    return ClusterManager<Place>(
+  cluster.ClusterManager _initClusterManager() {
+    return cluster.ClusterManager<Place>(
       items,
       _updateMarkers,
       // markerBuilder: _markerBuilder,
@@ -111,7 +112,7 @@ class SalonOnMapBloc extends Bloc<SalonOnMapEvent, SalonOnMapState> {
               text: cluster.isMultiple ? cluster.count.toString() : null),
         );
       },
-      levels: [1, 4.25, 6.75, 8.25, 11.5, 14.5, 16.0, 16.5, 20.0],
+      levels: const [1, 4.25, 6.75, 8.25, 11.5, 14.5, 16.0, 16.5, 20.0],
       extraPercent: 0.2,
     );
   }
@@ -123,7 +124,7 @@ class SalonOnMapBloc extends Bloc<SalonOnMapEvent, SalonOnMapState> {
 
   PageController pageController = PageController();
 
-  Future<Marker> Function(Cluster<Place>) get _markerBuilder =>
+  Future<Marker> Function(cluster.Cluster<Place>) get _markerBuilder =>
       (cluster) async {
         return Marker(
           markerId: MarkerId(cluster.getId()),
@@ -230,7 +231,7 @@ class SalonOnMapBloc extends Bloc<SalonOnMapEvent, SalonOnMapState> {
   }
 }
 
-class Place with ClusterItem {
+class Place with cluster.ClusterItem {
   final SalonData? salon;
   final LatLng latLng;
 
@@ -248,10 +249,10 @@ class CustomMarker extends StatefulWidget {
   final GlobalKey globalKey;
 
   const CustomMarker({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.globalKey,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomMarker> createState() => _CustomMarkerState();

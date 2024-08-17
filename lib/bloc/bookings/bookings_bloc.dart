@@ -80,15 +80,15 @@ class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
           AppLocalizations.of(Get.context!)!.pleaseSelectTime, false);
       return;
     }
-    Get.to(
-      () => const MakePaymentScreen(),
-      arguments: {
-        ConstRes.salonData: salonData,
-        ConstRes.services: services,
-        ConstRes.date: selectedDate,
-        ConstRes.time: selectedTime,
-      },
-    );
+    // Get.to(
+    //   () => const MakePaymentScreen(),
+    //   arguments: {
+    //     ConstRes.salonData: salonData,
+    //     ConstRes.services: services,
+    //     ConstRes.date: selectedDate,
+    //     ConstRes.time: selectedTime,
+    //   },
+    // );
   }
 
   void removeService(int id) {

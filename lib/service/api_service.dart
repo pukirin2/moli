@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -271,7 +272,6 @@ class ApiService {
         ConstRes.userId: ConstRes.userIdValue.toString(),
       },
     );
-    print('data test ${response.body}');
     final responseJson = jsonDecode(response.body);
     SharePref sharePref = await SharePref().init();
     sharePref.saveString(AppRes.settings, response.body);
@@ -286,8 +286,8 @@ class ApiService {
     try {
       //Request body
       Map<String, dynamic> body = {
-        'amount': calculateAmount(amount),
-        'currency': currency,
+        // 'amount': calculateAmount(amount),
+        // 'currency': currency,
       };
 
       //Make post request to Stripe
@@ -363,7 +363,7 @@ class ApiService {
           ConstRes.apiKey: ConstRes.apiKeyValue,
         },
         body: body);
-    print(body);
+    log(body.toString());
     await fetchMyUserDetails();
 
     return BookingDetails.fromJson(jsonDecode(response.body));

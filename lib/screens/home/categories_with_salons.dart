@@ -13,9 +13,9 @@ import 'package:get/route_manager.dart';
 
 class CategoriesWithSalonsWidget extends StatelessWidget {
   const CategoriesWithSalonsWidget({
-    Key? key,
+    super.key,
     required this.categoriesWithServices,
-  }) : super(key: key);
+  });
   final List<CategoriesWithService> categoriesWithServices;
 
   @override
@@ -89,9 +89,9 @@ class CategoriesWithSalonsWidget extends StatelessWidget {
 
 class ItemCategoriesWithSalons extends StatelessWidget {
   const ItemCategoriesWithSalons({
-    Key? key,
+    super.key,
     required this.services,
-  }) : super(key: key);
+  });
   final Services? services;
 
   @override

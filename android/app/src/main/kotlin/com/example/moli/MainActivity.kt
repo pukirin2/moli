@@ -1,4 +1,4 @@
-package com.mlt.moli
+package com.mlt.molisport
 
 import io.flutter.embedding.android.FlutterActivity
 

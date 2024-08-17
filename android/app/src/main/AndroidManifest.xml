@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mlt.moli">
+    package="com.mlt.molisport">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -70,7 +70,7 @@
             android:value="2" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCCGmRc7XuIa8UGdBoiUVfCE1UT0Q0Nzik" />
+            android:value="AIzaSyD0kvrp4Nk61woXiZuUu8GQrHKVK7Np-pQ" />
     </application>
     <!-- Provide required visibility configuration for API level 30 and above -->
     <queries>

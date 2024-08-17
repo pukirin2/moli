@@ -12,9 +12,9 @@ class CategoriesGridWidget extends StatelessWidget {
   final List<Categories> categories;
 
   const CategoriesGridWidget({
-    Key? key,
+    super.key,
     required this.categories,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

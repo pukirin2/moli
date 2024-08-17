@@ -1,4 +1,3 @@
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
@@ -11,7 +10,7 @@ class AppLogo extends StatelessWidget {
   final Color? textColor;
   final double? textSize;
 
-  const AppLogo({Key? key, this.textColor, this.textSize}) : super(key: key);
+  const AppLogo({super.key, this.textColor, this.textSize});
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +31,11 @@ class OpenClosedStatusWidget extends StatefulWidget {
   final SalonData? salonData;
 
   const OpenClosedStatusWidget({
-    Key? key,
+    super.key,
     this.bgDisable,
     this.salonIsOpen,
     this.salonData,
-  }) : super(key: key);
+  });
 
   @override
   State<OpenClosedStatusWidget> createState() => _OpenClosedStatusWidgetState();
@@ -108,10 +107,10 @@ class TitleWithSeeAllWidget extends StatelessWidget {
   final Function()? onTap;
 
   const TitleWithSeeAllWidget({
-    Key? key,
+    super.key,
     required this.title,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -132,14 +131,13 @@ class CustomCircularInkWell extends StatelessWidget {
   final Widget? child;
   final Function()? onTap;
 
-  const CustomCircularInkWell({Key? key, this.child, this.onTap})
-      : super(key: key);
+  const CustomCircularInkWell({super.key, this.child, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      overlayColor: MaterialStateProperty.all(ColorRes.transparent),
+      overlayColor: WidgetStateProperty.all(ColorRes.transparent),
       borderRadius: const BorderRadius.all(Radius.circular(100)),
       child: child,
     );
@@ -151,10 +149,10 @@ class ToolBarWidget extends StatelessWidget {
   final Widget? child;
 
   const ToolBarWidget({
-    Key? key,
+    super.key,
     required this.title,
     this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -283,7 +281,7 @@ class ImageNotFoundOval extends StatelessWidget {
 class LoadingImage extends StatelessWidget {
   final Color? color;
 
-  const LoadingImage({Key? key, this.color}) : super(key: key);
+  const LoadingImage({super.key, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -303,7 +301,7 @@ class LoadingImage extends StatelessWidget {
 }
 
 class DataNotFound extends StatelessWidget {
-  const DataNotFound({Key? key, this.color}) : super(key: key);
+  const DataNotFound({super.key, this.color});
   final Color? color;
 
   @override
@@ -326,41 +324,47 @@ class DataNotFound extends StatelessWidget {
 class LoadingData extends StatelessWidget {
   final Color? color;
 
-  const LoadingData({Key? key, this.color}) : super(key: key);
+  const LoadingData({super.key, this.color});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: color ?? Colors.transparent,
-      child: const Center(
-          child: SpinKitSpinningLines(
+    return const Center(
+        child: SizedBox(
+      width: 35,
+      height: 35,
+      child: CircularProgressIndicator(
         color: ColorRes.themeColor,
-        size: 30,
-        itemCount: 4,
-      )
+        strokeCap: StrokeCap.round,
+        strokeWidth: 5,
+      ),
+    )
 
-          // CircularProgressIndicator(
-          //   color: ColorRes.themeColor,
-          // ),
-          ),
-    );
+        // CircularProgressIndicator(
+        //   color: ColorRes.themeColor,
+        // ),
+        );
   }
 }
 
 class Loading extends StatelessWidget {
   final Color? color;
 
-  const Loading({Key? key, this.color}) : super(key: key);
+  const Loading({super.key, this.color});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: color ?? ColorRes.transparent,
-        child: const Center(
-            child: SpinKitSpinningLines(
-          color: ColorRes.themeColor,
-          size: 30,
-          itemCount: 4,
-        )));
+      color: color ?? ColorRes.transparent,
+      child: const Center(
+        child: SizedBox(
+          width: 35,
+          child: CircularProgressIndicator(
+            color: ColorRes.themeColor,
+            strokeCap: StrokeCap.round,
+            strokeWidth: 5,
+          ),
+        ),
+      ),
+    );
   }
 }
