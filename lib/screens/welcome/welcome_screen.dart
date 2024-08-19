@@ -19,7 +19,7 @@ import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/route_manager.dart';
 
 class WelComeScreen extends StatefulWidget {
@@ -150,8 +150,8 @@ class _WelComeScreenState extends State<WelComeScreen> {
       }
     }, onError: (error) {});
     SharePref sharePref = await SharePref().init();
-    Stripe.publishableKey =
-        sharePref.getSettings()?.data?.stripePublishableKey ?? '';
+    // Stripe.publishableKey =
+    //     sharePref.getSettings()?.data?.stripePublishableKey ?? '';
     await firebaseMessaging.requestPermission(
       alert: true,
       announcement: false,

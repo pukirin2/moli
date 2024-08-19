@@ -59,12 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAXgTbvcjfGA6SpqyCQ9O9PK4vGBib0vSg',
-    appId: '1:928021752473:ios:070bcc605f39703e65a608',
+    appId: '1:928021752473:ios:6255bd2d3307258265a608',
     messagingSenderId: '928021752473',
     projectId: 'moli-sport',
     storageBucket: 'moli-sport.appspot.com',
     androidClientId: '928021752473-74pvpg7l5osrb45rmq8dnv2ok25vhe76.apps.googleusercontent.com',
-    iosClientId: '928021752473-uagd4n51uujuv4coe4t0a0c3rmfch2ub.apps.googleusercontent.com',
-    iosBundleId: 'com.mlt.molisport',
+    iosClientId: '928021752473-jiigfjqrtts1je9tlbuquq7gbs4qmejv.apps.googleusercontent.com',
+    iosBundleId: 'com.mlt.moli',
   );
 }
