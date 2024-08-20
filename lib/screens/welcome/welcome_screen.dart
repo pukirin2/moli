@@ -11,6 +11,7 @@ import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
+import 'package:moli/utils/extensions.dart';
 import 'package:moli/utils/shared_pref.dart';
 import 'package:moli/utils/style_res.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -75,17 +76,21 @@ class _WelComeScreenState extends State<WelComeScreen> {
                                   Text(
                                       AppLocalizations.of(context)!
                                           .premiumBeautyServices,
-                                      style: kSemiBoldWhiteTextStyle),
+                                      style: context.titleStyleLarge!
+                                          .copyWith(color: ColorRes.white)),
                                   const SizedBox(height: 10),
                                   Text(
-                                      AppLocalizations.of(context)!
-                                          .findAndBookHairCutMassageSpaWaxingColoringServicesAnytime,
-                                      style: kLightWhiteTextStyle),
+                                    AppLocalizations.of(context)!
+                                        .findAndBookHairCutMassageSpaWaxingColoringServicesAnytime,
+                                    style: context.titleStyleSmall!.copyWith(
+                                      color: ColorRes.white,
+                                    ),
+                                  ),
                                   const SizedBox(height: 20),
                                   SizedBox(
                                       width: double.infinity,
                                       height: 55,
-                                      child: TextButton(
+                                      child: ElevatedButton(
                                           style: kButtonWhiteStyle,
                                           onPressed: () async {
                                             if (isLoading) return;
@@ -149,7 +154,7 @@ class _WelComeScreenState extends State<WelComeScreen> {
         }
       }
     }, onError: (error) {});
-    SharePref sharePref = await SharePref().init();
+    // SharePref sharePref = await SharePref().init();
     // Stripe.publishableKey =
     //     sharePref.getSettings()?.data?.stripePublishableKey ?? '';
     await firebaseMessaging.requestPermission(

@@ -1,6 +1,7 @@
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
+import 'package:moli/utils/extensions.dart';
 import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -328,12 +329,12 @@ class LoadingData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
         child: SizedBox(
       width: 35,
       height: 35,
       child: CircularProgressIndicator(
-        color: ColorRes.themeColor,
+        color: context.colorScheme.tertiary,
         strokeCap: StrokeCap.round,
         strokeWidth: 5,
       ),
@@ -355,11 +356,11 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: color ?? ColorRes.transparent,
-      child: const Center(
+      child: Center(
         child: SizedBox(
           width: 35,
           child: CircularProgressIndicator(
-            color: ColorRes.themeColor,
+            color: context.colorScheme.tertiary,
             strokeCap: StrokeCap.round,
             strokeWidth: 5,
           ),

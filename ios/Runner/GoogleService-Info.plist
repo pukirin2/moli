@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>928021752473-jiigfjqrtts1je9tlbuquq7gbs4qmejv.apps.googleusercontent.com</string>
+	<string>928021752473-uagd4n51uujuv4coe4t0a0c3rmfch2ub.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.928021752473-jiigfjqrtts1je9tlbuquq7gbs4qmejv</string>
+	<string>com.googleusercontent.apps.928021752473-uagd4n51uujuv4coe4t0a0c3rmfch2ub</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>928021752473-74pvpg7l5osrb45rmq8dnv2ok25vhe76.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.mlt.moli</string>
+	<string>com.mlt.molisport</string>
 	<key>PROJECT_ID</key>
 	<string>moli-sport</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:928021752473:ios:6255bd2d3307258265a608</string>
+	<string>1:928021752473:ios:070bcc605f39703e65a608</string>
 </dict>
 </plist>

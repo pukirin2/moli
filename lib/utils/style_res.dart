@@ -103,19 +103,19 @@ const kThemeButtonTextStyle = TextStyle(
 );
 
 ButtonStyle kButtonWhiteStyle = ButtonStyle(
-  backgroundColor: MaterialStateProperty.all(ColorRes.white),
-  shape: MaterialStateProperty.all(
+  backgroundColor: WidgetStateProperty.all(ColorRes.white),
+  shape: WidgetStateProperty.all(
     const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10))),
   ),
-  overlayColor: MaterialStateProperty.all(ColorRes.transparent),
+  overlayColor: WidgetStateProperty.all(ColorRes.transparent),
 );
 
 ButtonStyle kButtonThemeStyle = ButtonStyle(
-  backgroundColor: MaterialStateProperty.all(ColorRes.themeColor),
-  shape: MaterialStateProperty.all(
+  backgroundColor: WidgetStateProperty.all(ColorRes.themeColor),
+  shape: WidgetStateProperty.all(
     const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10))),
   ),
-  overlayColor: MaterialStateProperty.all(ColorRes.transparent),
+  overlayColor: WidgetStateProperty.all(ColorRes.transparent),
 );

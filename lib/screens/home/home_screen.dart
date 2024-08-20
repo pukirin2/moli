@@ -26,9 +26,9 @@ class HomeScreen extends StatelessWidget {
   final Function()? onMenuClick;
 
   const HomeScreen({
-    Key? key,
+    super.key,
     this.onMenuClick,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -173,10 +173,10 @@ class HomeScreen extends StatelessWidget {
 
 class BannerWidget extends StatelessWidget {
   const BannerWidget({
-    Key? key,
+    super.key,
     required this.pageController,
     this.homePageData,
-  }) : super(key: key);
+  });
 
   final PageController pageController;
   final HomePageData? homePageData;

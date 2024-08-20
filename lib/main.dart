@@ -1,8 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:moli/screens/welcome/welcome_screen.dart';
-import 'package:moli/utils/color_res.dart';
+// import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/shared_pref.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/route_manager.dart';
 
 import 'firebase_options.dart';
+import 'utils/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,23 +33,33 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // print(Platform.localeName.split('_')[0]);
+    // return GetMaterialApp(
+    //     localizationsDelegates: AppLocalizations.localizationsDelegates,
+    //     supportedLocales: AppLocalizations.supportedLocales,
+    //     locale: Locale(SharePref.selectedLanguage),
+    //     debugShowCheckedModeBanner: false,
+    //     title: 'Moli',
+    //     theme: ThemeData(
+    //         scaffoldBackgroundColor: ColorRes.white,
+    //         // scaffoldBackgroundColor: ColorRes.themeColor.withOpacity(0.6),
+    //         textTheme: const TextTheme(
+    //             displaySmall: TextStyle(color: ColorRes.white),
+    //             displayLarge: TextStyle(color: ColorRes.white),
+    //             displayMedium: TextStyle(color: ColorRes.white)),
+    //         colorScheme: ColorScheme.fromSwatch(
+    //           primarySwatch: MaterialColor(
+    //               ColorRes.themeColor.value, getSwatch(ColorRes.themeColor)),
+    //         ).copyWith(surface: ColorRes.white)),
+    //     home: const WelComeScreen());
     return GetMaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         locale: Locale(SharePref.selectedLanguage),
         debugShowCheckedModeBanner: false,
         title: 'Moli',
-        theme: ThemeData(
-            scaffoldBackgroundColor: ColorRes.white,
-            // scaffoldBackgroundColor: ColorRes.themeColor.withOpacity(0.6),
-            textTheme: const TextTheme(
-                displaySmall: TextStyle(color: ColorRes.white),
-                displayLarge: TextStyle(color: ColorRes.white),
-                displayMedium: TextStyle(color: ColorRes.white)),
-            colorScheme: ColorScheme.fromSwatch(
-              primarySwatch: MaterialColor(
-                  ColorRes.themeColor.value, getSwatch(ColorRes.themeColor)),
-            ).copyWith(surface: ColorRes.white)),
+        theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
+        themeMode: ThemeMode.system,
         home: const WelComeScreen());
   }
 
