@@ -1,15 +1,15 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:moli/main.dart';
 import 'package:moli/utils/app_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
+import 'package:moli/utils/extensions.dart';
 import 'package:moli/utils/shared_pref.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
 
 class ChangeLanguageScreen extends StatefulWidget {
-  const ChangeLanguageScreen({Key? key}) : super(key: key);
+  const ChangeLanguageScreen({super.key});
 
   @override
   State<ChangeLanguageScreen> createState() => _ChangeLanguageScreenState();
@@ -122,7 +122,8 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                   title: Text(
                     languages[index],
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        fontSize: 15, fontFamily: kMediumTextStyle.fontFamily),
+                        fontSize: 15,
+                        fontFamily: context.bodyMedium!.fontFamily),
                   ),
                   subtitle: Text(
                     subLanguage[index],

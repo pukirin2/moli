@@ -1,19 +1,19 @@
-import 'package:moli/bloc/addrating/add_rating_bloc.dart';
-import 'package:moli/screens/search/filter_bottom_sheet.dart';
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:moli/bloc/addrating/add_rating_bloc.dart';
+import 'package:moli/screens/search/filter_bottom_sheet.dart';
+import 'package:moli/utils/color_res.dart';
+import 'package:moli/utils/extensions.dart';
 
 class AddRatingBottomSheet extends StatelessWidget {
   final String bookingId;
 
   const AddRatingBottomSheet({
-    Key? key,
+    super.key,
     required this.bookingId,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +22,10 @@ class AddRatingBottomSheet extends StatelessWidget {
       child: BlocProvider(
         create: (context) => AddRatingBloc(),
         child: Container(
-          decoration: const BoxDecoration(
-            color: ColorRes.white,
-            borderRadius: BorderRadius.vertical(
+          height: context.sizeDevice.height * 0.5,
+          decoration: BoxDecoration(
+            color: context.colorScheme.surface,
+            borderRadius: const BorderRadius.vertical(
               top: Radius.circular(25),
             ),
           ),
@@ -43,13 +44,15 @@ class AddRatingBottomSheet extends StatelessWidget {
                         children: [
                           Text(
                             AppLocalizations.of(context)!.addRatings,
-                            style: kBoldThemeTextStyle,
+                            style: context.titleStyleMedium!.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           Text(
                             AppLocalizations.of(context)!
                                 .shareYourExperienceInFewWords,
-                            style: kLightWhiteTextStyle.copyWith(
-                              color: ColorRes.subTitleText,
+                            style: context.bodySmall!.copyWith(
+                              color: context.colorScheme.outline,
                               fontSize: 16,
                             ),
                           ),
@@ -59,9 +62,7 @@ class AddRatingBottomSheet extends StatelessWidget {
                       const CloseButtonWidget(),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   RatingBar(
                     initialRating: 0,
                     ratingWidget: RatingWidget(
@@ -83,22 +84,14 @@ class AddRatingBottomSheet extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  Container(
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: ColorRes.smokeWhite,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: TextField(
-                      decoration: const InputDecoration(
+                  TextField(
+                    decoration: const InputDecoration(
                         border: InputBorder.none,
-                      ),
-                      controller: addRatingBloc.reviewController,
-                      style: kRegularTextStyle,
-                      maxLines: 6,
-                    ),
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none),
+                    controller: addRatingBloc.reviewController,
+                    style: context.bodyMedium,
+                    maxLines: 6,
                   ),
                   const SizedBox(
                     height: 5,
@@ -107,7 +100,7 @@ class AddRatingBottomSheet extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Text(
                       '${addRatingBloc.reviewController.text.length}/200',
-                      style: kLightWhiteTextStyle.copyWith(
+                      style: context.bodySmall!.copyWith(
                         color: ColorRes.darkGray,
                         fontSize: 16,
                       ),
@@ -118,14 +111,22 @@ class AddRatingBottomSheet extends StatelessWidget {
                     width: double.infinity,
                     height: 55,
                     child: TextButton(
-                      style: kButtonThemeStyle,
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(Colors.red),
+                        shape: WidgetStateProperty.all(
+                          const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                        ),
+                        overlayColor:
+                            WidgetStateProperty.all(Colors.transparent),
+                      ),
                       onPressed: () {
                         addRatingBloc.tapOnContinue();
                       },
-                      child: Text(
-                        AppLocalizations.of(context)!.continue_,
-                        style: kRegularWhiteTextStyle,
-                      ),
+                      child: Text(AppLocalizations.of(context)!.continue_,
+                          style: context.bodyMedium!
+                              .copyWith(color: ColorRes.white)),
                     ),
                   ),
                   const SizedBox(

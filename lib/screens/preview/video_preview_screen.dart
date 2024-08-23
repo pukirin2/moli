@@ -1,14 +1,14 @@
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/const_res.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:moli/utils/color_res.dart';
+import 'package:moli/utils/const_res.dart';
+import 'package:moli/utils/extensions.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPreviewScreen extends StatefulWidget {
   const VideoPreviewScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<VideoPreviewScreen> createState() => _VideoPreviewScreenState();
@@ -72,8 +72,8 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
                     width: 38,
                     height: 38,
                     margin: const EdgeInsets.only(left: 20, top: 10),
-                    decoration: const BoxDecoration(
-                      color: ColorRes.themeColor5,
+                    decoration: BoxDecoration(
+                      color: context.colorScheme.tertiary,
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
@@ -122,7 +122,7 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
                       children: [
                         Text(
                           '${printDuration(videoPlayerController.value.position)} / ${printDuration(videoPlayerController.value.duration)}',
-                          style: kSemiBoldWhiteTextStyle,
+                          style: context.bodyMedium,
                         ),
                         const SizedBox(
                           height: 5,
@@ -130,9 +130,9 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
                         VideoProgressIndicator(
                           videoPlayerController,
                           allowScrubbing: true,
-                          colors: const VideoProgressColors(
+                          colors: VideoProgressColors(
                               backgroundColor: ColorRes.white,
-                              playedColor: ColorRes.themeColor),
+                              playedColor: context.colorScheme.primary),
                           padding: const EdgeInsets.only(bottom: 15, top: 3),
                         ),
                       ],

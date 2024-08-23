@@ -1,20 +1,22 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 import 'package:moli/bloc/login/login_bloc.dart';
 import 'package:moli/screens/login/email_login_screen.dart';
 import 'package:moli/screens/web/web_view_screen.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
+import 'package:moli/utils/extensions.dart';
 import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/route_manager.dart';
 
 class LoginOptionScreen extends StatelessWidget {
-  const LoginOptionScreen({Key? key}) : super(key: key);
+  const LoginOptionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,15 +52,13 @@ class LoginOptionScreen extends StatelessWidget {
                                   children: [
                                     const Expanded(
                                       child: Center(
-                                        child: AppLogo(
-                                          textSize: 40,
-                                        ),
+                                        child: AppLogo(textSize: 50),
                                       ),
                                     ),
                                     Text(
                                       AppLocalizations.of(context)!
                                           .signInToContinue,
-                                      style: kSemiBoldWhiteTextStyle.copyWith(
+                                      style: context.bodyLarge!.copyWith(
                                           fontWeight: FontWeight.bold),
                                     ),
                                     const SizedBox(
@@ -67,7 +67,7 @@ class LoginOptionScreen extends StatelessWidget {
                                     Text(
                                       AppLocalizations.of(context)!
                                           .findAndBookHairCutMassageSpaWaxingColoringServicesAnytime,
-                                      style: kLightWhiteTextStyle,
+                                      style: context.bodySmall,
                                     ),
                                     const SizedBox(
                                       height: 35,
@@ -117,13 +117,13 @@ class LoginOptionScreen extends StatelessWidget {
                                     Text(
                                       AppLocalizations.of(context)!
                                           .byContinuingWithAnyOptions,
-                                      style: kLightWhiteTextStyle,
+                                      style: context.bodyMedium,
                                     ),
                                     Row(children: [
                                       Text(
                                         AppLocalizations.of(context)!
                                             .youAgreeTo,
-                                        style: kLightWhiteTextStyle,
+                                        style: context.bodyMedium,
                                       ),
                                       const SizedBox(width: 5),
                                       CustomCircularInkWell(
@@ -138,14 +138,14 @@ class LoginOptionScreen extends StatelessWidget {
                                           child: Text(
                                               AppLocalizations.of(context)!
                                                   .termsOfUse,
-                                              style:
-                                                  kBoldWhiteTextStyle.copyWith(
+                                              style: context.bodyMedium!
+                                                  .copyWith(
                                                       fontSize: 15,
                                                       fontWeight:
                                                           FontWeight.bold))),
                                       const SizedBox(width: 5),
                                       Text(AppLocalizations.of(context)!.and,
-                                          style: kLightWhiteTextStyle),
+                                          style: context.bodyMedium),
                                       const SizedBox(width: 5),
                                       Expanded(
                                           child: CustomCircularInkWell(
@@ -161,7 +161,7 @@ class LoginOptionScreen extends StatelessWidget {
                                               child: Text(
                                                   AppLocalizations.of(context)!
                                                       .privacyPolicy,
-                                                  style: kBoldWhiteTextStyle
+                                                  style: context.bodyMedium!
                                                       .copyWith(
                                                           fontSize: 15,
                                                           fontWeight: FontWeight
@@ -196,12 +196,12 @@ class IconWithTextButton extends StatelessWidget {
   final Function()? onPressed;
 
   const IconWithTextButton({
-    Key? key,
+    super.key,
     required this.image,
     required this.text,
     this.iconPadding,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -223,7 +223,7 @@ class IconWithTextButton extends StatelessWidget {
             Center(
               child: Text(
                 text,
-                style: kBlackButtonTextStyle,
+                style: context.bodyLarge!.copyWith(color: ColorRes.black),
               ),
             ),
           ],

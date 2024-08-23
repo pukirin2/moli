@@ -1,6 +1,11 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:moli/bloc/edit/edit_profile_bloc.dart';
 import 'package:moli/screens/login/email_registration_screen.dart';
 import 'package:moli/screens/main/main_screen.dart';
@@ -8,15 +13,10 @@ import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:moli/utils/extensions.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  const EditProfileScreen({Key? key}) : super(key: key);
+  const EditProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,29 +42,32 @@ class EditProfileScreen extends StatelessWidget {
                             onTap: () {
                               Get.back();
                             },
-                            child: const Padding(
-                                padding: EdgeInsets.symmetric(
+                            child: Padding(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 10),
-                                child: Icon(Icons.arrow_back_rounded,
-                                    size: 30, color: ColorRes.themeColor)),
+                                child: Icon(Icons.arrow_back_ios_new_outlined,
+                                    size: 30,
+                                    color: context.colorScheme.primary)),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: Text(
                               AppLocalizations.of(context)!.editProfile,
-                              style: kBoldThemeTextStyle,
+                              style: context.bodyMedium!
+                                  .copyWith(fontWeight: FontWeight.bold),
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          const SizedBox(height: 10),
                           Container(
                               width: 120,
                               height: 120,
                               clipBehavior: Clip.hardEdge,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: ColorRes.themeColor,
+                                border: Border.all(
+                                  color: context.colorScheme.primary,
+                                  width: 2,
+                                ),
                               ),
                               padding: const EdgeInsets.all(1),
                               margin:
@@ -136,8 +139,8 @@ class EditProfileScreen extends StatelessWidget {
                           controller: editProfileBloc.fullNameTextController),
                       const SizedBox(height: 20),
                       Text(AppLocalizations.of(context)!.phoneNumberOptional,
-                          style: kLightWhiteTextStyle.copyWith(
-                              color: ColorRes.black, fontSize: 16)),
+                          style: context.bodyMedium!
+                              .copyWith(color: ColorRes.black, fontSize: 16)),
                       const SizedBox(height: 5),
                       Container(
                         decoration: BoxDecoration(
@@ -146,10 +149,10 @@ class EditProfileScreen extends StatelessWidget {
                         child: Stack(
                           children: [
                             Container(
-                                width: Get.width / 4,
+                                width: Get.width / 3,
                                 height: 50,
                                 decoration: const BoxDecoration(
-                                    color: ColorRes.nero,
+                                    color: ColorRes.smokeWhite1,
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(10),
                                         bottomLeft: Radius.circular(10)))),
@@ -169,16 +172,15 @@ class EditProfileScreen extends StatelessWidget {
                                 showFlags: true,
                                 useEmoji: true,
                               ),
-                              selectorTextStyle:
-                                  kRegularEmpressTextStyle.copyWith(
-                                color: ColorRes.white,
-                                fontSize: 18,
+                              selectorTextStyle: context.bodyMedium!.copyWith(
+                                color: ColorRes.black,
+                                fontSize: 16,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              textStyle: kRegularEmpressTextStyle.copyWith(
-                                color: ColorRes.charcoal50,
+                              textStyle: context.bodyMedium!.copyWith(
+                                color: ColorRes.black,
                               ),
-                              cursorColor: ColorRes.themeColor,
+                              cursorColor: context.colorScheme.primary,
                               keyboardAction: TextInputAction.done,
                               initialValue: PhoneNumber(
                                   dialCode: editProfileBloc.dailCode,
@@ -191,7 +193,6 @@ class EditProfileScreen extends StatelessWidget {
                               inputDecoration: const InputDecoration(
                                 border: InputBorder.none,
                                 isDense: true,
-                                contentPadding: EdgeInsets.only(left: 5),
                                 isCollapsed: false,
                                 counterText: "",
                               ),
@@ -213,12 +214,23 @@ class EditProfileScreen extends StatelessWidget {
                         width: double.infinity,
                         height: 55,
                         child: TextButton(
-                            style: kButtonThemeStyle,
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  WidgetStateProperty.all(Colors.red),
+                              shape: WidgetStateProperty.all(
+                                const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                              ),
+                              overlayColor:
+                                  WidgetStateProperty.all(Colors.transparent),
+                            ),
                             onPressed: () {
                               editProfileBloc.add(SubmitEditProfileEvent());
                             },
                             child: Text(AppLocalizations.of(context)!.submit,
-                                style: kRegularWhiteTextStyle)))))
+                                style: context.bodyMedium!
+                                    .copyWith(color: Colors.white))))))
           ]);
         })));
   }

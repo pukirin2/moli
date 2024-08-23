@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:moli/bloc/review/review_bloc.dart';
 import 'package:moli/model/review/salon_review.dart';
 import 'package:moli/model/user/salon.dart';
@@ -5,16 +9,12 @@ import 'package:moli/utils/app_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:moli/utils/extensions.dart';
 
 class SalonReviewsPage extends StatefulWidget {
   final SalonData? salonData;
 
-  const SalonReviewsPage({Key? key, required this.salonData}) : super(key: key);
+  const SalonReviewsPage({super.key, required this.salonData});
 
   @override
   State<SalonReviewsPage> createState() => _SalonReviewsPageState();
@@ -41,7 +41,7 @@ class _SalonReviewsPageState extends State<SalonReviewsPage> {
                     children: [
                       Text(
                         widget.salonData?.rating?.toStringAsFixed(1) ?? '',
-                        style: kThinWhiteTextStyle.copyWith(
+                        style: context.bodyMedium!.copyWith(
                           color: ColorRes.black,
                           fontSize: 30,
                         ),
@@ -71,8 +71,8 @@ class _SalonReviewsPageState extends State<SalonReviewsPage> {
                       ),
                       Text(
                         '${widget.salonData?.reviewsCount}  ${AppLocalizations.of(context)!.ratings}',
-                        style: kLightWhiteTextStyle.copyWith(
-                          color: ColorRes.empress,
+                        style: context.bodyMedium!.copyWith(
+                          color: context.colorScheme.outline,
                         ),
                       ),
                     ],
@@ -128,13 +128,13 @@ class _SalonReviewsPageState extends State<SalonReviewsPage> {
                                             children: [
                                               Text(
                                                 review.user?.fullname ?? '',
-                                                style: kRegularTextStyle,
+                                                style: context.bodyMedium,
                                               ),
                                               const Spacer(),
                                               Text(
                                                 AppRes.timeAgo(AppRes.parseDate(
                                                     review.createdAt ?? '')),
-                                                style: kLightWhiteTextStyle
+                                                style: context.bodyMedium!
                                                     .copyWith(
                                                   color: ColorRes.darkGray,
                                                 ),
@@ -166,9 +166,9 @@ class _SalonReviewsPageState extends State<SalonReviewsPage> {
                                           ),
                                           Text(
                                             review.comment ?? '',
-                                            style:
-                                                kLightWhiteTextStyle.copyWith(
-                                              color: ColorRes.empress,
+                                            style: context.bodyMedium!.copyWith(
+                                              color:
+                                                  context.colorScheme.outline,
                                               fontSize: 17,
                                             ),
                                           ),

@@ -2,8 +2,14 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_marker/marker_icon.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_cluster_manager_2/google_maps_cluster_manager_2.dart'
     as cluster;
+// import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:moli/model/cat/categories.dart';
 import 'package:moli/model/salonbycoordinates/salon_by_coordinates.dart';
 import 'package:moli/model/user/salon.dart';
@@ -14,12 +20,6 @@ import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
 import 'package:moli/utils/shared_pref.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
-// import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 part 'salon_on_map_event.dart';
 part 'salon_on_map_state.dart';
@@ -143,8 +143,10 @@ class SalonOnMapBloc extends Bloc<SalonOnMapEvent, SalonOnMapState> {
             }
           },
           icon: await _getMarkerBitmap(
-              cluster.isMultiple ? 125 : 75, cluster.items.toList(),
-              text: cluster.isMultiple ? cluster.count.toString() : null),
+            cluster.isMultiple ? 125 : 75,
+            cluster.items.toList(),
+            text: cluster.isMultiple ? cluster.count.toString() : null,
+          ),
         );
       };
   Map<String, GlobalKey> globalKey = {};
@@ -153,7 +155,7 @@ class SalonOnMapBloc extends Bloc<SalonOnMapEvent, SalonOnMapState> {
       {String? text}) async {
     final PictureRecorder pictureRecorder = PictureRecorder();
     final Canvas canvas = Canvas(pictureRecorder);
-    final Paint paint1 = Paint()..color = ColorRes.themeColor;
+    final Paint paint1 = Paint()..color = Colors.red;
     final Paint paint2 = Paint()..color = ColorRes.white;
 
     canvas.drawCircle(Offset(size / 2, size / 2), size / 2.0, paint1);

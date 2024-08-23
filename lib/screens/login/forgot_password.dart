@@ -1,14 +1,14 @@
-import 'package:moli/bloc/forgot/forgot_password_bloc.dart';
-import 'package:moli/screens/login/email_registration_screen.dart';
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/route_manager.dart';
+import 'package:moli/bloc/forgot/forgot_password_bloc.dart';
+import 'package:moli/screens/login/email_registration_screen.dart';
+import 'package:moli/utils/color_res.dart';
+import 'package:moli/utils/extensions.dart';
 
 class ForgotPasswordBottomSheet extends StatelessWidget {
-  const ForgotPasswordBottomSheet({Key? key}) : super(key: key);
+  const ForgotPasswordBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +16,9 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
       create: (context) => ForgotPasswordBloc(),
       child: Container(
         height: 350,
-        decoration: const BoxDecoration(
-          color: ColorRes.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+        decoration: BoxDecoration(
+          color: context.colorScheme.surface,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         child: SafeArea(
@@ -33,7 +33,8 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.forgotYourPassword,
-                        style: kBoldThemeTextStyle,
+                        style: context.titleStyleLarge!
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                       const Spacer(),
                       InkWell(
@@ -49,9 +50,9 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
                                 BorderRadius.all(Radius.circular(100)),
                           ),
                           padding: const EdgeInsets.all(5),
-                          child: const Icon(
+                          child: Icon(
                             Icons.close_rounded,
-                            color: ColorRes.themeColor,
+                            color: context.colorScheme.primary,
                           ),
                         ),
                       ),
@@ -63,7 +64,7 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
                   Text(
                     AppLocalizations.of(context)!
                         .enterYourEmailAddressOnWhichWeWillSendYouTheLinkToResetThePassword,
-                    style: kRegularTextStyle,
+                    style: context.bodyMedium,
                   ),
                   const Spacer(),
                   TextWithTextFieldSmokeWhiteWidget(
@@ -75,13 +76,23 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
                     width: double.infinity,
                     height: 55,
                     child: TextButton(
-                      style: kButtonThemeStyle,
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(Colors.red),
+                        shape: WidgetStateProperty.all(
+                          const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                        ),
+                        overlayColor:
+                            WidgetStateProperty.all(Colors.transparent),
+                      ),
                       onPressed: () {
                         forgotPasswordBloc.add(ContinueForgotPasswordEvent());
                       },
                       child: Text(
                         AppLocalizations.of(context)!.continue_,
-                        style: kRegularWhiteTextStyle,
+                        style:
+                            context.bodyMedium!.copyWith(color: Colors.white),
                       ),
                     ),
                   ),

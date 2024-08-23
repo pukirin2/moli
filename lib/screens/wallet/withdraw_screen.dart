@@ -1,14 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:moli/bloc/withdraw/withdraw_bloc.dart';
 import 'package:moli/screens/login/email_registration_screen.dart';
 import 'package:moli/utils/app_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:moli/utils/extensions.dart';
 
 class WithDrawScreen extends StatelessWidget {
-  const WithDrawScreen({Key? key}) : super(key: key);
+  const WithDrawScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +33,12 @@ class WithDrawScreen extends StatelessWidget {
                         children: [
                           Text(
                             AppLocalizations.of(context)!.amount,
-                            style: kRegularTextStyle,
+                            style: context.bodyMedium,
                           ),
                           Text(
-                            '${AppRes.currency}${withdrawBloc.userData?.wallet ?? ''}',
-                            style: kRegularThemeTextStyle.copyWith(
+                            '${withdrawBloc.userData?.wallet ?? ''} ${AppRes.currency}',
+                            style: context.bodyMedium!.copyWith(
+                              color: context.colorScheme.tertiary,
                               fontSize: 24,
                             ),
                           ),
@@ -94,13 +95,23 @@ class WithDrawScreen extends StatelessWidget {
                     width: double.infinity,
                     height: 55,
                     child: TextButton(
-                      style: kButtonThemeStyle,
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(Colors.red),
+                        shape: WidgetStateProperty.all(
+                          const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                        ),
+                        overlayColor:
+                            WidgetStateProperty.all(Colors.transparent),
+                      ),
                       onPressed: () {
-                        context.read<WithdrawBloc>().tapOnContinue();
+                        context.read<WithdrawBloc>().tapOnContinue(context);
                       },
                       child: Text(
                         AppLocalizations.of(context)!.continue_,
-                        style: kRegularWhiteTextStyle,
+                        style:
+                            context.bodyMedium!.copyWith(color: Colors.white),
                       ),
                     ),
                   ),

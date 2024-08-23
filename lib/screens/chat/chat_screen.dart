@@ -1,27 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:moli/bloc/chat/chat_bloc.dart';
-import 'package:moli/model/chat/chat.dart';
-import 'package:moli/screens/chat/bottom_selected_item_bar.dart';
-import 'package:moli/screens/chat/fancy_button.dart';
-import 'package:moli/screens/main/main_screen.dart';
-import 'package:moli/screens/preview/image_preview_screen.dart';
-import 'package:moli/screens/preview/video_preview_screen.dart';
-import 'package:moli/screens/profile/delete_account_bottom.dart';
-import 'package:moli/utils/app_res.dart';
-import 'package:moli/utils/asset_res.dart';
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/const_res.dart';
-import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/firebase_res.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:moli/bloc/chat/chat_bloc.dart';
+import 'package:moli/model/chat/chat.dart';
+import 'package:moli/screens/chat/bottom_selected_item_bar.dart';
+import 'package:moli/screens/chat/fancy_button.dart';
+import 'package:moli/screens/preview/image_preview_screen.dart';
+import 'package:moli/screens/preview/video_preview_screen.dart';
+import 'package:moli/screens/profile/delete_account_bottom.dart';
+import 'package:moli/utils/app_res.dart';
+import 'package:moli/utils/const_res.dart';
+import 'package:moli/utils/custom/custom_widget.dart';
+import 'package:moli/utils/extensions.dart';
+import 'package:moli/utils/firebase_res.dart';
 
 class ChatScreen extends StatelessWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+  const ChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +37,6 @@ class ChatScreen extends StatelessWidget {
                       duration: const Duration(milliseconds: 500),
                       opacity: chatBloc.timeStamp.isEmpty ? 1 : 0,
                       child: Container(
-                        color: ColorRes.smokeWhite,
                         padding: const EdgeInsets.symmetric(vertical: 15),
                         child: SafeArea(
                           bottom: false,
@@ -52,8 +48,10 @@ class ChatScreen extends StatelessWidget {
                                     height: 40,
                                     width: 55,
                                     padding: const EdgeInsets.all(5),
-                                    child: const Icon(Icons.arrow_back_rounded,
-                                        color: ColorRes.themeColor, size: 30)),
+                                    child: Icon(
+                                        Icons.arrow_back_ios_new_outlined,
+                                        color: context.colorScheme.primary,
+                                        size: 30)),
                               ),
                               ClipOval(
                                 child: CachedNetworkImage(
@@ -65,48 +63,6 @@ class ChatScreen extends StatelessWidget {
                                     height: 45,
                                     width: 45,
                                     fit: BoxFit.cover),
-                                // FadeInImage.assetNetwork(
-                                //   placeholder: '1',
-                                //   image:
-
-                                //   fit: BoxFit.cover,
-                                //   imageErrorBuilder:
-                                //       (context, error, stackTrace) {
-                                //     return ClipOval(
-                                //       child: Container(
-                                //         height: 45,
-                                //         width: 45,
-                                //         padding: const EdgeInsets.only(
-                                //             top: 12, left: 5, right: 5),
-                                //         color: ColorRes.smokeWhite1,
-                                //         child: const Center(
-                                //           child: Image(
-                                //             image:
-                                //                 AssetImage(AssetRes.icProfile),
-                                //           ),
-                                //         ),
-                                //       ),
-                                //     );
-                                //   },
-                                //   placeholderErrorBuilder:
-                                //       (context, error, stackTrace) {
-                                //     return ClipOval(
-                                //       child: Container(
-                                //         height: 45,
-                                //         width: 45,
-                                //         padding: const EdgeInsets.only(
-                                //             top: 12, left: 5, right: 5),
-                                //         color: ColorRes.smokeWhite1,
-                                //         child: const Center(
-                                //           child: Image(
-                                //             image:
-                                //                 AssetImage(AssetRes.icProfile),
-                                //           ),
-                                //         ),
-                                //       ),
-                                //     );
-                                //   },
-                                // ),
                               ),
                               const SizedBox(width: 10),
                               Expanded(
@@ -117,31 +73,21 @@ class ChatScreen extends StatelessWidget {
                                       chatBloc.conversation.user?.username
                                               ?.capitalize ??
                                           '',
-                                      style: kBoldThemeTextStyle.copyWith(
-                                        fontSize: 20,
-                                      ),
+                                      style: context.bodyLarge!.copyWith(
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       chatBloc.salonData?.salonAddress ??
                                           (chatBloc
                                                   .conversation.user?.address ??
                                               ''),
-                                      style: kLightWhiteTextStyle.copyWith(
-                                        color: ColorRes.black,
-                                      ),
+                                      style: context.bodyMedium!.copyWith(
+                                          color: context.colorScheme.outline),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ],
                                 ),
-                              ),
-                              // const BgRoundImageWidget(
-                              //   image: AssetRes.icMore,
-                              //   bgColor: ColorRes.smokeWhite1,
-                              //   imagePadding: 5,
-                              // ),
-                              const SizedBox(
-                                width: 10,
                               ),
                             ],
                           ),
@@ -219,8 +165,8 @@ class ChatScreen extends StatelessWidget {
                                   onLongPress: () {
                                     chatBloc.onLongPress(chatMessage);
                                   },
-                                  overlayColor: MaterialStateProperty.all(
-                                      ColorRes.transparent),
+                                  overlayColor: WidgetStateProperty.all(
+                                      Colors.transparent),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(100)),
                                   child: Container(
@@ -228,8 +174,8 @@ class ChatScreen extends StatelessWidget {
                                         horizontal: 15),
                                     width: double.infinity,
                                     color: selected
-                                        ? ColorRes.themeColor20
-                                        : ColorRes.transparent,
+                                        ? context.colorScheme.outlineVariant
+                                        : Colors.transparent,
                                     child: Column(
                                       crossAxisAlignment: chatIsFromReceiver
                                           ? CrossAxisAlignment.start
@@ -238,12 +184,17 @@ class ChatScreen extends StatelessWidget {
                                         Container(
                                           decoration: BoxDecoration(
                                             color: chatIsFromReceiver
-                                                ? ColorRes.lavender
-                                                : ColorRes.smokeWhite,
+                                                ? context
+                                                    .colorScheme.outlineVariant
+                                                    .withOpacity(.4)
+                                                : context
+                                                    .colorScheme.outlineVariant
+                                                    .withOpacity(.4),
                                             borderRadius:
                                                 const BorderRadius.all(
-                                                    Radius.circular(10)),
+                                                    Radius.circular(20)),
                                           ),
+                                          clipBehavior: Clip.hardEdge,
                                           constraints: const BoxConstraints(
                                             maxWidth: 300,
                                           ),
@@ -285,11 +236,13 @@ class ChatScreen extends StatelessWidget {
                                               ),
                                               Text(
                                                 chatMessage.msg ?? '',
-                                                style: kLightWhiteTextStyle
+                                                style: context.bodyMedium!
                                                     .copyWith(
                                                   color: chatIsFromReceiver
-                                                      ? ColorRes.themeColor
-                                                      : ColorRes.mortar,
+                                                      ? context
+                                                          .colorScheme.primary
+                                                      : context.colorScheme
+                                                          .outlineVariant,
                                                   fontSize: 15,
                                                 ),
                                               ),
@@ -304,14 +257,12 @@ class ChatScreen extends StatelessWidget {
                                                           chatMessage.id ??
                                                               '0')),
                                               locale: curentLocale),
-                                          style: kLightWhiteTextStyle.copyWith(
-                                            color: ColorRes.darkGray,
+                                          style: context.bodyMedium!.copyWith(
+                                            color: context.colorScheme.outline,
                                             fontSize: 12,
                                           ),
                                         ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
+                                        const SizedBox(height: 10),
                                       ],
                                     ),
                                   ),
@@ -321,7 +272,7 @@ class ChatScreen extends StatelessWidget {
                           ),
                           Container(
                             width: double.infinity,
-                            color: ColorRes.smokeWhite,
+                            height: 60,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 15, vertical: 10),
                             child: SafeArea(
@@ -329,71 +280,43 @@ class ChatScreen extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(100)),
-                                      child: Container(
-                                        height: 45,
-                                        color: ColorRes.smokeWhite1,
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 20),
-                                                child: TextField(
-                                                  controller:
-                                                      chatBloc.msgController,
-                                                  decoration:
-                                                      const InputDecoration(
-                                                    border: InputBorder.none,
-                                                  ),
-                                                  style: kRegularTextStyle
-                                                      .copyWith(
-                                                    color: ColorRes.charcoal50,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            CustomCircularInkWell(
-                                              onTap: () {
-                                                chatBloc.onSendBtnTap();
-                                              },
-                                              child: const BgRoundImageWidget(
-                                                image: AssetRes.icSend,
-                                                bgColor: ColorRes.themeColor,
-                                                imagePadding: 9,
-                                                height: 42,
-                                                width: 42,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                    child: TextField(
+                                      controller: chatBloc.msgController,
+                                      decoration: InputDecoration(
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                vertical: 5, horizontal: 20),
+                                        focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            borderSide: BorderSide.none),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide.none,
+                                            borderRadius:
+                                                BorderRadius.circular(50)),
+                                        filled: true,
+                                        fillColor: context
+                                            .colorScheme.outlineVariant
+                                            .withOpacity(.6),
+                                        suffixIcon: IconButton(
+                                            onPressed: () {
+                                              chatBloc.onSendBtnTap();
+                                            },
+                                            icon: Icon(
+                                              Icons.send,
+                                              size: 24,
+                                              color:
+                                                  context.colorScheme.primary,
+                                            )),
+                                        border: InputBorder.none,
                                       ),
+                                      style: context.bodyMedium!
+                                          .copyWith(fontSize: 18),
                                     ),
                                   ),
                                   const SizedBox(
                                     width: 55,
                                   ),
-
-                                  // const Image(
-                                  //   image: AssetImage(
-                                  //     AssetRes.icCirclePlus,
-                                  //   ),
-                                  //   height: 26,
-                                  //   width: 26,
-                                  // ),
-                                  // const SizedBox(
-                                  //   width: 10,
-                                  // ),
-                                  // const Image(
-                                  //   image: AssetImage(
-                                  //     AssetRes.icCamera,
-                                  //   ),
-                                  //   height: 26,
-                                  //   width: 26,
-                                  // ),
                                 ],
                               ),
                             ),

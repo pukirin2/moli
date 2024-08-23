@@ -1,17 +1,17 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:moli/bloc/searchsalon/search_salon_bloc.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/screens/fav/salon_screen.dart';
 import 'package:moli/screens/search/filter_bottom_sheet.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
+import 'package:moli/utils/extensions.dart';
 
 class SearchSalonScreen extends StatefulWidget {
-  const SearchSalonScreen({Key? key}) : super(key: key);
+  const SearchSalonScreen({super.key});
 
   @override
   State<SearchSalonScreen> createState() => _SearchSalonScreenState();
@@ -29,52 +29,56 @@ class _SearchSalonScreenState extends State<SearchSalonScreen> {
           SearchSalonBloc searchSalonBloc = context.read<SearchSalonBloc>();
           return Column(
             children: [
-              Container(
-                decoration: const BoxDecoration(
-                  color: ColorRes.smokeWhite,
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                ),
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
                     Expanded(
                       child: TextField(
                         decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: AppLocalizations.of(context)!.search,
-                            hintStyle: kRegularTextStyle.copyWith(
-                                color: ColorRes.darkGray)),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              Get.bottomSheet(
+                                FilterBottomSheet(
+                                  catId: searchSalonBloc.catId ?? '',
+                                ),
+                                isScrollControlled: true,
+                                ignoreSafeArea: false,
+                              ).then((value) {
+                                if (value != null && value is String) {
+                                  searchSalonBloc.setCatId(value);
+                                }
+                              });
+                            },
+                            icon: Icon(
+                              Icons.filter_list_outlined,
+                              size: 30,
+                              color: context.colorScheme.primary,
+                            ),
+                          ),
+                          fillColor: context.colorScheme.outlineVariant
+                              .withOpacity(.5),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100),
+                              borderSide: BorderSide.none),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100),
+                              borderSide: BorderSide.none),
+                          border: InputBorder.none,
+                          hintText: AppLocalizations.of(context)!.search,
+                          hintStyle: context.bodyMedium!
+                              .copyWith(color: context.colorScheme.outline),
+                        ),
                         focusNode: searchSalonBloc.focusNode,
                         controller: searchSalonBloc.searchController,
                         textCapitalization: TextCapitalization.sentences,
-                        style: kRegularTextStyle.copyWith(
-                            color: ColorRes.charcoal50),
+                        style: context.bodyMedium!
+                            .copyWith(color: ColorRes.charcoal50),
                         onTapOutside: (event) {
                           searchSalonBloc.onTaOutsideOfTextField();
                         },
                       ),
                     ),
-                    CustomCircularInkWell(
-                        onTap: () {
-                          Get.bottomSheet(
-                            FilterBottomSheet(
-                              catId: searchSalonBloc.catId ?? '',
-                            ),
-                            isScrollControlled: true,
-                            ignoreSafeArea: false,
-                          ).then((value) {
-                            if (value != null && value is String) {
-                              searchSalonBloc.setCatId(value);
-                            }
-                          });
-                        },
-                        child: const Icon(
-                          Icons.filter_list_outlined,
-                          size: 30,
-                          color: ColorRes.themeColor,
-                        )),
                   ],
                 ),
               ),
@@ -108,7 +112,7 @@ class _SearchSalonScreenState extends State<SearchSalonScreen> {
                                                 Text(
                                                   AppLocalizations.of(context)!
                                                       .recent,
-                                                  style: kRegularTextStyle
+                                                  style: context.bodyMedium!
                                                       .copyWith(),
                                                 ),
                                                 const Spacer(),
@@ -120,8 +124,7 @@ class _SearchSalonScreenState extends State<SearchSalonScreen> {
                                                     AppLocalizations.of(
                                                             context)!
                                                         .clearAll,
-                                                    style:
-                                                        kRegularThemeTextStyle,
+                                                    style: context.bodyMedium,
                                                   ),
                                                 ),
                                               ],
@@ -145,7 +148,8 @@ class _SearchSalonScreenState extends State<SearchSalonScreen> {
                                                     Row(
                                                       children: [
                                                         Text(data,
-                                                            style: kRegularThemeTextStyle
+                                                            style: context
+                                                                .bodyMedium!
                                                                 .copyWith(
                                                                     color: ColorRes
                                                                         .empress,
@@ -183,15 +187,18 @@ class _SearchSalonScreenState extends State<SearchSalonScreen> {
                                           ],
                                         ),
                                       ),
+                                      const SizedBox(height: 10),
                                       Visibility(
                                         visible: searchSalonBloc
                                             .searchController.text.isEmpty,
                                         child: Text(
                                           AppLocalizations.of(context)!
                                               .suggestions,
-                                          style: kSemiBoldTextStyle,
+                                          style: context.bodyMedium!.copyWith(
+                                              fontWeight: FontWeight.w300),
                                         ),
                                       ),
+                                      const SizedBox(height: 10),
                                       ListView.builder(
                                         itemCount:
                                             searchSalonBloc.salons.length,

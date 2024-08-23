@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:moli/utils/color_res.dart';
+import 'package:moli/utils/extensions.dart';
 
 class ImageSendSheet extends StatelessWidget {
   final String image;
@@ -12,11 +12,10 @@ class ImageSendSheet extends StatelessWidget {
   final TextEditingController sendMediaController;
 
   const ImageSendSheet(
-      {Key? key,
+      {super.key,
       required this.image,
       required this.onSendMediaTap,
-      required this.sendMediaController})
-      : super(key: key);
+      required this.sendMediaController});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,8 @@ class ImageSendSheet extends StatelessWidget {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.sendMedia,
-                        style: kBoldThemeTextStyle,
+                        style: context.bodyMedium!
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                       Align(
                         alignment: Alignment.centerRight,
@@ -59,9 +59,9 @@ class ImageSendSheet extends StatelessWidget {
                                   BorderRadius.all(Radius.circular(100)),
                             ),
                             padding: const EdgeInsets.all(5),
-                            child: const Icon(
+                            child: Icon(
                               Icons.close_rounded,
-                              color: ColorRes.themeColor,
+                              color: context.colorScheme.primary,
                             ),
                           ),
                         ),
@@ -105,7 +105,7 @@ class ImageSendSheet extends StatelessWidget {
                           minLines: null,
                           cursorColor: ColorRes.charcoal,
                           cursorHeight: 15,
-                          style: kMediumTextStyle.copyWith(
+                          style: context.bodyMedium!.copyWith(
                             color: ColorRes.charcoal,
                             fontSize: 16,
                           ),
@@ -130,12 +130,13 @@ class ImageSendSheet extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: ColorRes.themeColor,
+                        color: context.colorScheme.primary,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
                         AppLocalizations.of(context)!.send,
-                        style: kSemiBoldTextStyle.copyWith(
+                        style: context.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w500,
                           color: Colors.white,
                         ),
                       ),

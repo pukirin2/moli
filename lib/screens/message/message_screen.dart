@@ -1,17 +1,16 @@
-import 'package:moli/bloc/messageuser/message_user_bloc.dart';
-import 'package:moli/screens/main/main_screen.dart';
-import 'package:moli/screens/message/messages_list_widget.dart';
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:moli/bloc/messageuser/message_user_bloc.dart';
+import 'package:moli/screens/main/main_screen.dart';
+import 'package:moli/screens/message/messages_list_widget.dart';
+import 'package:moli/utils/custom/custom_widget.dart';
+import 'package:moli/utils/extensions.dart';
 
 class MessageScreen extends StatelessWidget {
   final Function()? onMenuClick;
 
-  const MessageScreen({Key? key, this.onMenuClick}) : super(key: key);
+  const MessageScreen({super.key, this.onMenuClick});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,6 @@ class MessageScreen extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            color: ColorRes.themeColor5,
             padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 15),
             child: SafeArea(
               bottom: false,
@@ -35,9 +33,9 @@ class MessageScreen extends StatelessWidget {
                   ),
                   Text(
                     AppLocalizations.of(context)!.messages,
-                    style: kLightWhiteTextStyle.copyWith(
+                    style: context.bodyMedium!.copyWith(
                       fontSize: 20,
-                      color: ColorRes.themeColor,
+                      color: context.colorScheme.primary,
                     ),
                   ),
                 ],
@@ -51,26 +49,26 @@ class MessageScreen extends StatelessWidget {
                     ? const LoadingData()
                     : Column(
                         children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                              color: ColorRes.smokeWhite,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(100)),
-                            ),
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 10),
+                          Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: TextField(
                               decoration: InputDecoration(
                                 border: InputBorder.none,
+                                filled: true,
+                                fillColor: context.colorScheme.outlineVariant
+                                    .withOpacity(.6),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                    borderSide: BorderSide.none),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                    borderSide: BorderSide.none),
                                 hintText: AppLocalizations.of(context)!.search,
-                                hintStyle: kRegularTextStyle.copyWith(
-                                  color: ColorRes.darkGray,
-                                ),
+                                hintStyle: context.bodyMedium!.copyWith(
+                                    color: context.colorScheme.outline),
                               ),
-                              style: kRegularTextStyle.copyWith(
-                                color: ColorRes.charcoal50,
-                              ),
+                              style: context.bodyMedium!
+                                  .copyWith(color: context.colorScheme.outline),
                               onChanged: (value) {
                                 context
                                     .read<MessageUserBloc>()
@@ -78,6 +76,7 @@ class MessageScreen extends StatelessWidget {
                               },
                             ),
                           ),
+                          const SizedBox(height: 10),
                           const MessagesListWidget(),
                         ],
                       ),

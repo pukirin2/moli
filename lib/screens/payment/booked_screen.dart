@@ -1,14 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:moli/screens/main/main_screen.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
+import 'package:moli/utils/extensions.dart';
 
 class AppointmentBookedScreen extends StatelessWidget {
-  const AppointmentBookedScreen({Key? key}) : super(key: key);
+  const AppointmentBookedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +28,11 @@ class AppointmentBookedScreen extends StatelessWidget {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.appointmentBooked,
-                    style: kBoldThemeTextStyle.copyWith(
-                      fontSize: 19,
-                    ),
+                    style: context.bodyMedium!
+                        .copyWith(fontWeight: FontWeight.bold)
+                        .copyWith(
+                          fontSize: 19,
+                        ),
                   ),
                   const SizedBox(
                     height: 30,
@@ -47,9 +49,9 @@ class AppointmentBookedScreen extends StatelessWidget {
           const Spacer(),
           Text(
             AppLocalizations.of(context)!.appointmentId,
-            style: kRegularTextStyle.copyWith(
+            style: context.bodyMedium!.copyWith(
               fontSize: 18,
-              color: ColorRes.themeColor,
+              color: context.colorScheme.primary,
             ),
           ),
           const SizedBox(
@@ -57,11 +59,13 @@ class AppointmentBookedScreen extends StatelessWidget {
           ),
           Text(
             '${Get.arguments}'.toUpperCase(),
-            style: kBoldThemeTextStyle.copyWith(
-              fontSize: 19,
-              color: ColorRes.themeColor,
-              fontFamily: AssetRes.fnProductSansBlack,
-            ),
+            style: context.bodyMedium!
+                .copyWith(fontWeight: FontWeight.bold)
+                .copyWith(
+                  fontSize: 19,
+                  color: context.colorScheme.primary,
+                  fontFamily: AssetRes.fnProductSansBlack,
+                ),
           ),
           const SizedBox(
             height: 40,
@@ -70,10 +74,12 @@ class AppointmentBookedScreen extends StatelessWidget {
             AppLocalizations.of(context)!
                 .yourAppointmentnhasBeenBookedSuccessfully,
             textAlign: TextAlign.center,
-            style: kBoldThemeTextStyle.copyWith(
-              fontSize: 20,
-              color: ColorRes.mortar,
-            ),
+            style: context.bodyMedium!
+                .copyWith(fontWeight: FontWeight.bold)
+                .copyWith(
+                  fontSize: 20,
+                  color: ColorRes.mortar,
+                ),
           ),
           const SizedBox(
             height: 15,
@@ -82,7 +88,7 @@ class AppointmentBookedScreen extends StatelessWidget {
             AppLocalizations.of(context)!
                 .checkAppointmentsTabnforAllYourUpcomingAppointments,
             textAlign: TextAlign.center,
-            style: kRegularTextStyle.copyWith(
+            style: context.bodyMedium!.copyWith(
               color: ColorRes.charcoal50,
               fontSize: 17,
             ),
@@ -94,16 +100,18 @@ class AppointmentBookedScreen extends StatelessWidget {
             },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 20),
-              color: ColorRes.themeColor,
+              color: context.colorScheme.primary,
               alignment: Alignment.center,
               child: SafeArea(
                 top: false,
                 child: Text(
                   AppLocalizations.of(context)!.myBookings,
-                  style: kSemiBoldTextStyle.copyWith(
-                    fontSize: 17,
-                    color: ColorRes.white,
-                  ),
+                  style: context.bodyMedium!
+                      .copyWith(fontWeight: FontWeight.w300)
+                      .copyWith(
+                        fontSize: 17,
+                        color: ColorRes.white,
+                      ),
                 ),
               ),
             ),

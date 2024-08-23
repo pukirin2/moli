@@ -1,9 +1,9 @@
-import 'package:moli/utils/app_res.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:moli/utils/app_res.dart';
 
 part 'forgot_password_event.dart';
 part 'forgot_password_state.dart';
@@ -13,12 +13,13 @@ class ForgotPasswordBloc
   ForgotPasswordBloc() : super(ForgotPasswordInitial()) {
     on<ContinueForgotPasswordEvent>((event, emit) {
       if (emailTextController.text.isEmpty) {
-        AppRes.showSnackBar(
+        AppRes.showSnackBar(Get.context!,
             AppLocalizations.of(Get.context!)!.pleaseEnterEmailAddress, false);
         return;
       }
       if (!emailTextController.text.isEmail) {
         AppRes.showSnackBar(
+            Get.context!,
             AppLocalizations.of(Get.context!)!.pleaseEnterValidEmailAddress,
             false);
         return;

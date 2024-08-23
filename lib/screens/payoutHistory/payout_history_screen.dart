@@ -1,15 +1,15 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:moli/bloc/payout/payout_history_bloc.dart';
 import 'package:moli/model/withdrawrequest/withdraw_requests.dart';
 import 'package:moli/utils/app_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:moli/utils/extensions.dart';
 
 class PayoutHistoryScreen extends StatelessWidget {
-  const PayoutHistoryScreen({Key? key}) : super(key: key);
+  const PayoutHistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +53,8 @@ class PayoutHistoryScreen extends StatelessWidget {
                                             Text(
                                               payoutHistoryData.requestNumber ??
                                                   '',
-                                              style: kMediumThemeTextStyle
-                                                  .copyWith(
+                                              style:
+                                                  context.bodyMedium!.copyWith(
                                                 fontSize: 16,
                                               ),
                                             ),
@@ -65,7 +65,7 @@ class PayoutHistoryScreen extends StatelessWidget {
                                               ),
                                               child: Text(
                                                 '${AppLocalizations.of(context)!.account}${payoutHistoryData.accountNumber ?? ''}',
-                                                style: kLightWhiteTextStyle
+                                                style: context.bodyMedium!
                                                     .copyWith(
                                                   color: ColorRes.mortar,
                                                   fontSize: 15,
@@ -80,7 +80,7 @@ class PayoutHistoryScreen extends StatelessWidget {
                                                         ''),
                                               ),
                                               style:
-                                                  kLightWhiteTextStyle.copyWith(
+                                                  context.bodyMedium!.copyWith(
                                                 color: ColorRes.mortar,
                                                 fontSize: 14,
                                               ),
@@ -93,13 +93,15 @@ class PayoutHistoryScreen extends StatelessWidget {
                                               CrossAxisAlignment.end,
                                           children: [
                                             Text(
-                                              '${AppRes.currency}${payoutHistoryData.amount}',
-                                              style:
-                                                  kBoldThemeTextStyle.copyWith(
-                                                fontSize: 18,
-                                                color: ColorRes.mortar,
-                                              ),
-                                            ),
+                                                '${payoutHistoryData.amount} ${AppRes.currency}',
+                                                style: context.bodyMedium!
+                                                    .copyWith(
+                                                        fontSize: 18,
+                                                        color:
+                                                            context.colorScheme
+                                                                .tertiary,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
                                             const SizedBox(
                                               height: 5,
                                             ),
@@ -124,7 +126,7 @@ class PayoutHistoryScreen extends StatelessWidget {
                                                 AppRes.getStringOfStatusByType(
                                                     payoutHistoryData.status ??
                                                         0),
-                                                style: kRegularWhiteTextStyle
+                                                style: context.bodyMedium!
                                                     .copyWith(
                                                   fontSize: 15,
                                                   color: AppRes

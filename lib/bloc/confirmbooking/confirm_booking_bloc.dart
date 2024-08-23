@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:moli/model/coupon/coupon.dart';
 import 'package:moli/model/order_summary.dart';
 import 'package:moli/model/setting/setting.dart';
@@ -10,9 +13,6 @@ import 'package:moli/service/api_service.dart';
 import 'package:moli/utils/app_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/shared_pref.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
 part 'confirm_booking_event.dart';
 part 'confirm_booking_state.dart';
@@ -125,7 +125,8 @@ class ConfirmBookingBloc
     int subTotal = getSubTotalAmount();
     if (coupon!.minOrderAmount!.toInt() > subTotal) {
       coupon = null;
-      AppRes.showSnackBar('Your booking amount is not enough...!', false);
+      AppRes.showSnackBar(
+          Get.context!, 'Your booking amount is not enough...!', false);
     }
     add(FetchArgumentsEvent());
   }
@@ -184,7 +185,7 @@ class ConfirmBookingBloc
         Get.offAll(() => const AppointmentBookedScreen(),
             arguments: value.data?.bookingId);
       } else {
-        AppRes.showSnackBar(value.message ?? '', false);
+        AppRes.showSnackBar(Get.context!, value.message ?? '', false);
       }
     });
   }

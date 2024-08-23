@@ -42,10 +42,10 @@
 //                 borderRadius: const BorderRadius.all(Radius.circular(10)),
 //                 gradient: LinearGradient(
 //                   colors: [
-//                     ColorRes.themeColor,
-//                     ColorRes.themeColor.withOpacity(0.9),
-//                     ColorRes.themeColor.withOpacity(0.8),
-//                     ColorRes.themeColor.withOpacity(0.6),
+//                     context.colorScheme.primary,
+//                     context.colorScheme.primary.withOpacity(0.9),
+//                     context.colorScheme.primary.withOpacity(0.8),
+//                     context.colorScheme.primary.withOpacity(0.6),
 //                   ],
 //                 ),
 //               ),
@@ -57,7 +57,7 @@
 //                     children: [
 //                       Text(
 //                         '${AppRes.currency}${salon?.data?.wallet ?? 0}',
-//                         style: kLightWhiteTextStyle.copyWith(
+//                         style: context.bodyMedium.copyWith(
 //                           fontSize: 28,
 //                           color: ColorRes.white,
 //                           letterSpacing: 1,
@@ -130,7 +130,7 @@
 //               padding: const EdgeInsets.only(left: 25, bottom: 15),
 //               child: Text(
 //                 AppLocalizations.of(context)!.statement,
-//                 style: kRegularTextStyle.copyWith(
+//                 style: context.bodyMedium.copyWith(
 //                   color: ColorRes.titleText,
 //                 ),
 //               ),
@@ -214,7 +214,7 @@
 //                   children: [
 //                     Text(
 //                       '${walletStatementData.transactionId} - ',
-//                       style: kSemiBoldThemeTextStyle.copyWith(
+//                       style: context.bodyMedium!.copyWith(fontWeight: FontWeight.w300).copyWith(
 //                         fontSize: 14,
 //                         color: ColorRes.empress,
 //                       ),
@@ -222,7 +222,7 @@
 //                     Text(
 //                       AppRes.getStringOfWalletByType(
 //                           walletStatementData.type ?? 0),
-//                       style: kRegularTextStyle.copyWith(
+//                       style: context.bodyMedium.copyWith(
 //                         color: AppRes.getColorOfWalletByType(
 //                             walletStatementData.crOrDr ?? 0),
 //                         fontSize: 14,
@@ -236,7 +236,7 @@
 //                 Text(
 //                   AppRes.formatDate(
 //                       AppRes.parseDate(walletStatementData.createdAt ?? '')),
-//                   style: kThinWhiteTextStyle.copyWith(
+//                   style: context.bodyMedium.copyWith(
 //                     fontSize: 14,
 //                     color: ColorRes.empress,
 //                   ),
@@ -246,7 +246,7 @@
 //           ),
 //           Text(
 //             '${AppRes.getPlusOrMinusOfWalletByType(walletStatementData.crOrDr ?? 0)}\$${walletStatementData.amount}',
-//             style: kBoldThemeTextStyle.copyWith(
+//             style: context.bodyMedium!.copyWith(                                              fontWeight: FontWeight.bold).copyWith(
 //               fontSize: 18,
 //               color: ColorRes.empress,
 //             ),

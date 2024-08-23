@@ -1,4 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/route_manager.dart';
 import 'package:moli/bloc/salon/salon_details_bloc.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/screens/booking/confirm_booking.dart';
@@ -9,14 +13,10 @@ import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/route_manager.dart';
+import 'package:moli/utils/extensions.dart';
 
 class SalonServicesPage extends StatefulWidget {
-  const SalonServicesPage({Key? key}) : super(key: key);
+  const SalonServicesPage({super.key});
 
   @override
   State<SalonServicesPage> createState() => _SalonServicesPageState();
@@ -59,13 +59,15 @@ class _SalonServicesPageState extends State<SalonServicesPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${AppRes.currency}${salonDetailsBloc.totalRates()}',
-                        style: kBoldThemeTextStyle,
+                        '${salonDetailsBloc.totalRates()} ${AppRes.currency}',
+                        style: context.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: context.colorScheme.tertiary),
                       ),
                       Text(
                         AppLocalizations.of(context)!.subTotal,
-                        style: kLightWhiteTextStyle.copyWith(
-                          color: ColorRes.empress,
+                        style: context.bodyMedium!.copyWith(
+                          color: context.colorScheme.outline,
                           fontSize: 14,
                         ),
                       ),
@@ -76,7 +78,16 @@ class _SalonServicesPageState extends State<SalonServicesPage> {
                   child: SizedBox(
                     height: 55,
                     child: TextButton(
-                      style: kButtonThemeStyle,
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(Colors.red),
+                        shape: WidgetStateProperty.all(
+                          const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                        ),
+                        overlayColor:
+                            WidgetStateProperty.all(Colors.transparent),
+                      ),
                       onPressed: () {
                         if (ConstRes.userIdValue == -1) {
                           Get.to(() => const LoginOptionScreen());
@@ -93,7 +104,8 @@ class _SalonServicesPageState extends State<SalonServicesPage> {
                       },
                       child: Text(
                         AppLocalizations.of(context)!.placeBooking,
-                        style: kRegularWhiteTextStyle,
+                        style:
+                            context.bodyMedium!.copyWith(color: Colors.white),
                       ),
                     ),
                   ),
@@ -112,10 +124,10 @@ class ItemSalonDetailsService extends StatelessWidget {
   final Function()? onUpdate;
 
   const ItemSalonDetailsService({
-    Key? key,
+    super.key,
     required this.categories,
     this.onUpdate,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -131,8 +143,8 @@ class ItemSalonDetailsService extends StatelessWidget {
           ),
           Text(
             categories.title?.toUpperCase() ?? '',
-            style: kLightWhiteTextStyle.copyWith(
-              color: ColorRes.themeColor,
+            style: context.bodyMedium!.copyWith(
+              color: context.colorScheme.primary,
               fontSize: 16,
               letterSpacing: 2,
             ),
@@ -158,10 +170,10 @@ class ItemSalonDetailsService extends StatelessWidget {
 
 class ItemServiceTYpeWidget extends StatefulWidget {
   const ItemServiceTYpeWidget({
-    Key? key,
+    super.key,
     this.service,
     this.onUpdate,
-  }) : super(key: key);
+  });
   final Services? service;
   final Function()? onUpdate;
 
@@ -182,7 +194,7 @@ class _ItemServiceTYpeWidgetState extends State<ItemServiceTYpeWidget> {
   @override
   Widget build(BuildContext context) {
     var price =
-        '${AppRes.currency}${AppRes.formatCurrency((widget.service?.price ?? 0) - AppRes.calculateDiscountByPercentage(widget.service?.price?.toInt() ?? 0, widget.service?.discount?.toInt() ?? 0).toInt())}';
+        '${AppRes.formatCurrency((widget.service?.price ?? 0) - AppRes.calculateDiscountByPercentage(widget.service?.price?.toInt() ?? 0, widget.service?.discount?.toInt() ?? 0).toInt())} ${AppRes.currency}';
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 8),
         decoration: const BoxDecoration(
@@ -213,8 +225,10 @@ class _ItemServiceTYpeWidgetState extends State<ItemServiceTYpeWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(widget.service?.title ?? '',
-                                style: kSemiBoldTextStyle.copyWith(
-                                    color: ColorRes.nero, fontSize: 16)),
+                                style: context.bodyMedium!
+                                    .copyWith(fontWeight: FontWeight.w300)
+                                    .copyWith(
+                                        color: ColorRes.nero, fontSize: 16)),
                             const SizedBox(height: 5),
                             Row(children: [
                               Column(
@@ -225,17 +239,20 @@ class _ItemServiceTYpeWidgetState extends State<ItemServiceTYpeWidget> {
 
                                       // Text(
                                       //     '${AppRes.currency}${(widget.service?.price?.toInt() ?? 0) - AppRes.calculateDiscountByPercentage(widget.service?.price?.toInt() ?? 0, widget.service?.discount?.toInt() ?? 0).toInt()}',
-                                      //     style: kBoldThemeTextStyle.copyWith(
+                                      //     style: context.bodyMedium!.copyWith(                                              fontWeight: FontWeight.bold).copyWith(
                                       //         fontSize: 18)),
                                       Text(price,
-                                          style: kBoldThemeTextStyle.copyWith(
-                                              fontSize: 18)),
+                                          style: context.bodyMedium!.copyWith(
+                                              color:
+                                                  context.colorScheme.tertiary,
+                                              fontWeight: FontWeight.bold)),
+
                                       Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 5),
                                           child: Text('-',
-                                              style:
-                                                  kThinWhiteTextStyle.copyWith(
+                                              style: context.bodyMedium!
+                                                  .copyWith(
                                                       color: ColorRes.mortar))),
                                       Text(
                                           AppRes.convertTimeForService(
@@ -243,8 +260,8 @@ class _ItemServiceTYpeWidgetState extends State<ItemServiceTYpeWidget> {
                                               widget.service?.serviceTime
                                                       ?.toInt() ??
                                                   0),
-                                          style: kThinWhiteTextStyle.copyWith(
-                                              color: ColorRes.mortar))
+                                          style: context.bodyMedium!
+                                              .copyWith(color: ColorRes.mortar))
                                     ]),
                                     const SizedBox(height: 5),
                                     Text(
@@ -252,8 +269,8 @@ class _ItemServiceTYpeWidgetState extends State<ItemServiceTYpeWidget> {
                                             context,
                                             widget.service?.gender?.toInt() ??
                                                 0),
-                                        style: kLightWhiteTextStyle.copyWith(
-                                            color: ColorRes.empress,
+                                        style: context.bodyMedium!.copyWith(
+                                            color: context.colorScheme.outline,
                                             fontSize: 12,
                                             letterSpacing: 2))
                                   ]),
@@ -276,10 +293,10 @@ class PlusMinusImageWidget extends StatefulWidget {
   final Services? services;
 
   const PlusMinusImageWidget({
-    Key? key,
+    super.key,
     this.onTapChange,
     this.services,
-  }) : super(key: key);
+  });
 
   @override
   State<PlusMinusImageWidget> createState() => _PlusMinusImageWidgetState();
@@ -315,7 +332,8 @@ class _PlusMinusImageWidgetState extends State<PlusMinusImageWidget> {
       child: BgRoundImageWidget(
         image: serviceIsAdded ? AssetRes.icMinus : AssetRes.icPlus,
         imagePadding: serviceIsAdded ? 11 : 7,
-        bgColor: serviceIsAdded ? ColorRes.monaLisa : ColorRes.themeColor,
+        bgColor:
+            serviceIsAdded ? ColorRes.monaLisa : context.colorScheme.primary,
         height: 35,
         width: 35,
       ),

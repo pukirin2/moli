@@ -28,7 +28,7 @@ class AssetRes {
   static const String icMassage3 = 'images/massage3.png';
   static const String icHorizontalBg = 'images/ic_horizontal_bg.png';
   static const String icHelp = 'images/ic_help.png';
-  static const String icInfo = 'images/ic_info.png';
+  // static const String icInfo = 'images/ic_info.png';
   static const String icLanguage = 'images/ic_language.png';
   static const String icLocation = 'images/ic_location.png';
   static const String icLogOut = 'images/ic_log_out.png';

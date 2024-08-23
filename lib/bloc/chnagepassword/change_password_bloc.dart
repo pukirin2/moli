@@ -1,11 +1,11 @@
-import 'package:moli/utils/app_res.dart';
-import 'package:moli/utils/const_res.dart';
-import 'package:moli/utils/shared_pref.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:moli/utils/app_res.dart';
+import 'package:moli/utils/const_res.dart';
+import 'package:moli/utils/shared_pref.dart';
 
 part 'change_password_event.dart';
 part 'change_password_state.dart';
@@ -26,29 +26,29 @@ class ChangePasswordBloc
 
   void onTapContinue() async {
     if (oldPasswordController.text.isEmpty) {
-      AppRes.showSnackBar(
+      AppRes.showSnackBar(Get.context!,
           AppLocalizations.of(Get.context!)!.pleaseEnterOldPassword, false);
       return;
     }
     SharePref sharePref = await SharePref().init();
     String? oldPass = sharePref.getString(ConstRes.password);
     if (oldPass != oldPasswordController.text) {
-      AppRes.showSnackBar(
+      AppRes.showSnackBar(Get.context!,
           AppLocalizations.of(Get.context!)!.oldPasswordIsWrong, false);
       return;
     }
     if (newPasswordController.text.isEmpty) {
-      AppRes.showSnackBar(
+      AppRes.showSnackBar(Get.context!,
           AppLocalizations.of(Get.context!)!.pleaseEnterNewPassword, false);
       return;
     }
     if (confirmPasswordController.text.isEmpty) {
-      AppRes.showSnackBar(
+      AppRes.showSnackBar(Get.context!,
           AppLocalizations.of(Get.context!)!.pleaseEnterConfirmPassword, false);
       return;
     }
     if (confirmPasswordController.text != newPasswordController.text) {
-      AppRes.showSnackBar(
+      AppRes.showSnackBar(Get.context!,
           AppLocalizations.of(Get.context!)!.passwordDoesNotMatch, false);
       return;
     }
@@ -66,7 +66,8 @@ class ChangePasswordBloc
         case "wrong-password":
         case "user-not-found":
           {
-            AppRes.showSnackBar("Wrong email address or password.", false);
+            AppRes.showSnackBar(
+                Get.context!, "Wrong email address or password.", false);
             break;
           }
         case "too-many-requests":

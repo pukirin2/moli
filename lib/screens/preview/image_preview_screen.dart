@@ -1,14 +1,14 @@
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/const_res.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:moli/utils/color_res.dart';
+import 'package:moli/utils/const_res.dart';
+import 'package:moli/utils/extensions.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ImagePreviewScreen extends StatelessWidget {
   final String? imageUrl;
 
-  const ImagePreviewScreen({Key? key, required this.imageUrl})
-      : super(key: key);
+  const ImagePreviewScreen({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,12 @@ class ImagePreviewScreen extends StatelessWidget {
                 width: 38,
                 height: 38,
                 margin: const EdgeInsets.only(left: 20, top: 10),
-                decoration: const BoxDecoration(
-                  color: ColorRes.themeColor5,
+                decoration: BoxDecoration(
+                  color: context.colorScheme.tertiary,
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
-                  Icons.arrow_back_rounded,
+                  Icons.arrow_back_ios_new_outlined,
                   color: ColorRes.white,
                   size: 18,
                 ),

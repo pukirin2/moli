@@ -1,17 +1,17 @@
-import 'package:moli/bloc/filter/filter_bloc.dart';
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:moli/bloc/filter/filter_bloc.dart';
+import 'package:moli/utils/color_res.dart';
+import 'package:moli/utils/custom/custom_widget.dart';
+import 'package:moli/utils/extensions.dart';
 
 class FilterBottomSheet extends StatelessWidget {
   const FilterBottomSheet({
-    Key? key,
+    super.key,
     required this.catId,
-  }) : super(key: key);
+  });
   final String catId;
 
   @override
@@ -38,12 +38,13 @@ class FilterBottomSheet extends StatelessWidget {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.filters,
-                        style: kBoldThemeTextStyle,
+                        style: context.bodyMedium!
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                       Text(
                         AppLocalizations.of(context)!
                             .applyFiltersAccordingToYourNeed,
-                        style: kLightWhiteTextStyle.copyWith(
+                        style: context.bodyMedium!.copyWith(
                           color: ColorRes.subTitleText,
                           fontSize: 16,
                         ),
@@ -71,9 +72,9 @@ class FilterBottomSheet extends StatelessWidget {
                                 BorderRadius.all(Radius.circular(100)),
                           ),
                           padding: const EdgeInsets.all(5),
-                          child: const Icon(
+                          child: Icon(
                             Icons.close_rounded,
-                            color: ColorRes.themeColor,
+                            color: context.colorScheme.primary,
                           ),
                         ),
                       );
@@ -86,7 +87,8 @@ class FilterBottomSheet extends StatelessWidget {
               ),
               Text(
                 AppLocalizations.of(context)!.categories,
-                style: kSemiBoldTextStyle,
+                style:
+                    context.bodyMedium!.copyWith(fontWeight: FontWeight.w300),
               ),
               const SizedBox(
                 height: 10,
@@ -102,8 +104,8 @@ class FilterBottomSheet extends StatelessWidget {
 
 class CategoriesWidget extends StatefulWidget {
   const CategoriesWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<CategoriesWidget> createState() => _CategoriesWidgetState();
@@ -143,11 +145,11 @@ class ItemFilterWidget extends StatelessWidget {
   final Function()? onTap;
 
   const ItemFilterWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.filterIsSelected,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -158,8 +160,9 @@ class ItemFilterWidget extends StatelessWidget {
           color: filterIsSelected ? ColorRes.lavender : ColorRes.smokeWhite,
           borderRadius: const BorderRadius.all(Radius.circular(100)),
           border: Border.all(
-            color:
-                filterIsSelected ? ColorRes.themeColor : ColorRes.transparent,
+            color: filterIsSelected
+                ? context.colorScheme.primary
+                : ColorRes.transparent,
             width: 1,
           ),
         ),
@@ -170,10 +173,14 @@ class ItemFilterWidget extends StatelessWidget {
         margin: const EdgeInsets.only(right: 10, bottom: 10),
         child: Text(
           title,
-          style: kSemiBoldTextStyle.copyWith(
-            fontSize: 16,
-            color: filterIsSelected ? ColorRes.themeColor : ColorRes.empress,
-          ),
+          style: context.bodyMedium!
+              .copyWith(fontWeight: FontWeight.w300)
+              .copyWith(
+                fontSize: 16,
+                color: filterIsSelected
+                    ? context.colorScheme.primary
+                    : context.colorScheme.outline,
+              ),
         ),
       ),
     );
@@ -184,9 +191,9 @@ class CloseButtonWidget extends StatelessWidget {
   final Function()? onTap;
 
   const CloseButtonWidget({
-    Key? key,
+    super.key,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -198,14 +205,14 @@ class CloseButtonWidget extends StatelessWidget {
       child: Container(
         height: 35,
         width: 35,
-        decoration: const BoxDecoration(
-          color: ColorRes.lavender,
-          borderRadius: BorderRadius.all(Radius.circular(100)),
+        decoration: BoxDecoration(
+          color: context.colorScheme.primaryContainer,
+          borderRadius: const BorderRadius.all(Radius.circular(100)),
         ),
         padding: const EdgeInsets.all(5),
-        child: const Icon(
+        child: Icon(
           Icons.close_rounded,
-          color: ColorRes.themeColor,
+          color: context.colorScheme.primary,
         ),
       ),
     );

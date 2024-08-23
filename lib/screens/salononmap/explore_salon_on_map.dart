@@ -1,17 +1,17 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:moli/bloc/salononmap/salon_on_map_bloc.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/screens/fav/salon_screen.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:moli/utils/extensions.dart';
 
 class SalonOnMapScreen extends StatelessWidget {
-  const SalonOnMapScreen({Key? key}) : super(key: key);
+  const SalonOnMapScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -109,10 +109,10 @@ class SalonOnMapScreen extends StatelessWidget {
                           child: Container(
                             height: 45,
                             width: 45,
-                            decoration: const BoxDecoration(
-                                color: ColorRes.themeColor,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(100))),
+                            decoration: BoxDecoration(
+                                color: context.colorScheme.primary,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(100))),
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 10),
                             child: const Image(
@@ -140,7 +140,7 @@ class SalonOnMapScreen extends StatelessWidget {
 }
 
 class CategoriesFilterMapWidget extends StatefulWidget {
-  const CategoriesFilterMapWidget({Key? key}) : super(key: key);
+  const CategoriesFilterMapWidget({super.key});
 
   @override
   State<CategoriesFilterMapWidget> createState() =>
@@ -195,11 +195,11 @@ class ItemFilterWidget extends StatelessWidget {
   final Function()? onTap;
 
   const ItemFilterWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.filterIsSelected,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -210,7 +210,9 @@ class ItemFilterWidget extends StatelessWidget {
           color: filterIsSelected ? ColorRes.lavender : ColorRes.smokeWhite,
           borderRadius: const BorderRadius.all(Radius.circular(100)),
           border: Border.all(
-            color: filterIsSelected ? ColorRes.themeColor : ColorRes.empress,
+            color: filterIsSelected
+                ? context.colorScheme.primary
+                : context.colorScheme.outline,
             width: 1,
           ),
         ),
@@ -226,10 +228,14 @@ class ItemFilterWidget extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: kSemiBoldTextStyle.copyWith(
-              fontSize: 14,
-              color: filterIsSelected ? ColorRes.themeColor : ColorRes.empress,
-            ),
+            style: context.bodyMedium!
+                .copyWith(fontWeight: FontWeight.w300)
+                .copyWith(
+                  fontSize: 14,
+                  color: filterIsSelected
+                      ? context.colorScheme.primary
+                      : context.colorScheme.outline,
+                ),
           ),
         ),
       ),

@@ -1,12 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/screens/home/top_rated_salon.dart';
-import 'package:flutter/material.dart';
 
 class NearBySalonsWidget extends StatelessWidget {
   const NearBySalonsWidget({
-    Key? key,
+    super.key,
     required this.nearBySalons,
-  }) : super(key: key);
+  });
   final List<SalonData> nearBySalons;
 
   @override

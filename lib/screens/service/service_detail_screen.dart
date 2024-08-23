@@ -1,4 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:moli/bloc/service/service_details_bloc.dart';
 import 'package:moli/model/service/services.dart';
 import 'package:moli/model/service/services_details.dart';
@@ -13,16 +18,11 @@ import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
+import 'package:moli/utils/extensions.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ServiceDetailScreen extends StatefulWidget {
-  const ServiceDetailScreen({Key? key}) : super(key: key);
+  const ServiceDetailScreen({super.key});
 
   @override
   State<ServiceDetailScreen> createState() => _ServiceDetailScreenState();
@@ -102,8 +102,8 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                                   children: [
                                     Text(
                                       serviceDetails?.data?.about ?? '',
-                                      style: kLightWhiteTextStyle.copyWith(
-                                        color: ColorRes.empress,
+                                      style: context.bodyMedium!.copyWith(
+                                        color: context.colorScheme.outline,
                                         fontSize: 17,
                                       ),
                                     ),
@@ -112,7 +112,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                                     ),
                                     Text(
                                       AppLocalizations.of(context)!.offeredBy,
-                                      style: kRegularThemeTextStyle,
+                                      style: context.bodyMedium,
                                     ),
                                     ItemSalon(
                                       salonData: serviceDetails?.data?.salon,
@@ -126,7 +126,17 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                               height: 55,
                               width: double.infinity,
                               child: TextButton(
-                                style: kButtonThemeStyle,
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      WidgetStateProperty.all(Colors.red),
+                                  shape: WidgetStateProperty.all(
+                                    const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
+                                  ),
+                                  overlayColor: WidgetStateProperty.all(
+                                      ColorRes.transparent),
+                                ),
                                 onPressed: () {
                                   if (ConstRes.userIdValue == -1) {
                                     Get.to(() => const LoginOptionScreen());
@@ -142,7 +152,9 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                                 },
                                 child: Text(
                                   AppLocalizations.of(context)!.bookService,
-                                  style: kRegularWhiteTextStyle,
+                                  style: context.bodyMedium!.copyWith(
+                                      color: ColorRes.white,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
@@ -167,11 +179,11 @@ class TopBarOfServiceDetails extends StatelessWidget {
   final UserData? userData;
 
   const TopBarOfServiceDetails({
-    Key? key,
+    super.key,
     required this.toolbarIsExpand,
     this.serviceDetails,
     this.userData,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -180,11 +192,11 @@ class TopBarOfServiceDetails extends StatelessWidget {
       expandedHeight: MediaQuery.of(context).size.width + 40,
       pinned: true,
       floating: true,
-      backgroundColor: ColorRes.smokeWhite,
+      backgroundColor: Colors.transparent,
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BgRoundIconWidget(
-          icon: Icons.arrow_back_rounded,
+          icon: Icons.arrow_back_ios_new_outlined,
           imagePadding: 6,
           iconColor: !toolbarIsExpand ? ColorRes.mortar : ColorRes.white,
           bgColor: !toolbarIsExpand
@@ -196,12 +208,13 @@ class TopBarOfServiceDetails extends StatelessWidget {
       elevation: 0,
       title: Text(
         !toolbarIsExpand ? (serviceDetails?.data?.title ?? '') : '',
-        style:
-            kSemiBoldTextStyle.copyWith(color: ColorRes.mortar, fontSize: 18),
+        style: context.bodyMedium!.copyWith(
+            fontWeight: FontWeight.w300,
+            color: context.colorScheme.outline,
+            fontSize: 18),
       ),
-      titleTextStyle: kSemiBoldTextStyle.copyWith(
-        color: ColorRes.mortar,
-      ),
+      titleTextStyle: context.bodyMedium!.copyWith(
+          fontWeight: FontWeight.w300, color: context.colorScheme.outline),
       actions: [
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -286,164 +299,158 @@ class TopBarOfServiceDetails extends StatelessWidget {
                     Column(
                       children: [
                         const Spacer(),
-                        Stack(
-                          children: [
-                            Positioned(
-                              top: 15,
-                              left: 0,
-                              right: 0,
-                              bottom: -5,
-                              child: Container(
-                                color: ColorRes.smokeWhite,
-                                height: 12,
-                              ),
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  decoration: const BoxDecoration(
-                                    color: ColorRes.themeColor,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(100),
-                                    ),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 15,
-                                    vertical: 8,
-                                  ),
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Text(
-                                    AppRes.getGenderTypeInStringFromNumber(
-                                        context,
-                                        serviceDetails?.data?.gender ?? 0),
-                                    style: kLightWhiteTextStyle.copyWith(
-                                      letterSpacing: 2,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  decoration: const BoxDecoration(
-                                    color: ColorRes.themeColor,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(100),
-                                    ),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 15,
-                                    vertical: 8,
-                                  ),
-                                  child: Text(
-                                    AppRes.convertTimeForService(context,
-                                        serviceDetails?.data?.serviceTime ?? 0),
-                                    style: kLightWhiteTextStyle.copyWith(
-                                      letterSpacing: 1,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Container(
-                          width: double.infinity,
-                          color: ColorRes.smokeWhite,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                serviceDetails?.data?.title ?? '',
-                                style: kBoldWhiteTextStyle.copyWith(
-                                  color: ColorRes.charcoal,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                '${AppLocalizations.of(context)!.by} ${serviceDetails?.data?.salon?.salonName ?? ''}',
-                                style: kThinWhiteTextStyle.copyWith(
-                                  color: ColorRes.titleText,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Card(
+                            color: context.colorScheme.surface,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 15, left: 15, top: 30, bottom: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${AppRes.currency}${AppRes.formatCurrency((serviceDetails?.data?.price ?? 0) - AppRes.calculateDiscountByPercentage(serviceDetails?.data?.price?.toInt() ?? 0, serviceDetails?.data?.discount?.toInt() ?? 0).toInt())}',
-                                    style: kBoldThemeTextStyle.copyWith(
-                                      fontSize: 24,
+                                    serviceDetails?.data?.title ?? '',
+                                    style: context.titleStyleMedium!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    '${AppLocalizations.of(context)!.by} ${serviceDetails?.data?.salon?.salonName ?? ''}',
+                                    style: context.bodyMedium!.copyWith(
+                                        fontSize: 16,
+                                        color: context.bodyMedium!.color!
+                                            .withOpacity(.5)),
                                   ),
-                                  Visibility(
-                                    visible: serviceDetails?.data?.discount !=
-                                            null &&
-                                        serviceDetails?.data?.discount != 0,
-                                    child: Text(
-                                      '${AppRes.currency}${AppRes.formatCurrency(serviceDetails?.data?.price ?? 0)}',
-                                      style: kLightWhiteTextStyle.copyWith(
-                                        color: ColorRes.empress,
-                                        decoration: TextDecoration.lineThrough,
-                                        fontSize: 24,
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        ' ${AppRes.formatCurrency((serviceDetails?.data?.price ?? 0) - AppRes.calculateDiscountByPercentage(serviceDetails?.data?.price?.toInt() ?? 0, serviceDetails?.data?.discount?.toInt() ?? 0).toInt())} ${AppRes.currency}',
+                                        style: context.bodyMedium!.copyWith(
+                                            color: context.colorScheme.tertiary,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 24),
                                       ),
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  Visibility(
-                                    visible: serviceDetails?.data?.discount !=
-                                            null &&
-                                        serviceDetails?.data?.discount != 0,
-                                    child: Container(
-                                      decoration: const BoxDecoration(
-                                        color: ColorRes.pumpkin15,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(100)),
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 4,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          const Image(
-                                            image: AssetImage(AssetRes.icTag),
-                                            color: ColorRes.pumpkin,
-                                            height: 20,
-                                            width: 20,
+                                      const SizedBox(width: 10),
+                                      Visibility(
+                                        visible: serviceDetails
+                                                    ?.data?.discount !=
+                                                null &&
+                                            serviceDetails?.data?.discount != 0,
+                                        child: Text(
+                                          '${AppRes.formatCurrency(serviceDetails?.data?.price ?? 0)} ${AppRes.currency}',
+                                          style: context.bodyMedium!.copyWith(
+                                            color: context.colorScheme.tertiary
+                                                .withOpacity(.5),
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                            fontSize: 24,
                                           ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            '-${serviceDetails?.data?.discount}%',
-                                            style: kRegularTextStyle.copyWith(
-                                              color: ColorRes.pumpkin,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
+                                      const Spacer(),
+                                      Visibility(
+                                        visible: serviceDetails
+                                                    ?.data?.discount !=
+                                                null &&
+                                            serviceDetails?.data?.discount != 0,
+                                        child: Container(
+                                          decoration: const BoxDecoration(
+                                            color: ColorRes.pumpkin15,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(100)),
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 8,
+                                            vertical: 4,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              const Image(
+                                                image:
+                                                    AssetImage(AssetRes.icTag),
+                                                color: ColorRes.pumpkin,
+                                                height: 20,
+                                                width: 20,
+                                              ),
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                '-${serviceDetails?.data?.discount}%',
+                                                style: context.bodyMedium!
+                                                    .copyWith(
+                                                  color: ColorRes.pumpkin,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ],
+                    ),
+                    Positioned(
+                      bottom: 118,
+                      left: 20,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: context.colorScheme.primary,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(100),
+                              ),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                              vertical: 8,
+                            ),
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              AppRes.getGenderTypeInStringFromNumber(
+                                  context, serviceDetails?.data?.gender ?? 0),
+                              style: context.bodyMedium!.copyWith(
+                                color: ColorRes.white,
+                                letterSpacing: 2,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: context.colorScheme.primary,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(100)),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                              vertical: 8,
+                            ),
+                            child: Text(
+                              AppRes.convertTimeForService(context,
+                                  serviceDetails?.data?.serviceTime ?? 0),
+                              style: context.bodyMedium!.copyWith(
+                                color: ColorRes.white,
+                                letterSpacing: 1,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -495,8 +502,9 @@ class _ToggleImageWidgetState extends State<ToggleImageWidget> {
       image:
           (isFav != null && isFav!) ? AssetRes.icFav : AssetRes.icUnFavourite,
       imagePadding: (isFav != null && isFav!) ? 9 : 10,
-      imageColor:
-          (isFav != null && isFav!) ? ColorRes.themeColor : ColorRes.mortar1,
+      imageColor: (isFav != null && isFav!)
+          ? context.colorScheme.primary
+          : ColorRes.mortar1,
       bgColor: !widget.toolbarIsExpand
           ? ColorRes.smokeWhite1
           : ColorRes.lavender.withOpacity(0.5),

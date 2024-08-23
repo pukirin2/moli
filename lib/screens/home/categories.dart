@@ -1,12 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:moli/model/home/home_page_data.dart';
-import 'package:moli/screens/categories/salon_by_cat_screen.dart';
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/const_res.dart';
-import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:moli/model/home/home_page_data.dart';
+import 'package:moli/screens/categories/salon_by_cat_screen.dart';
+import 'package:moli/utils/const_res.dart';
+import 'package:moli/utils/custom/custom_widget.dart';
+import 'package:moli/utils/extensions.dart';
 
 class CategoriesGridWidget extends StatelessWidget {
   final List<Categories> categories;
@@ -40,10 +39,9 @@ class CategoriesGridWidget extends StatelessWidget {
                 arguments: category,
               );
             },
-            child: Container(
-              decoration: BoxDecoration(
-                  color: ColorRes.lavender.withOpacity(0.5),
-                  borderRadius: const BorderRadius.all(Radius.circular(10))),
+            child: Card(
+              elevation: 1,
+              surfaceTintColor: context.colorScheme.onSurface,
               margin: const EdgeInsets.all(2.5),
               child: Column(
                 children: [
@@ -65,11 +63,8 @@ class CategoriesGridWidget extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 12),
                     child: Text(
                       category.title ?? '',
-                      style: kRegularThemeTextStyle.copyWith(
-                        // color: ColorRes.themeColor.withOpacity(0.9),
-                        color: ColorRes.black,
+                      style: context.bodyMedium!.copyWith(
                         fontSize: 14,
-                        // fontWeight: FontWeight.bold
                       ),
                     ),
                   ),

@@ -1,23 +1,23 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/screens/salon/salon_details_screen.dart';
 import 'package:moli/utils/app_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:get/get.dart';
+import 'package:moli/utils/extensions.dart';
 
 class TopRatedSalonsWidget extends StatelessWidget {
   const TopRatedSalonsWidget({
-    Key? key,
+    super.key,
     required this.topRatedSalons,
-  }) : super(key: key);
+  });
   final List<SalonData> topRatedSalons;
 
   @override
@@ -46,8 +46,8 @@ class ItemTopRatedSalon extends StatelessWidget {
 
   const ItemTopRatedSalon(
     this.salonData, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -91,35 +91,26 @@ class ItemTopRatedSalon extends StatelessWidget {
                               child: Container(
                                 width: double.infinity,
                                 color: ColorRes.black.withOpacity(.4),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 15,
-                                ),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(
-                                      height: 25,
-                                    ),
+                                    const SizedBox(height: 25),
                                     Text(
                                       salonData.salonName ?? '',
-                                      style: kSemiBoldWhiteTextStyle.copyWith(
-                                        fontSize: 17,
-                                      ),
+                                      style: context.titleStyleMedium!.copyWith(
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
+                                    const SizedBox(height: 5),
                                     Text(
                                       salonData.salonAddress ?? '',
-                                      style: kThinWhiteTextStyle,
+                                      style: context.bodySmall,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     Visibility(
                                       visible: salonData.rating != 0,
-                                      replacement: const SizedBox(
-                                        height: 26,
-                                      ),
                                       child: RatingBar(
                                         initialRating:
                                             salonData.rating?.toDouble() ?? 0,
@@ -145,14 +136,11 @@ class ItemTopRatedSalon extends StatelessWidget {
                                       alignment: AlignmentDirectional.centerEnd,
                                       child: Text(
                                         '${AppRes.calculateDistance(double.parse(salonData.salonLat ?? '0'), double.parse(salonData.salonLong ?? '0'))} Km ',
-                                        style: kLightWhiteTextStyle.copyWith(
-                                          fontSize: 12,
-                                        ),
+                                        style: context.bodyMedium!
+                                            .copyWith(fontSize: 12),
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 12,
-                                    ),
+                                    const SizedBox(height: 12),
                                   ],
                                 ),
                               ),
@@ -191,7 +179,7 @@ class ItemTopRatedSalon extends StatelessWidget {
                                       AppLocalizations.of(context)!
                                           .topRated
                                           .toUpperCase(),
-                                      style: kLightWhiteTextStyle.copyWith(
+                                      style: context.bodyMedium!.copyWith(
                                         fontSize: 12,
                                         letterSpacing: 1,
                                       ),

@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:moli/bloc/searchservice/search_service_bloc.dart';
 import 'package:moli/model/service/services.dart';
 import 'package:moli/model/user/salon.dart' as salon;
@@ -5,14 +9,10 @@ import 'package:moli/screens/fav/service_screen.dart';
 import 'package:moli/screens/search/filter_bottom_sheet.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/route_manager.dart';
+import 'package:moli/utils/extensions.dart';
 
 class SearchServiceScreen extends StatefulWidget {
-  const SearchServiceScreen({Key? key}) : super(key: key);
+  const SearchServiceScreen({super.key});
 
   @override
   State<SearchServiceScreen> createState() => _SearchServiceScreenState();
@@ -31,54 +31,53 @@ class _SearchServiceScreenState extends State<SearchServiceScreen> {
               context.read<SearchServiceBloc>();
           return Column(
             children: [
-              Container(
-                decoration: const BoxDecoration(
-                  color: ColorRes.smokeWhite,
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                ),
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
                     Expanded(
                       child: TextField(
                         decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                Get.bottomSheet(
+                                  FilterBottomSheet(
+                                      catId: searchServiceBloc.catId ?? ''),
+                                  isScrollControlled: true,
+                                  ignoreSafeArea: false,
+                                ).then((value) {
+                                  if (value != null && value is String) {
+                                    searchServiceBloc.setCatId(value);
+                                  }
+                                });
+                              },
+                              icon: Icon(
+                                Icons.filter_list_outlined,
+                                size: 30,
+                                color: context.colorScheme.primary,
+                              )),
+                          fillColor: context.colorScheme.outlineVariant
+                              .withOpacity(.5),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100),
+                              borderSide: BorderSide.none),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100),
+                              borderSide: BorderSide.none),
                           border: InputBorder.none,
                           hintText: AppLocalizations.of(context)!.search,
-                          hintStyle: kRegularTextStyle.copyWith(
-                            color: ColorRes.darkGray,
-                          ),
+                          hintStyle: context.bodyMedium!
+                              .copyWith(color: context.colorScheme.outline),
                         ),
                         focusNode: searchServiceBloc.focusNode,
                         controller: searchServiceBloc.searchController,
                         textCapitalization: TextCapitalization.sentences,
-                        style: kRegularTextStyle.copyWith(
-                          color: ColorRes.charcoal50,
-                        ),
+                        style: context.bodyMedium!,
                         onTapOutside: (event) {
                           searchServiceBloc.onTaOutsideOfTextField();
                         },
                       ),
                     ),
-                    CustomCircularInkWell(
-                        onTap: () {
-                          Get.bottomSheet(
-                            FilterBottomSheet(
-                                catId: searchServiceBloc.catId ?? ''),
-                            isScrollControlled: true,
-                            ignoreSafeArea: false,
-                          ).then((value) {
-                            if (value != null && value is String) {
-                              searchServiceBloc.setCatId(value);
-                            }
-                          });
-                        },
-                        child: const Icon(
-                          Icons.filter_list_outlined,
-                          size: 30,
-                          color: ColorRes.themeColor,
-                        )),
                   ],
                 ),
               ),
@@ -116,7 +115,7 @@ class _SearchServiceScreenState extends State<SearchServiceScreen> {
                                                 Text(
                                                   AppLocalizations.of(context)!
                                                       .recent,
-                                                  style: kRegularTextStyle
+                                                  style: context.bodyMedium!
                                                       .copyWith(),
                                                 ),
                                                 const Spacer(),
@@ -129,8 +128,7 @@ class _SearchServiceScreenState extends State<SearchServiceScreen> {
                                                     AppLocalizations.of(
                                                             context)!
                                                         .clearAll,
-                                                    style:
-                                                        kRegularThemeTextStyle,
+                                                    style: context.bodyMedium,
                                                   ),
                                                 ),
                                               ],
@@ -155,9 +153,9 @@ class _SearchServiceScreenState extends State<SearchServiceScreen> {
                                                       children: [
                                                         Text(
                                                           data,
-                                                          style:
-                                                              kRegularThemeTextStyle
-                                                                  .copyWith(
+                                                          style: context
+                                                              .bodyMedium!
+                                                              .copyWith(
                                                             color: ColorRes
                                                                 .empress,
                                                             fontSize: 17,
@@ -195,15 +193,19 @@ class _SearchServiceScreenState extends State<SearchServiceScreen> {
                                           ],
                                         ),
                                       ),
+                                      const SizedBox(height: 10),
                                       Visibility(
                                         visible: searchServiceBloc
                                             .searchController.text.isEmpty,
                                         child: Text(
                                           AppLocalizations.of(context)!
                                               .suggestions,
-                                          style: kSemiBoldTextStyle,
+                                          style: context.titleStyleMedium!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold),
                                         ),
                                       ),
+                                      const SizedBox(height: 5),
                                       ListView.builder(
                                         itemCount:
                                             searchServiceBloc.services.length,
@@ -238,9 +240,9 @@ class ItemPopularSearch extends StatelessWidget {
   final String title;
 
   const ItemPopularSearch({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -256,9 +258,10 @@ class ItemPopularSearch extends StatelessWidget {
       margin: const EdgeInsets.only(right: 10, bottom: 10),
       child: Text(
         title,
-        style: kSemiBoldThemeTextStyle.copyWith(
-          fontSize: 16,
-        ),
+        style:
+            context.bodyMedium!.copyWith(fontWeight: FontWeight.w300).copyWith(
+                  fontSize: 16,
+                ),
       ),
     );
   }

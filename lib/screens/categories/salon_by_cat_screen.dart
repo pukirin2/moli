@@ -1,6 +1,11 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 import 'package:moli/bloc/salonbycat/salon_by_cat_bloc.dart';
 import 'package:moli/model/home/home_page_data.dart' as home_data;
 import 'package:moli/model/user/salon.dart';
@@ -10,15 +15,10 @@ import 'package:moli/screens/toprated/top_rated_salon_screen.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:get/get.dart';
+import 'package:moli/utils/extensions.dart';
 
 class CategoryDetailScreen extends StatelessWidget {
-  const CategoryDetailScreen({Key? key}) : super(key: key);
+  const CategoryDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,6 @@ class CategoryDetailScreen extends StatelessWidget {
             BlocBuilder<SalonByCatBloc, SalonByCatState>(
               builder: (context, state) {
                 SalonByCatBloc salonByCatBloc = context.read<SalonByCatBloc>();
-
                 return state is FetchSalonByCatState
                     ? salonByCatBloc.topRatedSalons.isEmpty &&
                             salonByCatBloc.services.isEmpty
@@ -75,8 +74,8 @@ class CategoryDetailScreen extends StatelessWidget {
                                                   AppLocalizations.of(context)!
                                                       .topRated
                                                       .toUpperCase(),
-                                                  style:
-                                                      kMediumTextStyle.copyWith(
+                                                  style: context.bodyMedium!
+                                                      .copyWith(
                                                     color: ColorRes.white,
                                                     fontSize: 14,
                                                   ),
@@ -85,7 +84,7 @@ class CategoryDetailScreen extends StatelessWidget {
                                               Text(
                                                 AppLocalizations.of(context)!
                                                     .salons,
-                                                style: kRegularTextStyle,
+                                                style: context.bodyMedium,
                                               ),
                                               const Spacer(),
                                               CustomCircularInkWell(
@@ -95,14 +94,25 @@ class CategoryDetailScreen extends StatelessWidget {
                                                           const TopRatedSalonScreen(),
                                                       arguments: Get.arguments);
                                                 },
-                                                child: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .seeAll,
-                                                  style: kLightWhiteTextStyle
-                                                      .copyWith(
-                                                    color: ColorRes.empress,
-                                                    fontSize: 18,
-                                                  ),
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .seeAll,
+                                                        style: context
+                                                            .bodySmall!
+                                                            .copyWith(
+                                                                color: ColorRes
+                                                                    .empress)),
+                                                    const SizedBox(width: 3),
+                                                    Icon(
+                                                      Icons.arrow_forward_ios,
+                                                      size: 8,
+                                                      color: context
+                                                          .colorScheme.outline,
+                                                    )
+                                                  ],
                                                 ),
                                               ),
                                               const SizedBox(
@@ -116,8 +126,9 @@ class CategoryDetailScreen extends StatelessWidget {
                                             child: Text(
                                               'Offering best ${salonByCatBloc.category.title} services',
                                               style:
-                                                  kLightWhiteTextStyle.copyWith(
-                                                color: ColorRes.empress,
+                                                  context.bodyMedium!.copyWith(
+                                                color:
+                                                    context.colorScheme.outline,
                                                 fontSize: 18,
                                               ),
                                             ),
@@ -157,7 +168,7 @@ class CategoryDetailScreen extends StatelessWidget {
                                           child: Text(
                                             AppLocalizations.of(context)!
                                                 .services,
-                                            style: kRegularTextStyle.copyWith(
+                                            style: context.bodyMedium!.copyWith(
                                               fontSize: 18,
                                             ),
                                           ),
@@ -206,9 +217,9 @@ class ItemTopRatedSalon extends StatelessWidget {
   final SalonData? salonData;
 
   const ItemTopRatedSalon({
-    Key? key,
+    super.key,
     this.salonData,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -253,7 +264,7 @@ class ItemTopRatedSalon extends StatelessWidget {
                               ),
                               child: Container(
                                 width: double.infinity,
-                                color: ColorRes.themeColor30,
+                                color: Colors.red,
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 15,
                                 ),
@@ -267,7 +278,7 @@ class ItemTopRatedSalon extends StatelessWidget {
                                       salonData?.salonName ?? '',
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: kRegularWhiteTextStyle.copyWith(
+                                      style: context.bodyMedium!.copyWith(
                                         fontSize: 18,
                                       ),
                                     ),
@@ -276,7 +287,7 @@ class ItemTopRatedSalon extends StatelessWidget {
                                     ),
                                     Text(
                                       salonData?.salonAddress ?? '',
-                                      style: kThinWhiteTextStyle,
+                                      style: context.bodyMedium,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -324,8 +335,8 @@ class ItemTopRatedSalon extends StatelessWidget {
 
 class TopBarOfCatDetailWidget extends StatelessWidget {
   const TopBarOfCatDetailWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -363,39 +374,39 @@ class TopBarOfCatDetailWidget extends StatelessWidget {
                     const SizedBox(height: 5),
                     Text(
                       categories.title ?? '',
-                      style: kLightWhiteTextStyle.copyWith(
-                        fontSize: 20,
-                        color: ColorRes.themeColor,
+                      style: context.titleStyleLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        color: context.colorScheme.primary,
                       ),
                     ),
                     Container(
-                      decoration: BoxDecoration(
-                        color: ColorRes.white,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(100)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: ColorRes.black.withOpacity(0.2),
-                            blurRadius: 10,
-                          )
-                        ],
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(100)),
                       ),
                       margin: const EdgeInsets.only(
-                        left: 15,
-                        right: 15,
                         bottom: 10,
                         top: 20,
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: TextField(
                         decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: AppLocalizations.of(context)!.search,
-                          hintStyle: kRegularTextStyle.copyWith(
-                            color: ColorRes.darkGray,
+                          fillColor: context.colorScheme.outlineVariant
+                              .withOpacity(.6),
+                          prefixIcon: Icon(Icons.search,
+                              color:
+                                  context.colorScheme.primary.withOpacity(.8)),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100),
+                            borderSide: BorderSide.none,
                           ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100),
+                              borderSide: BorderSide.none),
+                          hintText: AppLocalizations.of(context)!.search,
+                          hintStyle: context.bodyMedium!,
                         ),
-                        style: kRegularTextStyle,
+                        style: context.bodyMedium,
                         controller: salonByCatBloc.searchController,
                       ),
                     ),
@@ -408,11 +419,11 @@ class TopBarOfCatDetailWidget extends StatelessWidget {
                   onTap: () {
                     Get.back();
                   },
-                  child: const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
                       child: Icon(Icons.arrow_back_rounded,
-                          size: 30, color: ColorRes.themeColor)),
+                          size: 30, color: context.colorScheme.primary)),
                 ),
               ),
             ],

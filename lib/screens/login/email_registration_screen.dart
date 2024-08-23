@@ -1,16 +1,14 @@
-import 'package:moli/bloc/registration/registration_bloc.dart';
-import 'package:moli/utils/asset_res.dart';
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:moli/bloc/registration/registration_bloc.dart';
+import 'package:moli/utils/custom/custom_widget.dart';
+import 'package:moli/utils/extensions.dart';
 
 class EmailRegistrationScreen extends StatelessWidget {
-  const EmailRegistrationScreen({Key? key}) : super(key: key);
+  const EmailRegistrationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,6 @@ class EmailRegistrationScreen extends StatelessWidget {
             return Column(
               children: [
                 Container(
-                  color: ColorRes.smokeWhite,
                   width: double.infinity,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -38,24 +35,18 @@ class EmailRegistrationScreen extends StatelessWidget {
                           onTap: () {
                             Get.back();
                           },
-                          child: const Image(
-                            image: AssetImage(AssetRes.icBack),
-                            height: 30,
-                          ),
+                          child: const Icon(Icons.arrow_back_ios_rounded),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.emailRegistration,
-                          style: kBoldThemeTextStyle,
-                        ),
+                        const SizedBox(height: 30),
+                        Text(AppLocalizations.of(context)!.emailRegistration,
+                            style: context.bodyLarge!
+                                .copyWith(fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 5),
                         Text(
                           AppLocalizations.of(context)!
                               .enterYourDetailsAndCompleteProfileForBetterExperience,
-                          style: kLightWhiteTextStyle.copyWith(
-                            color: ColorRes.empress,
-                          ),
+                          style: context.bodyMedium!
+                              .copyWith(color: context.colorScheme.outline),
                         ),
                       ],
                     ),
@@ -69,33 +60,25 @@ class EmailRegistrationScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
                           children: [
-                            const SizedBox(
-                              height: 30,
-                            ),
+                            const SizedBox(height: 30),
                             TextWithTextFieldSmokeWhiteWidget(
                               title: AppLocalizations.of(context)!.fullName,
                               controller:
                                   registrationBloc.fullNameTextController,
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            const SizedBox(height: 20),
                             TextWithTextFieldSmokeWhiteWidget(
                               title: AppLocalizations.of(context)!.emailAddress,
                               controller: registrationBloc.emailTextController,
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            const SizedBox(height: 20),
                             TextWithTextFieldSmokeWhiteWidget(
                               isPassword: true,
                               title: AppLocalizations.of(context)!.password,
                               controller:
                                   registrationBloc.passwordTextController,
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            const SizedBox(height: 20),
                             TextWithTextFieldSmokeWhiteWidget(
                               title:
                                   AppLocalizations.of(context)!.confirmPassword,
@@ -117,7 +100,16 @@ class EmailRegistrationScreen extends StatelessWidget {
                       width: double.infinity,
                       height: 55,
                       child: TextButton(
-                        style: kButtonThemeStyle,
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all(Colors.red),
+                          shape: WidgetStateProperty.all(
+                            const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                          ),
+                          overlayColor:
+                              WidgetStateProperty.all(Colors.transparent),
+                        ),
                         onPressed: () {
                           context
                               .read<RegistrationBloc>()
@@ -125,7 +117,8 @@ class EmailRegistrationScreen extends StatelessWidget {
                         },
                         child: Text(
                           AppLocalizations.of(context)!.continue_,
-                          style: kRegularWhiteTextStyle,
+                          style:
+                              context.bodyMedium!.copyWith(color: Colors.white),
                         ),
                       ),
                     ),
@@ -147,12 +140,12 @@ class TextWithTextFieldSmokeWhiteWidget extends StatelessWidget {
   final TextInputType? textInputType;
 
   const TextWithTextFieldSmokeWhiteWidget({
-    Key? key,
+    super.key,
     required this.title,
     this.isPassword,
     this.controller,
     this.textInputType = TextInputType.text,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -161,35 +154,18 @@ class TextWithTextFieldSmokeWhiteWidget extends StatelessWidget {
       children: [
         Text(
           title,
-          style: kLightWhiteTextStyle.copyWith(
-            color: ColorRes.black,
-            fontSize: 16,
-          ),
+          style: context.bodyMedium,
         ),
-        Container(
-          decoration: BoxDecoration(
-            color: ColorRes.smokeWhite,
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            border: Border.all(
-              color: ColorRes.smokeWhite,
-              width: 0.5,
-            ),
-          ),
-          height: 55,
-          margin: const EdgeInsets.only(top: 5),
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: TextField(
+        const SizedBox(height: 10),
+        TextField(
             controller: controller,
-            decoration: const InputDecoration(border: InputBorder.none),
-            style: kRegularTextStyle.copyWith(
-              color: ColorRes.charcoal50,
-            ),
+            style: context.bodyMedium,
+            decoration:
+                const InputDecoration(border: InputBorder.none, filled: false),
             keyboardType: textInputType,
             obscureText: isPassword ?? false,
             enableSuggestions: isPassword != null ? !isPassword! : true,
-            autocorrect: isPassword != null ? !isPassword! : true,
-          ),
-        ),
+            autocorrect: isPassword != null ? !isPassword! : true),
       ],
     );
   }

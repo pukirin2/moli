@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:moli/bloc/confirmbooking/payment_gateway.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
 import 'package:moli/model/bookings/booking.dart';
 import 'package:moli/model/bookings/booking_details.dart';
 import 'package:moli/model/cat/categories.dart' as cat;
@@ -27,8 +28,6 @@ import 'package:moli/utils/app_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/firebase_res.dart';
 import 'package:moli/utils/shared_pref.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart' as http;
 
 import '../model/user/salon.dart';
 

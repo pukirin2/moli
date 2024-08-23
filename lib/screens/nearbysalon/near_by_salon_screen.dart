@@ -1,17 +1,17 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:moli/bloc/nearbysalon/near_by_salon_bloc.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/screens/fav/salon_screen.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
+import 'package:moli/utils/extensions.dart';
 
 class NearBySalonScreen extends StatelessWidget {
-  const NearBySalonScreen({Key? key}) : super(key: key);
+  const NearBySalonScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +61,8 @@ class NearBySalonScreen extends StatelessWidget {
 
 class TopBarOfTopRatedWidget extends StatelessWidget {
   const TopBarOfTopRatedWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -101,8 +101,8 @@ class TopBarOfTopRatedWidget extends StatelessWidget {
                   decoration: const BoxDecoration(
                     // gradient: LinearGradient(
                     //   colors: [
-                    //     // ColorRes.themeColor,
-                    //     // ColorRes.themeColor,
+                    //     // context.colorScheme.primary,
+                    //     // context.colorScheme.primary,
                     //   ],
                     //   begin: Alignment(1, -1),
                     // ),
@@ -117,10 +117,12 @@ class TopBarOfTopRatedWidget extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 5, right: 5),
                   child: Text(
                     AppLocalizations.of(context)!.nearBySalons,
-                    style: kSemiBoldThemeTextStyle.copyWith(
-                      color: ColorRes.themeColor,
-                      fontSize: 20,
-                    ),
+                    style: context.bodyMedium!
+                        .copyWith(fontWeight: FontWeight.w300)
+                        .copyWith(
+                          color: context.colorScheme.primary,
+                          fontSize: 20,
+                        ),
                   ),
                 ),
                 Container(
@@ -145,13 +147,13 @@ class TopBarOfTopRatedWidget extends StatelessWidget {
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: AppLocalizations.of(context)!.search,
-                      hintStyle: kRegularTextStyle.copyWith(
+                      hintStyle: context.bodyMedium!.copyWith(
                         color: ColorRes.darkGray,
                       ),
                     ),
                     controller: nearBySalonBloc.nearBySalonEditingController,
                     textCapitalization: TextCapitalization.sentences,
-                    style: kRegularTextStyle.copyWith(
+                    style: context.bodyMedium!.copyWith(
                       color: ColorRes.charcoal50,
                     ),
                   ),

@@ -1,16 +1,15 @@
 import 'dart:ui';
 
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:moli/utils/color_res.dart';
+import 'package:moli/utils/extensions.dart';
 
 class VideoUploadDialog extends StatelessWidget {
   final VoidCallback selectAnother;
 
-  const VideoUploadDialog({Key? key, required this.selectAnother})
-      : super(key: key);
+  const VideoUploadDialog({super.key, required this.selectAnother});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,8 @@ class VideoUploadDialog extends StatelessWidget {
               const Spacer(flex: 2),
               RichText(
                 text: TextSpan(
-                  style: kSemiBoldThemeTextStyle,
+                  style:
+                      context.bodyMedium!.copyWith(fontWeight: FontWeight.w300),
                   children: [
                     TextSpan(
                       text: AppLocalizations.of(context)!.tooLarge,
@@ -47,9 +47,11 @@ class VideoUploadDialog extends StatelessWidget {
                 child: Text(
                   AppLocalizations.of(context)!
                       .thisVideoIsGreaterThan15MbnpleaseSelectAnother,
-                  style: kSemiBoldThemeTextStyle.copyWith(
-                    color: ColorRes.charcoal,
-                  ),
+                  style: context.bodyMedium!
+                      .copyWith(fontWeight: FontWeight.w300)
+                      .copyWith(
+                        color: ColorRes.charcoal,
+                      ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -63,12 +65,13 @@ class VideoUploadDialog extends StatelessWidget {
                   height: 50,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: ColorRes.themeColor,
+                    color: context.colorScheme.primary,
                     borderRadius: BorderRadius.circular(7),
                   ),
                   child: Text(
                     AppLocalizations.of(context)!.selectAnother,
-                    style: kSemiBoldThemeTextStyle,
+                    style: context.bodyMedium!
+                        .copyWith(fontWeight: FontWeight.w300),
                   ),
                 ),
               ),
@@ -88,9 +91,11 @@ class VideoUploadDialog extends StatelessWidget {
                   ),
                   child: Text(
                     AppLocalizations.of(context)!.cancel,
-                    style: kSemiBoldThemeTextStyle.copyWith(
-                      color: ColorRes.charcoal,
-                    ),
+                    style: context.bodyMedium!
+                        .copyWith(fontWeight: FontWeight.w300)
+                        .copyWith(
+                          color: ColorRes.charcoal,
+                        ),
                   ),
                 ),
               ),

@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:moli/model/bookings/booking.dart';
 import 'package:moli/model/bookings/booking_details.dart';
 import 'package:moli/model/rest/rest_response.dart';
@@ -6,13 +10,8 @@ import 'package:moli/model/user/salon.dart';
 import 'package:moli/service/api_service.dart';
 import 'package:moli/utils/app_res.dart';
 import 'package:moli/utils/custom/custom_bottom_sheet.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
 
 part 'booking_detail_event.dart';
-
 part 'booking_detail_state.dart';
 
 class BookingDetailBloc extends Bloc<BookingDetailEvent, BookingDetailState> {
@@ -100,7 +99,8 @@ class BookingDetailBloc extends Bloc<BookingDetailEvent, BookingDetailState> {
           RestResponse response = await ApiService()
               .cancelBooking(bookingDetails?.data?.bookingId ?? '');
           AppRes.hideCustomLoaderWithBack();
-          AppRes.showSnackBar(response.message ?? '', response.status ?? false);
+          AppRes.showSnackBar(
+              Get.context!, response.message ?? '', response.status ?? false);
           add(FetchBookingDetailEvent());
         },
       ),
@@ -112,6 +112,7 @@ class BookingDetailBloc extends Bloc<BookingDetailEvent, BookingDetailState> {
 
     if (differenceDay < 0 || differenceDay > 90) {
       AppRes.showSnackBar(
+          Get.context!,
           AppLocalizations.of(Get.context!)!
               .youCanMakeBookingsOnlyForTodayOrForThe,
           false);

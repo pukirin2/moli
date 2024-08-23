@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:moli/bloc/confirmbooking/confirm_booking_bloc.dart';
 import 'package:moli/model/bookings/booking.dart';
 import 'package:moli/model/bookings/booking_details.dart';
@@ -5,13 +9,8 @@ import 'package:moli/model/slot/slot.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/service/api_service.dart';
 import 'package:moli/utils/app_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
 
 part 're_schedule_event.dart';
-
 part 're_schedule_state.dart';
 
 class ReScheduleBloc extends Bloc<ReScheduleEvent, ReScheduleState> {
@@ -88,11 +87,13 @@ class ReScheduleBloc extends Bloc<ReScheduleEvent, ReScheduleState> {
     AppRes.hideCustomLoaderWithBack();
   }
 
-  void onClickCalenderDay(DateTime day, ReScheduleBloc bookingsBloc) {
+  void onClickCalenderDay(
+      BuildContext context, DateTime day, ReScheduleBloc bookingsBloc) {
     int differenceDay = day.difference(DateTime.now()).inDays;
 
     if (differenceDay < 0 || differenceDay > 90) {
       AppRes.showSnackBar(
+          context,
           AppLocalizations.of(Get.context!)!
               .youCanMakeBookingsOnlyForTodayOrForThe,
           false);

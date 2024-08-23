@@ -1,16 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:detectable_text_field/detectable_text_field.dart';
+import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:detectable_text_field/detectable_text_field.dart';
-import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:moli/utils/extensions.dart';
 
 class GalleryScreen extends StatelessWidget {
-  const GalleryScreen({Key? key}) : super(key: key);
+  const GalleryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +53,15 @@ class GalleryScreen extends StatelessWidget {
                     children: [
                       Text(
                         salonData.salonName ?? '',
-                        style: kBoldThemeTextStyle.copyWith(
-                          fontSize: 20,
-                        ),
+                        style: context.bodyMedium!
+                            .copyWith(fontWeight: FontWeight.bold)
+                            .copyWith(
+                              fontSize: 20,
+                            ),
                       ),
                       Text(
                         salonData.salonAddress ?? '',
-                        style: kLightWhiteTextStyle.copyWith(
+                        style: context.bodyMedium!.copyWith(
                           color: ColorRes.black,
                         ),
                       ),
@@ -79,7 +81,7 @@ class GalleryScreen extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: DetectableText(
                     text: gallery?.description ?? '',
-                    basicStyle: kRegularTextStyle.copyWith(
+                    basicStyle: context.bodyMedium!.copyWith(
                       fontSize: 16,
                     ),
                     detectionRegExp: RegExp("#"),

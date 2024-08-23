@@ -1,4 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:moli/bloc/bookings/bookings_bloc.dart';
 import 'package:moli/bloc/confirmbooking/confirm_booking_bloc.dart';
 import 'package:moli/model/slot/slot.dart';
@@ -6,17 +10,12 @@ import 'package:moli/model/user/salon.dart';
 import 'package:moli/screens/main/main_screen.dart';
 import 'package:moli/utils/app_res.dart';
 import 'package:moli/utils/asset_res.dart';
-import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
+import 'package:moli/utils/extensions.dart';
 
 class ConfirmBookingScreen extends StatelessWidget {
-  const ConfirmBookingScreen({Key? key}) : super(key: key);
+  const ConfirmBookingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +47,9 @@ class ConfirmBookingScreen extends StatelessWidget {
                                 ),
                                 Text(
                                   AppLocalizations.of(context)!.salon,
-                                  style: kLightWhiteTextStyle.copyWith(
+                                  style: context.bodyMedium!.copyWith(
                                     fontSize: 16,
-                                    color: ColorRes.empress,
+                                    color: context.colorScheme.outline,
                                   ),
                                 ),
                                 const SizedBox(
@@ -58,38 +57,34 @@ class ConfirmBookingScreen extends StatelessWidget {
                                 ),
                                 Text(
                                   bookingsBloc.salonData?.salonName ?? '',
-                                  style: kBoldThemeTextStyle,
+                                  style: context.bodyMedium!
+                                      .copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   bookingsBloc.salonData?.salonAddress ?? '',
-                                  style: kThinWhiteTextStyle.copyWith(
-                                    color: ColorRes.titleText,
-                                  ),
+                                  style: context.bodyMedium!.copyWith(
+                                      color: context.colorScheme.outline),
                                 ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
+                                const SizedBox(height: 20),
                                 Row(
                                   children: [
                                     Text(
                                       AppLocalizations.of(context)!.selectDate,
-                                      style: kLightWhiteTextStyle.copyWith(
+                                      style: context.bodyMedium!.copyWith(
                                         fontSize: 16,
-                                        color: ColorRes.empress,
+                                        color: context.colorScheme.outline,
                                       ),
                                     ),
                                     const Spacer(),
                                     Text(
                                       '${AppRes.convertMonthNumberToName(context, bookingsBloc.month)} ${bookingsBloc.year}',
-                                      style: kMediumTextStyle.copyWith(
+                                      style: context.bodyMedium!.copyWith(
                                         fontSize: 17,
                                       ),
                                     )
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
+                                const SizedBox(height: 10),
                                 SizedBox(
                                   height: 50,
                                   child: ListView.builder(
@@ -109,8 +104,15 @@ class ConfirmBookingScreen extends StatelessWidget {
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: isSelected
-                                                ? ColorRes.themeColor
-                                                : ColorRes.smokeWhite,
+                                                ? context.colorScheme.primary
+                                                : context.colorScheme.surface,
+                                            border: Border.all(
+                                                color: isSelected
+                                                    ? context.colorScheme
+                                                        .primaryContainer
+                                                    : context
+                                                        .colorScheme.outline
+                                                        .withOpacity(.3)),
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                           ),
@@ -128,23 +130,25 @@ class ConfirmBookingScreen extends StatelessWidget {
                                                   DateFormat('EE', curentLocale)
                                                       .format(day)
                                                       .toUpperCase(),
-                                                  style: kRegularThemeTextStyle
+                                                  style: context.bodyMedium!
                                                       .copyWith(
                                                     color: isSelected
-                                                        ? ColorRes.white
-                                                        : ColorRes.charcoal,
+                                                        ? Colors.white
+                                                        : context.colorScheme
+                                                            .outline,
                                                     fontSize: 12,
                                                     letterSpacing: 1,
                                                   ),
                                                 ),
                                                 Text(
                                                   day.day.toString(),
-                                                  style: kBoldThemeTextStyle
+                                                  style: context.bodyMedium!
                                                       .copyWith(
                                                     fontSize: 20,
                                                     color: isSelected
-                                                        ? ColorRes.white
-                                                        : ColorRes.charcoal,
+                                                        ? Colors.white
+                                                        : context.colorScheme
+                                                            .outline,
                                                   ),
                                                 ),
                                               ],
@@ -160,9 +164,9 @@ class ConfirmBookingScreen extends StatelessWidget {
                                 ),
                                 Text(
                                   AppLocalizations.of(context)!.selectTime,
-                                  style: kLightWhiteTextStyle.copyWith(
+                                  style: context.bodyMedium!.copyWith(
                                     fontSize: 16,
-                                    color: ColorRes.empress,
+                                    color: context.colorScheme.outline,
                                   ),
                                 ),
                                 const SizedBox(
@@ -179,21 +183,19 @@ class ConfirmBookingScreen extends StatelessWidget {
                                           ),
                                         )
                                       : bookingsBloc.slots.isEmpty
-                                          ? Container(
-                                              decoration: const BoxDecoration(
-                                                color: ColorRes.smokeWhite,
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(10),
-                                                ),
-                                              ),
+                                          ? Card(
+                                              elevation: 1,
+                                              surfaceTintColor:
+                                                  context.colorScheme.onSurface,
                                               child: Center(
                                                 child: Text(
                                                   AppLocalizations.of(context)!
                                                       .noSlotsAvailable,
-                                                  style:
-                                                      kRegularEmpressTextStyle
-                                                          .copyWith(
-                                                    color: ColorRes.darkGray,
+                                                  style: context.bodyMedium!
+                                                      .copyWith(
+                                                    color: context
+                                                        .bodyMedium!.color!
+                                                        .withOpacity(0.8),
                                                   ),
                                                 ),
                                               ),
@@ -261,17 +263,31 @@ class ConfirmBookingScreen extends StatelessWidget {
                                                         width: 95,
                                                         decoration:
                                                             BoxDecoration(
+                                                          border: Border.all(
+                                                              color: slotData
+                                                                          .time ==
+                                                                      selectedTime
+                                                                  ? context
+                                                                      .colorScheme
+                                                                      .primaryContainer
+                                                                  : context
+                                                                      .colorScheme
+                                                                      .outline
+                                                                      .withOpacity(
+                                                                          .3)),
                                                           color: slotData
                                                                       .time ==
                                                                   selectedTime
-                                                              ? ColorRes
-                                                                  .themeColor
-                                                              : ColorRes
-                                                                  .smokeWhite,
+                                                              ? context
+                                                                  .colorScheme
+                                                                  .primary
+                                                              : context
+                                                                  .colorScheme
+                                                                  .surface,
                                                           borderRadius:
                                                               const BorderRadius
                                                                   .all(
-                                                            Radius.circular(5),
+                                                            Radius.circular(10),
                                                           ),
                                                         ),
                                                         margin: const EdgeInsets
@@ -283,35 +299,39 @@ class ConfirmBookingScreen extends StatelessWidget {
                                                               slotData.time,
                                                               locale:
                                                                   curentLocale),
-                                                          style:
-                                                              kBoldWhiteTextStyle
-                                                                  .copyWith(
+                                                          style: context
+                                                              .bodyMedium!
+                                                              .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             color: slotData
                                                                         .time ==
                                                                     selectedTime
-                                                                ? ColorRes.white
+                                                                ? Colors.white
                                                                 : isShowDisable
-                                                                    ? ColorRes
-                                                                        .darkGray
-                                                                    : ColorRes
-                                                                        .charcoal,
+                                                                    ? context
+                                                                        .colorScheme
+                                                                        .outline
+                                                                    : context
+                                                                        .colorScheme
+                                                                        .outline,
                                                             fontSize: 16,
                                                           ),
                                                         ),
                                                       ),
+                                                      const SizedBox(height: 2),
                                                       Text(
                                                         isShowDisable
                                                             ? AppLocalizations
                                                                     .of(context)!
                                                                 .notAvailable
                                                             : '${slotData.remainSlot} ${AppLocalizations.of(context)!.slotsAvailable}',
-                                                        style: kRegularTextStyle
+                                                        style: context
+                                                            .bodyMedium!
                                                             .copyWith(
                                                           color: isShowDisable
-                                                              ? ColorRes
-                                                                  .darkGray
-                                                              : ColorRes
-                                                                  .islamicGreen,
+                                                              ? Colors.red
+                                                              : Colors.green,
                                                           fontSize: 13,
                                                           letterSpacing: .4,
                                                         ),
@@ -322,14 +342,12 @@ class ConfirmBookingScreen extends StatelessWidget {
                                               },
                                             ),
                                 ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
+                                const SizedBox(height: 20),
                                 Text(
                                   AppLocalizations.of(context)!.services,
-                                  style: kLightWhiteTextStyle.copyWith(
+                                  style: context.bodyMedium!.copyWith(
                                     fontSize: 16,
-                                    color: ColorRes.empress,
+                                    color: context.colorScheme.outline,
                                   ),
                                 ),
                                 ListView.builder(
@@ -366,14 +384,15 @@ class ConfirmBookingScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '${AppRes.currency}${AppRes.formatCurrency(bookingsBloc.totalRates())}',
-                                      style: kBoldThemeTextStyle,
+                                      ' ${AppRes.formatCurrency(bookingsBloc.totalRates())} ${AppRes.currency}',
+                                      style: context.bodyLarge!.copyWith(
+                                          color: context.colorScheme.tertiary,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       AppLocalizations.of(context)!.subTotal,
-                                      style: kLightWhiteTextStyle.copyWith(
-                                        color: ColorRes.empress,
-                                        fontSize: 14,
+                                      style: context.bodyMedium!.copyWith(
+                                        color: context.colorScheme.outline,
                                       ),
                                     ),
                                   ],
@@ -383,14 +402,26 @@ class ConfirmBookingScreen extends StatelessWidget {
                                 child: SizedBox(
                                   height: 55,
                                   child: TextButton(
-                                    style: kButtonThemeStyle,
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          WidgetStateProperty.all(Colors.red),
+                                      shape: WidgetStateProperty.all(
+                                        const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                      ),
+                                      overlayColor: WidgetStateProperty.all(
+                                          Colors.transparent),
+                                    ),
                                     onPressed: () {
                                       bookingsBloc.clickOnMakePayment();
                                     },
                                     child: Text(
-                                      AppLocalizations.of(context)!.makePayment,
-                                      style: kRegularWhiteTextStyle,
-                                    ),
+                                        AppLocalizations.of(context)!
+                                            .makePayment,
+                                        style: context.bodyMedium!.copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold)),
                                   ),
                                 ),
                               ),
@@ -414,18 +445,16 @@ class ItemConfirmService extends StatelessWidget {
   final Services? service;
 
   const ItemConfirmService({
-    Key? key,
+    super.key,
     this.service,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Card(
+      elevation: 1,
+      surfaceTintColor: context.colorScheme.onSurface,
       margin: const EdgeInsets.symmetric(vertical: 8),
-      decoration: const BoxDecoration(
-        color: ColorRes.smokeWhite2,
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-      ),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         child: Row(
@@ -441,7 +470,6 @@ class ItemConfirmService extends StatelessWidget {
                     fit: BoxFit.cover)),
             Expanded(
               child: Container(
-                color: ColorRes.smokeWhite2,
                 padding: const EdgeInsets.only(
                   bottom: 5,
                   right: 10,
@@ -454,14 +482,12 @@ class ItemConfirmService extends StatelessWidget {
                   children: [
                     Text(
                       service?.title ?? '',
-                      style: kSemiBoldTextStyle.copyWith(
-                        color: ColorRes.nero,
+                      style: context.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    const SizedBox(height: 5),
                     Row(
                       children: [
                         Column(
@@ -470,9 +496,11 @@ class ItemConfirmService extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  '${AppRes.currency}${(AppRes.formatCurrency((service?.price ?? 0) - AppRes.calculateDiscountByPercentage(service?.price?.toInt() ?? 0, service?.discount?.toInt() ?? 0).toInt()))}',
-                                  style: kBoldThemeTextStyle.copyWith(
+                                  '${(AppRes.formatCurrency((service?.price ?? 0) - AppRes.calculateDiscountByPercentage(service?.price?.toInt() ?? 0, service?.discount?.toInt() ?? 0).toInt()))} ${AppRes.currency}',
+                                  style: context.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.bold,
                                     fontSize: 18,
+                                    color: context.colorScheme.tertiary,
                                   ),
                                 ),
                                 Padding(
@@ -480,28 +508,23 @@ class ItemConfirmService extends StatelessWidget {
                                       const EdgeInsets.symmetric(horizontal: 5),
                                   child: Text(
                                     '-',
-                                    style: kThinWhiteTextStyle.copyWith(
-                                      color: ColorRes.mortar,
-                                    ),
+                                    style: context.bodyMedium!.copyWith(
+                                        color: context.colorScheme.outline),
                                   ),
                                 ),
                                 Text(
                                   AppRes.convertTimeForService(context,
                                       service?.serviceTime?.toInt() ?? 0),
-                                  style: kThinWhiteTextStyle.copyWith(
-                                    color: ColorRes.mortar,
-                                  ),
+                                  style: context.bodyMedium!.copyWith(),
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
+                            const SizedBox(height: 5),
                             Text(
                               AppRes.getGenderTypeInStringFromNumber(
                                   context, service?.gender?.toInt() ?? 0),
-                              style: kLightWhiteTextStyle.copyWith(
-                                color: ColorRes.empress,
+                              style: context.bodyMedium!.copyWith(
+                                color: context.colorScheme.outline,
                                 fontSize: 12,
                                 letterSpacing: 2,
                               ),
@@ -518,7 +541,7 @@ class ItemConfirmService extends StatelessWidget {
                           },
                           image: AssetRes.icMinus,
                           imagePadding: 11,
-                          bgColor: ColorRes.monaLisa,
+                          bgColor: context.colorScheme.primary,
                           height: 35,
                           width: 35,
                         ),

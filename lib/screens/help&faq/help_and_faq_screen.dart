@@ -1,14 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:moli/bloc/faq/faqs_bloc.dart';
 import 'package:moli/model/faq/faqs.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:moli/utils/extensions.dart';
 
 class HelpFaqScreen extends StatelessWidget {
-  const HelpFaqScreen({Key? key}) : super(key: key);
+  const HelpFaqScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,18 +50,22 @@ class HelpFaqScreen extends StatelessWidget {
                                     children: [
                                       Text(
                                         faqData.question ?? '',
-                                        style: kSemiBoldTextStyle.copyWith(
-                                          fontSize: 17,
-                                          color: ColorRes.themeColor,
-                                        ),
+                                        style: context.bodyMedium!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w300)
+                                            .copyWith(
+                                              fontSize: 17,
+                                              color:
+                                                  context.colorScheme.primary,
+                                            ),
                                       ),
                                       const SizedBox(
                                         height: 5,
                                       ),
                                       Text(
                                         faqData.answer ?? '',
-                                        style: kLightWhiteTextStyle.copyWith(
-                                          color: ColorRes.empress,
+                                        style: context.bodyMedium!.copyWith(
+                                          color: context.colorScheme.outline,
                                           fontSize: 14,
                                         ),
                                       ),
@@ -90,9 +94,9 @@ class TabBarOfHelpFaqWidget extends StatefulWidget {
   final Function(int)? onTabChange;
 
   const TabBarOfHelpFaqWidget({
-    Key? key,
+    super.key,
     this.onTabChange,
-  }) : super(key: key);
+  });
 
   @override
   State<TabBarOfHelpFaqWidget> createState() => _TabBarOfHelpFaqWidgetState();
@@ -103,9 +107,8 @@ class _TabBarOfHelpFaqWidgetState extends State<TabBarOfHelpFaqWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 55,
-      color: ColorRes.white,
       child: BlocBuilder<FaqsBloc, FaqsState>(
         builder: (context, state) {
           Faqs? faqs = context.read<FaqsBloc>().faqCat;
@@ -127,13 +130,13 @@ class _TabBarOfHelpFaqWidgetState extends State<TabBarOfHelpFaqWidget> {
                   child: Container(
                     decoration: BoxDecoration(
                       color: index == selectedIndex
-                          ? ColorRes.themeColor10
+                          ? context.colorScheme.tertiary
                           : ColorRes.smokeWhite,
                       borderRadius:
                           const BorderRadius.all(Radius.circular(100)),
                       border: Border.all(
                         color: index == selectedIndex
-                            ? ColorRes.themeColor
+                            ? context.colorScheme.primary
                             : ColorRes.transparent,
                         width: 1,
                       ),
@@ -150,10 +153,12 @@ class _TabBarOfHelpFaqWidgetState extends State<TabBarOfHelpFaqWidget> {
                     child: Center(
                       child: Text(
                         data?.title ?? '',
-                        style: kSemiBoldTextStyle.copyWith(
-                          fontSize: 14,
-                          color: ColorRes.themeColor,
-                        ),
+                        style: context.bodyMedium!
+                            .copyWith(fontWeight: FontWeight.w300)
+                            .copyWith(
+                              fontSize: 14,
+                              color: context.colorScheme.primary,
+                            ),
                       ),
                     ),
                   ),

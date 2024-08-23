@@ -1,21 +1,20 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:moli/bloc/fav/favourite_bloc.dart';
 import 'package:moli/bloc/fav/favourite_event.dart';
 import 'package:moli/bloc/fav/favourite_state.dart';
 import 'package:moli/screens/fav/salon_screen.dart';
 import 'package:moli/screens/fav/service_screen.dart';
 import 'package:moli/screens/main/main_screen.dart';
-import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:moli/utils/extensions.dart';
 
 class FavouriteScreen extends StatelessWidget {
   final Function()? onMenuClick;
   final PageController pageController = PageController(keepPage: true);
 
-  FavouriteScreen({Key? key, this.onMenuClick}) : super(key: key);
+  FavouriteScreen({super.key, this.onMenuClick});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class FavouriteScreen extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            color: ColorRes.themeColor5,
+            color: context.colorScheme.surface.withOpacity(0.1),
             padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 15),
             child: SafeArea(
               bottom: false,
@@ -39,9 +38,9 @@ class FavouriteScreen extends StatelessWidget {
                   ),
                   Text(
                     AppLocalizations.of(context)!.favourite,
-                    style: kLightWhiteTextStyle.copyWith(
+                    style: context.bodyMedium!.copyWith(
                       fontSize: 20,
-                      color: ColorRes.themeColor,
+                      color: context.colorScheme.primary,
                     ),
                   ),
                   const Spacer(),
@@ -62,8 +61,9 @@ class FavouriteScreen extends StatelessWidget {
                             child: Container(
                               decoration: BoxDecoration(
                                 color: selectedIndex == 0
-                                    ? ColorRes.themeColor
-                                    : ColorRes.smokeWhite1,
+                                    ? context.colorScheme.primary
+                                    : context.colorScheme.outlineVariant
+                                        .withOpacity(.6),
                                 borderRadius: const BorderRadius.horizontal(
                                   left: Radius.circular(100),
                                 ),
@@ -73,10 +73,10 @@ class FavouriteScreen extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   AppLocalizations.of(context)!.service,
-                                  style: kLightWhiteTextStyle.copyWith(
+                                  style: context.bodyMedium!.copyWith(
                                     color: selectedIndex == 0
-                                        ? ColorRes.white
-                                        : ColorRes.empress,
+                                        ? context.colorScheme.onPrimary
+                                        : context.colorScheme.outline,
                                     fontSize: 14,
                                   ),
                                 ),
@@ -93,8 +93,9 @@ class FavouriteScreen extends StatelessWidget {
                             child: Container(
                               decoration: BoxDecoration(
                                 color: selectedIndex == 1
-                                    ? ColorRes.themeColor
-                                    : ColorRes.smokeWhite1,
+                                    ? context.colorScheme.primary
+                                    : context.colorScheme.outlineVariant
+                                        .withOpacity(.6),
                                 borderRadius: const BorderRadius.horizontal(
                                   right: Radius.circular(100),
                                 ),
@@ -104,10 +105,10 @@ class FavouriteScreen extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   AppLocalizations.of(context)!.salon,
-                                  style: kLightWhiteTextStyle.copyWith(
+                                  style: context.bodyMedium!.copyWith(
                                     color: selectedIndex == 1
-                                        ? ColorRes.white
-                                        : ColorRes.empress,
+                                        ? context.colorScheme.onPrimary
+                                        : context.colorScheme.outline,
                                     fontSize: 14,
                                   ),
                                 ),

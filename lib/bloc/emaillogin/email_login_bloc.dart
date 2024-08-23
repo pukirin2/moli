@@ -1,11 +1,11 @@
-import 'package:moli/utils/app_res.dart';
-import 'package:moli/utils/const_res.dart';
-import 'package:moli/utils/shared_pref.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:moli/utils/app_res.dart';
+import 'package:moli/utils/const_res.dart';
+import 'package:moli/utils/shared_pref.dart';
 
 part 'email_login_event.dart';
 part 'email_login_state.dart';
@@ -14,18 +14,19 @@ class EmailLoginBloc extends Bloc<EmailLoginEvent, EmailLoginState> {
   EmailLoginBloc() : super(EmailLoginInitial()) {
     on<ContinueLoginEvent>((event, emit) {
       if (emailTextController.text.isEmpty) {
-        AppRes.showSnackBar(
+        AppRes.showSnackBar(Get.context!,
             AppLocalizations.of(Get.context!)!.pleaseEnterEmailAddress, false);
         return;
       }
       if (!emailTextController.text.isEmail) {
         AppRes.showSnackBar(
+            Get.context!,
             AppLocalizations.of(Get.context!)!.pleaseEnterValidEmailAddress,
             false);
         return;
       }
       if (passwordTextController.text.isEmpty) {
-        AppRes.showSnackBar(
+        AppRes.showSnackBar(Get.context!,
             AppLocalizations.of(Get.context!)!.pleaseEnterPassword, false);
         return;
       }
@@ -52,12 +53,13 @@ class EmailLoginBloc extends Bloc<EmailLoginEvent, EmailLoginState> {
         if (errorCode == 'firebase_auth/wrong-password' ||
             errorCode == 'wrong-password') {
           AppRes.hideCustomLoader();
-          AppRes.showSnackBar(
+          AppRes.showSnackBar(Get.context!,
               AppLocalizations.of(Get.context!)!.wrongPassword, false);
         } else if (errorCode == 'firebase_auth/user-not-found' ||
             errorCode == 'user-not-found') {
           AppRes.hideCustomLoader();
           AppRes.showSnackBar(
+              Get.context!,
               AppLocalizations.of(Get.context!)!.pleaseRegistrationFirst,
               false);
         }

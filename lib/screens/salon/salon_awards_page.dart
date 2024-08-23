@@ -1,14 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moli/bloc/salon/salon_details_bloc.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/screens/salon/salon_details_page.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moli/utils/extensions.dart';
 
 class SalonAwardsPage extends StatelessWidget {
-  const SalonAwardsPage({Key? key}) : super(key: key);
+  const SalonAwardsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +41,19 @@ class SalonAwardsPage extends StatelessWidget {
                   children: [
                     Text(
                       awards?.title ?? '',
-                      style: kSemiBoldTextStyle.copyWith(
-                        fontSize: 16,
-                      ),
+                      style: context.bodyMedium!
+                          .copyWith(fontWeight: FontWeight.w300)
+                          .copyWith(
+                            fontSize: 16,
+                          ),
                     ),
                     const SizedBox(
                       height: 5,
                     ),
                     Text(
                       'By ${awards?.awardBy ?? ''}',
-                      style: kLightWhiteTextStyle.copyWith(
-                        color: ColorRes.themeColor,
+                      style: context.bodyMedium!.copyWith(
+                        color: context.colorScheme.primary,
                         fontSize: 14,
                       ),
                     ),
@@ -60,8 +62,8 @@ class SalonAwardsPage extends StatelessWidget {
                     ),
                     Text(
                       awards?.description ?? '',
-                      style: kLightWhiteTextStyle.copyWith(
-                        color: ColorRes.empress,
+                      style: context.bodyMedium!.copyWith(
+                        color: context.colorScheme.outline,
                         fontSize: 15,
                       ),
                     ),

@@ -1,4 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:moli/bloc/salon/salon_details_bloc.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/model/user/salon_user.dart';
@@ -10,21 +15,17 @@ import 'package:moli/screens/salon/salon_gallery_page.dart';
 import 'package:moli/screens/salon/salon_reviews_page.dart';
 import 'package:moli/screens/salon/salon_services_page.dart';
 import 'package:moli/service/api_service.dart';
-import 'package:moli/utils/app_res.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
+import 'package:moli/utils/extensions.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../utils/app_res.dart';
+
 class SalonDetailsScreen extends StatefulWidget {
-  const SalonDetailsScreen({Key? key}) : super(key: key);
+  const SalonDetailsScreen({super.key});
 
   @override
   State<SalonDetailsScreen> createState() => _SalonDetailsScreenState();
@@ -112,9 +113,9 @@ class TabBarOfSalonDetailWidget extends StatefulWidget {
   final Function(int)? onTabChange;
 
   const TabBarOfSalonDetailWidget({
-    Key? key,
+    super.key,
     this.onTabChange,
-  }) : super(key: key);
+  });
 
   @override
   State<TabBarOfSalonDetailWidget> createState() =>
@@ -133,9 +134,8 @@ class _TabBarOfSalonDetailWidgetState extends State<TabBarOfSalonDetailWidget> {
       AppLocalizations.of(context)!.reviews,
       AppLocalizations.of(context)!.awards
     ];
-    return Container(
+    return SizedBox(
       height: 60,
-      color: ColorRes.white,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: List<Widget>.generate(
@@ -149,15 +149,9 @@ class _TabBarOfSalonDetailWidgetState extends State<TabBarOfSalonDetailWidget> {
             child: Container(
               decoration: BoxDecoration(
                 color: index == selectedIndex
-                    ? ColorRes.themeColor10
+                    ? context.colorScheme.primaryContainer.withOpacity(.8)
                     : ColorRes.smokeWhite,
                 borderRadius: const BorderRadius.all(Radius.circular(100)),
-                border: Border.all(
-                  color: index == selectedIndex
-                      ? ColorRes.themeColor
-                      : ColorRes.transparent,
-                  width: 1,
-                ),
               ),
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(
@@ -171,12 +165,14 @@ class _TabBarOfSalonDetailWidgetState extends State<TabBarOfSalonDetailWidget> {
               ),
               child: Text(
                 categories[index],
-                style: kSemiBoldTextStyle.copyWith(
-                  fontSize: 15,
-                  color: index == selectedIndex
-                      ? ColorRes.themeColor
-                      : ColorRes.empress,
-                ),
+                style: context.bodyMedium!
+                    .copyWith(fontWeight: FontWeight.w300)
+                    .copyWith(
+                      fontSize: 15,
+                      color: index == selectedIndex
+                          ? context.colorScheme.primary
+                          : context.colorScheme.outline,
+                    ),
               ),
             ),
           ),
@@ -188,11 +184,11 @@ class _TabBarOfSalonDetailWidgetState extends State<TabBarOfSalonDetailWidget> {
 
 class TopBarOfSalonDetails extends StatelessWidget {
   TopBarOfSalonDetails({
-    Key? key,
+    super.key,
     required this.toolbarIsExpand,
     this.salonData,
     this.userData,
-  }) : super(key: key);
+  });
 
   final bool toolbarIsExpand;
   final SalonData? salonData;
@@ -206,11 +202,11 @@ class TopBarOfSalonDetails extends StatelessWidget {
       expandedHeight: 350,
       pinned: true,
       floating: true,
-      backgroundColor: ColorRes.smokeWhite,
+      backgroundColor: ColorRes.transparent,
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BgRoundIconWidget(
-          icon: Icons.arrow_back_rounded,
+          icon: Icons.arrow_back_ios_new_outlined,
           imagePadding: 6,
           iconColor: !toolbarIsExpand ? ColorRes.mortar : ColorRes.white,
           bgColor: !toolbarIsExpand
@@ -222,13 +218,13 @@ class TopBarOfSalonDetails extends StatelessWidget {
       elevation: 0,
       title: Text(
         !toolbarIsExpand ? salonData?.salonName ?? '' : '',
-        style: kSemiBoldTextStyle.copyWith(
-          color: ColorRes.mortar,
-        ),
+        style: context.titleStyleLarge!.copyWith(fontWeight: FontWeight.w300),
       ),
-      titleTextStyle: kSemiBoldTextStyle.copyWith(
-        color: ColorRes.mortar,
-      ),
+      titleTextStyle: context.titleStyleLarge!
+          .copyWith(fontWeight: FontWeight.w300)
+          .copyWith(
+            color: ColorRes.mortar,
+          ),
       actions: [
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -312,177 +308,171 @@ class TopBarOfSalonDetails extends StatelessWidget {
                   ),
                   Container(
                     height: 100,
-                    color: ColorRes.smokeWhite,
                   ),
                 ],
               ),
               Column(
                 children: [
                   const Spacer(),
-                  Stack(
-                    children: [
-                      Positioned(
-                        top: 15,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        child: Container(
-                          color: ColorRes.smokeWhite,
-                          height: 10,
-                        ),
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 35,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          physics: const BouncingScrollPhysics(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Card(
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(right: 15, top: 20, left: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            OpenClosedStatusWidget(
-                              bgDisable: ColorRes.smokeWhite1,
-                              salonData: salonData,
+                            const SizedBox(height: 10),
+                            Text(
+                              '${salonData?.salonName}',
+                              style: context.titleStyleLarge!
+                                  .copyWith(fontWeight: FontWeight.bold),
                             ),
-                            Container(
-                              decoration: const BoxDecoration(
-                                color: ColorRes.themeColor,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(100),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${salonData?.salonAddress}',
+                                  style: context.bodyMedium!.copyWith(
+                                      color: context.bodyMedium!.color!
+                                          .withOpacity(0.5)),
                                 ),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 15,
-                                vertical: 8,
-                              ),
-                              child: Text(
-                                AppRes.getGenderTypeInStringFromNumber(context,
-                                    salonData?.genderServed?.toInt() ?? 0),
-                                style: kLightWhiteTextStyle.copyWith(
-                                  fontSize: 12,
-                                  letterSpacing: 1,
+                                const SizedBox(height: 5),
+                                Visibility(
+                                  visible: true,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                            color: ColorRes.pumpkin15,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5))),
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                          vertical: 4,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              '${salonData?.rating?.toStringAsFixed(1)}',
+                                              style:
+                                                  context.bodyMedium!.copyWith(
+                                                color: ColorRes.pumpkin,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            const Icon(
+                                              Icons.star_rounded,
+                                              color: ColorRes.pumpkin,
+                                              size: 20,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        '(${salonData?.reviewsCount ?? 0} ${AppLocalizations.of(context)!.ratings})',
+                                        style: context.bodyMedium!.copyWith(
+                                          color: context.bodyMedium!.color!
+                                              .withOpacity(.5),
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                              ],
+                            ),
+                            Center(
+                              child: PageIndicator(
+                                salon: salonData,
+                                pageController: pageController,
                               ),
                             ),
-                            Visibility(
-                              visible: salonData?.topRated == 1,
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [ColorRes.pancho, ColorRes.fallow],
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(100),
-                                  ),
-                                ),
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 15,
-                                  vertical: 8,
-                                ),
-                                child: Text(
-                                  AppLocalizations.of(context)!
-                                      .topRated
-                                      .toUpperCase(),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: kLightWhiteTextStyle.copyWith(
-                                    fontSize: 12,
-                                    letterSpacing: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            PageIndicator(
-                              salon: salonData,
-                              pageController: pageController,
+                            const SizedBox(
+                              height: 10,
                             ),
                           ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Positioned(
+                bottom: 110,
+                left: 20,
+                child: SizedBox(
+                  width: context.sizeDevice.width - 40,
+                  height: 35,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      OpenClosedStatusWidget(
+                        bgDisable: ColorRes.smokeWhite1,
+                        salonData: salonData,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: context.colorScheme.primary,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(100),
+                          ),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 8,
+                        ),
+                        child: Text(
+                          AppRes.getGenderTypeInStringFromNumber(
+                              context, salonData?.genderServed?.toInt() ?? 0),
+                          style: context.bodyMedium!.copyWith(
+                            color: ColorRes.white,
+                            fontSize: 12,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: salonData?.topRated == 1,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [ColorRes.pancho, ColorRes.fallow],
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(100),
+                            ),
+                          ),
+                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 8,
+                          ),
+                          child: Text(
+                            AppLocalizations.of(context)!
+                                .topRated
+                                .toUpperCase(),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: context.bodyMedium!.copyWith(
+                              color: ColorRes.white,
+                              fontSize: 12,
+                              letterSpacing: 1,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  Container(
-                    height: 110,
-                    width: double.infinity,
-                    color: ColorRes.smokeWhite,
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '${salonData?.salonName}',
-                          style: kBoldThemeTextStyle,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${salonData?.salonAddress}',
-                              style: kThinWhiteTextStyle.copyWith(
-                                color: ColorRes.titleText,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Visibility(
-                              visible: true,
-                              child: Row(
-                                children: [
-                                  Container(
-                                    decoration: const BoxDecoration(
-                                        color: ColorRes.pumpkin15,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(5))),
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 4,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          '${salonData?.rating?.toStringAsFixed(1)}',
-                                          style: kRegularTextStyle.copyWith(
-                                            color: ColorRes.pumpkin,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        const Icon(
-                                          Icons.star_rounded,
-                                          color: ColorRes.pumpkin,
-                                          size: 20,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    '(${salonData?.reviewsCount ?? 0} ${AppLocalizations.of(context)!.ratings})',
-                                    style: kThinWhiteTextStyle.copyWith(
-                                      color: ColorRes.titleText,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
           ),
@@ -555,7 +545,7 @@ class _ToggleImageWidgetState extends State<ToggleImageWidget> {
       },
       image: isFav ? AssetRes.icFav : AssetRes.icUnFavourite,
       imagePadding: isFav ? 9 : 10,
-      imageColor: isFav ? ColorRes.themeColor : ColorRes.mortar,
+      imageColor: isFav ? context.colorScheme.primary : ColorRes.mortar,
       bgColor: !widget.toolbarIsExpand
           ? ColorRes.smokeWhite1
           : ColorRes.lavender.withOpacity(0.5),

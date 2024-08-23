@@ -1,14 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:moli/bloc/notification/notification_bloc.dart';
 import 'package:moli/model/notification/notification.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:moli/utils/extensions.dart';
 
 class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({Key? key}) : super(key: key);
+  const NotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class NotificationScreen extends StatelessWidget {
                                     ),
                                     Text(
                                       notificationData.title ?? '',
-                                      style: kRegularTextStyle.copyWith(
+                                      style: context.bodyMedium!.copyWith(
                                         fontSize: 16,
                                       ),
                                     ),
@@ -58,8 +58,8 @@ class NotificationScreen extends StatelessWidget {
                                     ),
                                     Text(
                                       notificationData.description ?? '',
-                                      style: kLightWhiteTextStyle.copyWith(
-                                        color: ColorRes.empress,
+                                      style: context.bodyMedium!.copyWith(
+                                        color: context.colorScheme.outline,
                                         fontSize: 14,
                                       ),
                                     ),
@@ -67,7 +67,7 @@ class NotificationScreen extends StatelessWidget {
                                       height: 15,
                                     ),
                                     Container(
-                                      color: ColorRes.empress,
+                                      color: context.colorScheme.outline,
                                       height: 0.2,
                                     ),
                                   ],

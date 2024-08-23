@@ -1,17 +1,17 @@
 import 'dart:math';
 
-import 'package:moli/model/user/salon.dart';
-import 'package:moli/model/user/salon_user.dart';
-import 'package:moli/screens/main/main_screen.dart';
-import 'package:moli/service/api_service.dart';
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/shared_pref.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:moli/model/user/salon.dart';
+import 'package:moli/model/user/salon_user.dart';
+import 'package:moli/screens/main/main_screen.dart';
+import 'package:moli/service/api_service.dart';
+import 'package:moli/utils/color_res.dart';
+import 'package:moli/utils/extensions.dart';
+import 'package:moli/utils/shared_pref.dart';
 
 import 'custom/custom_dialog.dart';
 
@@ -30,6 +30,7 @@ class AppRes {
   static int totalDays = 90;
 
   static Future<SnackbarController> showSnackBar(
+    BuildContext context,
     String msg,
     bool positive,
   ) async {
@@ -40,9 +41,13 @@ class AppRes {
         message: msg,
         messageText: Text(
           msg,
-          style: kSemiBoldThemeTextStyle.copyWith(
-            color: positive ? ColorRes.themeColor : ColorRes.bitterSweet,
-          ),
+          style: context.bodyMedium!
+              .copyWith(fontWeight: FontWeight.w300)
+              .copyWith(
+                color: positive
+                    ? context.colorScheme.primary
+                    : ColorRes.bitterSweet,
+              ),
         ),
         duration: const Duration(seconds: 2),
       ),
@@ -152,24 +157,24 @@ class AppRes {
     return time?.split(":")[1].split(" ")[0] ?? "0";
   }
 
-  static Color getColorByStatus(int status) {
+  static Color getColorByStatus(BuildContext context, int status) {
     return status == 0
         ? ColorRes.seashell
         : status == 1
-            ? ColorRes.themeColor10
+            ? context.colorScheme.onTertiary
             : status == 2
-                ? ColorRes.panache
-                : ColorRes.mistyRose;
+                ? Colors.green.withOpacity(.05)
+                : Colors.red.withOpacity(.05);
   }
 
   static Color getTextColorByStatus(int status) {
     return status == 0
-        ? ColorRes.pumpkin
+        ? Colors.yellow
         : status == 1
-            ? ColorRes.themeColor
+            ? Colors.blue
             : status == 2
-                ? ColorRes.apple
-                : ColorRes.bitterSweet;
+                ? Colors.green
+                : Colors.red;
   }
 
   static String getTextByStatus(int status) {

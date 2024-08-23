@@ -33,14 +33,14 @@
 //                   child: Container(
 //                     margin: const EdgeInsets.only(right: 10),
 //                     decoration: const BoxDecoration(
-//                       color: ColorRes.themeColor10,
+//                       color: context.colorScheme.primary10,
 //                       borderRadius: BorderRadius.all(Radius.circular(5)),
 //                     ),
 //                     padding:
 //                         const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
 //                     child: Text(
 //                       '${AppRes.currency}${confirmBookingBloc.salonUser?.data?.wallet?.toString() ?? ''}',
-//                       style: kSemiBoldThemeTextStyle,
+//                       style: context.bodyMedium!.copyWith(fontWeight: FontWeight.w300),
 //                     ),
 //                   ),
 //                 ),
@@ -67,8 +67,8 @@
 //                                   children: [
 //                                     Text(
 //                                       AppLocalizations.of(context)!.date,
-//                                       style: kLightWhiteTextStyle.copyWith(
-//                                         color: ColorRes.empress,
+//                                       style: context.bodyMedium.copyWith(
+//                                         color: context.colorScheme.outline,
 //                                         fontSize: 14,
 //                                       ),
 //                                     ),
@@ -89,8 +89,8 @@
 //                                   children: [
 //                                     Text(
 //                                       AppLocalizations.of(context)!.time,
-//                                       style: kLightWhiteTextStyle.copyWith(
-//                                         color: ColorRes.empress,
+//                                       style: context.bodyMedium.copyWith(
+//                                         color: context.colorScheme.outline,
 //                                         fontSize: 14,
 //                                       ),
 //                                     ),
@@ -109,8 +109,8 @@
 //                                   children: [
 //                                     Text(
 //                                       AppLocalizations.of(context)!.duration,
-//                                       style: kLightWhiteTextStyle.copyWith(
-//                                         color: ColorRes.empress,
+//                                       style: context.bodyMedium.copyWith(
+//                                         color: context.colorScheme.outline,
 //                                         fontSize: 14,
 //                                       ),
 //                                     ),
@@ -137,8 +137,8 @@
 //                             ),
 //                             child: Text(
 //                               AppLocalizations.of(context)!.services,
-//                               style: kLightWhiteTextStyle.copyWith(
-//                                 color: ColorRes.empress,
+//                               style: context.bodyMedium.copyWith(
+//                                 color: context.colorScheme.outline,
 //                                 fontSize: 14,
 //                               ),
 //                             ),
@@ -161,7 +161,7 @@
 //                                     Expanded(
 //                                       child: Text(
 //                                         service.title ?? ' ',
-//                                         style: kRegularTextStyle.copyWith(
+//                                         style: context.bodyMedium.copyWith(
 //                                           fontSize: 16,
 //                                         ),
 //                                         maxLines: 1,
@@ -173,7 +173,7 @@
 //                                     ),
 //                                     Text(
 //                                       '${AppRes.currency}${AppRes.formatCurrency((service.price?.toInt() ?? 0) - AppRes.calculateDiscountByPercentage(service.price?.toInt() ?? 0, service.discount?.toInt() ?? 0).toInt())}',
-//                                       style: kSemiBoldThemeTextStyle.copyWith(
+//                                       style: context.bodyMedium!.copyWith(fontWeight: FontWeight.w300).copyWith(
 //                                         fontSize: 18,
 //                                       ),
 //                                     )
@@ -198,7 +198,7 @@
 //                                       Text(
 //                                         AppLocalizations.of(context)!
 //                                             .couponDiscount,
-//                                         style: kRegularTextStyle.copyWith(
+//                                         style: context.bodyMedium.copyWith(
 //                                           fontSize: 16,
 //                                         ),
 //                                       ),
@@ -224,7 +224,7 @@
 //                                                       '')
 //                                                   .toUpperCase(),
 //                                               style:
-//                                                   kBoldThemeTextStyle.copyWith(
+//                                                   context.bodyMedium!.copyWith(                                              fontWeight: FontWeight.bold).copyWith(
 //                                                 fontSize: 12,
 //                                               ),
 //                                             ),
@@ -263,7 +263,7 @@
 //                                   const Spacer(),
 //                                   Text(
 //                                     '-\$${confirmBookingBloc.getDiscount()}',
-//                                     style: kSemiBoldThemeTextStyle.copyWith(
+//                                     style: context.bodyMedium!.copyWith(fontWeight: FontWeight.w300).copyWith(
 //                                       fontSize: 18,
 //                                     ),
 //                                   )
@@ -272,7 +272,7 @@
 //                             ),
 //                           ),
 //                           Container(
-//                             color: ColorRes.themeColor10,
+//                             color: context.colorScheme.primary10,
 //                             margin: const EdgeInsets.only(bottom: 5),
 //                             padding: const EdgeInsets.symmetric(
 //                                 horizontal: 15, vertical: 15),
@@ -280,15 +280,15 @@
 //                               children: [
 //                                 Text(
 //                                   AppLocalizations.of(context)!.subTotal,
-//                                   style: kRegularTextStyle.copyWith(
+//                                   style: context.bodyMedium.copyWith(
 //                                     fontSize: 17,
-//                                     color: ColorRes.themeColor,
+//                                     color: context.colorScheme.primary,
 //                                   ),
 //                                 ),
 //                                 const Spacer(),
 //                                 Text(
 //                                   '${AppRes.currency}${AppRes.formatCurrency(confirmBookingBloc.getSubTotalAmount())}',
-//                                   style: kSemiBoldThemeTextStyle.copyWith(
+//                                   style: context.bodyMedium!.copyWith(fontWeight: FontWeight.w300).copyWith(
 //                                     fontSize: 18,
 //                                   ),
 //                                 )
@@ -323,8 +323,8 @@
 //                                     ),
 //                                     Text(
 //                                       AppLocalizations.of(context)!.applyCoupon,
-//                                       style: kLightWhiteTextStyle.copyWith(
-//                                         color: ColorRes.themeColor,
+//                                       style: context.bodyMedium.copyWith(
+//                                         color: context.colorScheme.primary,
 //                                         fontSize: 16,
 //                                       ),
 //                                     ),
@@ -352,14 +352,14 @@
 //                                   children: [
 //                                     Text(
 //                                       tax?.taxTitle ?? '',
-//                                       style: kRegularTextStyle.copyWith(
+//                                       style: context.bodyMedium.copyWith(
 //                                         fontSize: 16,
 //                                       ),
 //                                     ),
 //                                     const Spacer(),
 //                                     Text(
 //                                       '${AppRes.currency}${confirmBookingBloc.calculateTax(tax)}',
-//                                       style: kSemiBoldThemeTextStyle.copyWith(
+//                                       style: context.bodyMedium!.copyWith(fontWeight: FontWeight.w300).copyWith(
 //                                         fontSize: 18,
 //                                       ),
 //                                     )
@@ -378,7 +378,7 @@
 //                                 Text(
 //                                   AppLocalizations.of(Get.context!)!
 //                                       .payableAmount,
-//                                   style: kRegularTextStyle.copyWith(
+//                                   style: context.bodyMedium.copyWith(
 //                                     fontSize: 16,
 //                                     color: ColorRes.white,
 //                                   ),
@@ -407,7 +407,17 @@
 //                     margin: const EdgeInsets.symmetric(
 //                         horizontal: 15, vertical: 15),
 //                     child: TextButton(
-//                       style: kButtonThemeStyle,
+//                       style: ButtonStyle(
+                                    //   backgroundColor:
+                                    //       WidgetStateProperty.all(Colors.red),
+                                    //   shape: WidgetStateProperty.all(
+                                    //     const RoundedRectangleBorder(
+                                    //         borderRadius = BorderRadius.all(
+                                    //             Radius.circular(10))),
+                                    //   ),
+                                    //   overlayColor: WidgetStateProperty.all(
+                                    //       Colors.transparent),
+                                    // ),
 //                       onPressed: () {
 //                         if ((confirmBookingBloc.salonUser?.data?.wallet
 //                                     ?.toInt() ??

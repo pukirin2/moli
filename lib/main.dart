@@ -1,14 +1,15 @@
 import 'dart:io';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/route_manager.dart';
 import 'package:moli/screens/welcome/welcome_screen.dart';
 // import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/shared_pref.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/route_manager.dart';
 
 import 'firebase_options.dart';
 import 'utils/app_theme.dart';
@@ -41,14 +42,14 @@ class MyApp extends StatelessWidget {
     //     title: 'Moli',
     //     theme: ThemeData(
     //         scaffoldBackgroundColor: ColorRes.white,
-    //         // scaffoldBackgroundColor: ColorRes.themeColor.withOpacity(0.6),
+    //         // scaffoldBackgroundColor: context.colorScheme.primary.withOpacity(0.6),
     //         textTheme: const TextTheme(
     //             displaySmall: TextStyle(color: ColorRes.white),
     //             displayLarge: TextStyle(color: ColorRes.white),
     //             displayMedium: TextStyle(color: ColorRes.white)),
     //         colorScheme: ColorScheme.fromSwatch(
     //           primarySwatch: MaterialColor(
-    //               ColorRes.themeColor.value, getSwatch(ColorRes.themeColor)),
+    //               context.colorScheme.primary.value, getSwatch(context.colorScheme.primary)),
     //         ).copyWith(surface: ColorRes.white)),
     //     home: const WelComeScreen());
     return GetMaterialApp(

@@ -1,14 +1,14 @@
 import 'dart:io';
 
-import 'package:moli/model/user/salon_user.dart';
-import 'package:moli/service/api_service.dart';
-import 'package:moli/utils/app_res.dart';
-import 'package:moli/utils/shared_pref.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:moli/model/user/salon_user.dart';
+import 'package:moli/service/api_service.dart';
+import 'package:moli/utils/app_res.dart';
+import 'package:moli/utils/shared_pref.dart';
 
 part 'edit_profile_event.dart';
 part 'edit_profile_state.dart';
@@ -34,7 +34,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     on<SubmitEditProfileEvent>(
       (event, emit) async {
         if (fullNameTextController.text.isEmpty) {
-          AppRes.showSnackBar(
+          AppRes.showSnackBar(Get.context!,
               AppLocalizations.of(Get.context!)!.enterYourFullname, false);
           return;
         }

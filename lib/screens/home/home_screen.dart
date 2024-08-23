@@ -1,4 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:moli/bloc/home/home_bloc.dart';
 import 'package:moli/model/home/home_page_data.dart';
 import 'package:moli/model/user/salon_user.dart';
@@ -11,14 +15,9 @@ import 'package:moli/screens/nearbysalon/near_by_salon_screen.dart';
 import 'package:moli/screens/notification/notification_screen.dart';
 import 'package:moli/screens/search/search_screen.dart';
 import 'package:moli/screens/toprated/top_rated_salon_screen.dart';
-import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
+import 'package:moli/utils/extensions.dart';
 
 import 'top_rated_salon.dart';
 
@@ -44,7 +43,7 @@ class HomeScreen extends StatelessWidget {
           return Column(
             children: [
               Container(
-                color: ColorRes.themeColor5,
+                color: context.colorScheme.surface.withOpacity(0.1),
                 padding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 child: SafeArea(
@@ -61,15 +60,18 @@ class HomeScreen extends StatelessWidget {
                             Text(
                                 '${AppLocalizations.of(context)!.hello}, ${salonUser?.data?.fullname ?? ''}'
                                     .capitalize!,
-                                style: kBoldThemeTextStyle.copyWith(
-                                    fontSize: 19,
-                                    overflow: TextOverflow.ellipsis),
+                                style: context.bodyMedium!
+                                    .copyWith(fontWeight: FontWeight.bold)
+                                    .copyWith(
+                                        fontSize: 19,
+                                        overflow: TextOverflow.ellipsis),
                                 maxLines: 1),
                             Text(
                                 AppLocalizations.of(context)!
                                     .beTheBestVersionOfYourself,
-                                style: kRegularEmpressTextStyle.copyWith(
-                                    fontSize: 14))
+                                style: context.bodySmall!.copyWith(
+                                    color: context.bodySmall!.color!
+                                        .withOpacity(0.8))),
                           ])),
                       const SizedBox(width: 15),
                       BgRoundIconWidget(
@@ -78,9 +80,7 @@ class HomeScreen extends StatelessWidget {
                           Get.to(() => SearchScreen());
                         },
                       ),
-                      const SizedBox(
-                        width: 15,
-                      ),
+                      const SizedBox(width: 15),
                       BgRoundIconWidget(
                         icon: Icons.notifications,
                         onTap: () {
@@ -225,10 +225,11 @@ class BannerWidget extends StatelessWidget {
                                 child: Container(
                                     height: 30,
                                     width: 15,
-                                    decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.horizontal(
-                                            right: Radius.circular(100)),
-                                        color: ColorRes.white)))),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            const BorderRadius.horizontal(
+                                                right: Radius.circular(100)),
+                                        color: context.colorScheme.surface)))),
                         Directionality(
                             textDirection: TextDirection.ltr,
                             child: Align(
@@ -236,10 +237,11 @@ class BannerWidget extends StatelessWidget {
                                 child: Container(
                                     height: 30,
                                     width: 15,
-                                    decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.horizontal(
-                                            left: Radius.circular(100)),
-                                        color: ColorRes.white))))
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            const BorderRadius.horizontal(
+                                                left: Radius.circular(100)),
+                                        color: context.colorScheme.surface))))
                       ])));
             }));
   }

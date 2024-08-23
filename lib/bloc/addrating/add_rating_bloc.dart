@@ -1,9 +1,9 @@
-import 'package:moli/service/api_service.dart';
-import 'package:moli/utils/app_res.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:moli/service/api_service.dart';
+import 'package:moli/utils/app_res.dart';
 
 part 'add_rating_event.dart';
 part 'add_rating_state.dart';
@@ -28,12 +28,12 @@ class AddRatingBloc extends Bloc<AddRatingEvent, AddRatingState> {
 
   void tapOnContinue() {
     if (rating == 0) {
-      AppRes.showSnackBar(
+      AppRes.showSnackBar(Get.context!,
           AppLocalizations.of(Get.context!)!.pleaseSelectAtLeast1Star, false);
       return;
     }
     if (reviewController.text.isEmpty) {
-      AppRes.showSnackBar(
+      AppRes.showSnackBar(Get.context!,
           AppLocalizations.of(Get.context!)!.pleaseEnterReview, false);
       return;
     }
@@ -42,7 +42,8 @@ class AddRatingBloc extends Bloc<AddRatingEvent, AddRatingState> {
         .addRating(bookingId ?? '', rating.round(), reviewController.text)
         .then((value) {
       AppRes.hideCustomLoaderWithBack();
-      AppRes.showSnackBar(value.message ?? '', value.status ?? false);
+      AppRes.showSnackBar(
+          Get.context!, value.message ?? '', value.status ?? false);
     });
   }
 }

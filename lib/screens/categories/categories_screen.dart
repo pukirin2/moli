@@ -1,16 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:moli/model/home/home_page_data.dart';
 import 'package:moli/screens/categories/salon_by_cat_screen.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
+import 'package:moli/utils/extensions.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({Key? key}) : super(key: key);
+  const CategoriesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class CategoriesScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: 12),
                           child: Text(
                             category.title ?? '',
-                            style: kRegularThemeTextStyle.copyWith(
+                            style: context.bodyMedium!.copyWith(
                               fontSize: 20,
                             ),
                           ),

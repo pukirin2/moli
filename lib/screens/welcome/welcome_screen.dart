@@ -1,6 +1,14 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:get/route_manager.dart';
 import 'package:moli/model/user/salon_user.dart';
 import 'package:moli/screens/main/main_screen.dart';
 import 'package:moli/screens/salon/salon_details_screen.dart';
@@ -14,14 +22,6 @@ import 'package:moli/utils/custom/custom_widget.dart';
 import 'package:moli/utils/extensions.dart';
 import 'package:moli/utils/shared_pref.dart';
 import 'package:moli/utils/style_res.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_app_badger/flutter_app_badger.dart';
-import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:get/route_manager.dart';
 
 class WelComeScreen extends StatefulWidget {
   const WelComeScreen({super.key});
@@ -65,7 +65,7 @@ class _WelComeScreenState extends State<WelComeScreen> {
                         height: 240,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                            color: ColorRes.black.withOpacity(0.4)),
+                            color: ColorRes.black.withOpacity(0.3)),
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: SafeArea(
                             top: false,
@@ -83,7 +83,7 @@ class _WelComeScreenState extends State<WelComeScreen> {
                                     AppLocalizations.of(context)!
                                         .findAndBookHairCutMassageSpaWaxingColoringServicesAnytime,
                                     style: context.titleStyleSmall!.copyWith(
-                                      color: ColorRes.white,
+                                      color: ColorRes.white.withOpacity(0.7),
                                     ),
                                   ),
                                   const SizedBox(height: 20),
@@ -126,8 +126,11 @@ class _WelComeScreenState extends State<WelComeScreen> {
                                               : Text(
                                                   AppLocalizations.of(context)!
                                                       .continue_,
-                                                  style:
-                                                      kThemeButtonTextStyle)))
+                                                  style: context.bodyMedium!
+                                                      .copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red,
+                                                  ))))
                                 ])))))
           ]))
     ]));

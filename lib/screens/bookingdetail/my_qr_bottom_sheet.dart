@@ -1,13 +1,12 @@
-import 'package:moli/screens/search/filter_bottom_sheet.dart';
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:moli/screens/search/filter_bottom_sheet.dart';
+import 'package:moli/utils/color_res.dart';
+import 'package:moli/utils/extensions.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class MyQrCodeBottomSheet extends StatelessWidget {
-  const MyQrCodeBottomSheet({Key? key, required this.bookingId})
-      : super(key: key);
+  const MyQrCodeBottomSheet({super.key, required this.bookingId});
   final String bookingId;
 
   @override
@@ -15,9 +14,10 @@ class MyQrCodeBottomSheet extends StatelessWidget {
     return SafeArea(
       bottom: false,
       child: Container(
-        decoration: const BoxDecoration(
-          color: ColorRes.white,
-          borderRadius: BorderRadius.vertical(
+        height: context.sizeDevice.height * 0.6,
+        decoration: BoxDecoration(
+          color: context.colorScheme.surface,
+          borderRadius: const BorderRadius.vertical(
             top: Radius.circular(25),
           ),
         ),
@@ -29,7 +29,8 @@ class MyQrCodeBottomSheet extends StatelessWidget {
               children: [
                 Text(
                   AppLocalizations.of(context)!.showThisQRAtSalon,
-                  style: kBoldThemeTextStyle,
+                  style: context.titleStyleMedium!
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 const CloseButtonWidget(),
@@ -38,8 +39,8 @@ class MyQrCodeBottomSheet extends StatelessWidget {
             Text(
               AppLocalizations.of(context)!
                   .offerThisQRAtSalonShopTheyWillScanItAndWillHaveAllTheDetails,
-              style: kLightWhiteTextStyle.copyWith(
-                color: ColorRes.subTitleText,
+              style: context.bodyMedium!.copyWith(
+                color: context.bodyMedium!.color!.withOpacity(0.6),
                 fontSize: 18,
               ),
             ),
@@ -57,11 +58,11 @@ class MyQrCodeBottomSheet extends StatelessWidget {
                       data: bookingId,
                       errorCorrectionLevel: 2,
                       eyeStyle: const QrEyeStyle(
-                        color: ColorRes.themeColor,
+                        color: ColorRes.black,
                         eyeShape: QrEyeShape.square,
                       ),
                       dataModuleStyle: const QrDataModuleStyle(
-                        color: ColorRes.themeColor,
+                        color: ColorRes.black,
                         dataModuleShape: QrDataModuleShape.square,
                       ),
                     ),

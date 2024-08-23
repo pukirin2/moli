@@ -1,16 +1,16 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:moli/bloc/coupon/coupon_bloc.dart';
 import 'package:moli/model/coupon/coupon.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
+import 'package:moli/utils/extensions.dart';
 
 class CouponBottomSheet extends StatelessWidget {
-  const CouponBottomSheet({Key? key, this.onApplyCoupon}) : super(key: key);
+  const CouponBottomSheet({super.key, this.onApplyCoupon});
   final Function(CouponData couponData)? onApplyCoupon;
 
   @override
@@ -34,17 +34,19 @@ class CouponBottomSheet extends StatelessWidget {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.applyCoupon,
-                        style: kSemiBoldThemeTextStyle.copyWith(
-                          fontSize: 20,
-                        ),
+                        style: context.bodyMedium!
+                            .copyWith(fontWeight: FontWeight.w300)
+                            .copyWith(
+                              fontSize: 20,
+                            ),
                       ),
                       const SizedBox(
                         height: 3,
                       ),
                       Text(
                         AppLocalizations.of(context)!.tapOnACouponToApplyIt,
-                        style: kLightWhiteTextStyle.copyWith(
-                          color: ColorRes.empress,
+                        style: context.bodyMedium!.copyWith(
+                          color: context.colorScheme.outline,
                           fontSize: 14,
                         ),
                       ),
@@ -63,9 +65,9 @@ class CouponBottomSheet extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(100)),
                       ),
                       padding: const EdgeInsets.all(5),
-                      child: const Icon(
+                      child: Icon(
                         Icons.close_rounded,
-                        color: ColorRes.themeColor,
+                        color: context.colorScheme.primary,
                       ),
                     ),
                   ),
@@ -124,18 +126,22 @@ class CouponBottomSheet extends StatelessWidget {
                                                 children: [
                                                   Text(
                                                     coupon?.heading ?? '',
-                                                    style: kBoldThemeTextStyle
+                                                    style: context.bodyMedium!
                                                         .copyWith(
-                                                      color: ColorRes.neroDark,
-                                                      fontSize: 18,
-                                                    ),
+                                                            fontWeight:
+                                                                FontWeight.bold)
+                                                        .copyWith(
+                                                          color:
+                                                              ColorRes.neroDark,
+                                                          fontSize: 18,
+                                                        ),
                                                   ),
                                                   const SizedBox(
                                                     height: 3,
                                                   ),
                                                   Text(
                                                     'MAX \$${coupon?.maxDiscountAmount ?? ''}',
-                                                    style: kLightWhiteTextStyle
+                                                    style: context.bodyMedium!
                                                         .copyWith(
                                                       color: ColorRes.mortar,
                                                       fontSize: 14,
@@ -146,10 +152,13 @@ class CouponBottomSheet extends StatelessWidget {
                                               const Spacer(),
                                               Text(
                                                 coupon?.coupon ?? '',
-                                                style: kBoldThemeTextStyle
+                                                style: context.bodyMedium!
                                                     .copyWith(
-                                                  fontSize: 16,
-                                                ),
+                                                        fontWeight:
+                                                            FontWeight.bold)
+                                                    .copyWith(
+                                                      fontSize: 16,
+                                                    ),
                                               ),
                                             ],
                                           ),
@@ -158,7 +167,7 @@ class CouponBottomSheet extends StatelessWidget {
                                           ),
                                           Text(
                                             coupon?.description ?? '',
-                                            style: kRegularTextStyle.copyWith(
+                                            style: context.bodyMedium!.copyWith(
                                               color: ColorRes.mortar,
                                               fontSize: 16,
                                             ),

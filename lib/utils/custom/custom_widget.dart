@@ -1,11 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/extensions.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
 
 class AppLogo extends StatelessWidget {
   final Color? textColor;
@@ -77,7 +76,7 @@ class _OpenClosedStatusWidgetState extends State<OpenClosedStatusWidget> {
     return Container(
       decoration: BoxDecoration(
         color: isSalonOpen
-            ? ColorRes.themeColor
+            ? context.colorScheme.primary
             : widget.bgDisable ?? ColorRes.smokeWhite,
         borderRadius: const BorderRadius.all(
           Radius.circular(100),
@@ -93,8 +92,8 @@ class _OpenClosedStatusWidgetState extends State<OpenClosedStatusWidget> {
                 ? AppLocalizations.of(context)!.open
                 : AppLocalizations.of(context)!.closed)
             .toUpperCase(),
-        style: kLightWhiteTextStyle.copyWith(
-          color: isSalonOpen ? ColorRes.white : ColorRes.empress,
+        style: context.bodyMedium!.copyWith(
+          color: isSalonOpen ? ColorRes.white : context.colorScheme.outline,
           fontSize: 12,
           letterSpacing: 1,
         ),
@@ -118,12 +117,23 @@ class TitleWithSeeAllWidget extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Row(children: [
-          Expanded(child: Text(title, style: kSemiBoldTextStyle, maxLines: 3)),
+          Expanded(
+              child: Text(title,
+                  style: context.titleStyleMedium!
+                      .copyWith(fontWeight: FontWeight.w300),
+                  maxLines: 3)),
           const Spacer(),
           CustomCircularInkWell(
               onTap: onTap,
-              child: Text(AppLocalizations.of(context)!.seeAll,
-                  style: kRegularEmpressTextStyle.copyWith(fontSize: 14)))
+              child: Row(
+                children: [
+                  Text(AppLocalizations.of(context)!.seeAll,
+                      style: context.bodySmall),
+                  const SizedBox(width: 5),
+                  const Icon(Icons.arrow_forward_ios, size: 8)
+                ],
+              )),
+          const SizedBox(width: 10)
         ]));
   }
 }
@@ -158,44 +168,36 @@ class ToolBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorRes.smokeWhite,
       width: double.infinity,
       padding: const EdgeInsets.only(bottom: 15),
       child: SafeArea(
         bottom: false,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CustomCircularInkWell(
               onTap: () {
                 Get.back();
               },
-              child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Icon(
-                    Icons.arrow_back_rounded,
+                    Icons.arrow_back_ios_rounded,
                     size: 30,
-                    color: ColorRes.themeColor,
-                  )
-                  // Image(
-                  //   image: AssetImage(AssetRes.icBack),
-                  //   height: 30,
-                  // ),
-                  ),
+                    color: context.colorScheme.primary,
+                  )),
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    title,
-                    style: kBoldThemeTextStyle,
-                  ),
-                ),
-                const Spacer(),
-                child ?? const SizedBox()
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                title,
+                style: context.titleStyleMedium!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
             ),
+            const Spacer(),
+            child ?? const SizedBox(),
           ],
         ),
       ),
@@ -238,10 +240,12 @@ class ImageNotFound extends StatelessWidget {
       child: Center(
         child: Text(
           ':-('.toUpperCase(),
-          style: kBoldThemeTextStyle.copyWith(
-            color: tintcolor ?? ColorRes.smokeWhite1,
-            fontSize: 50,
-          ),
+          style: context.bodyMedium!
+              .copyWith(fontWeight: FontWeight.bold)
+              .copyWith(
+                color: tintcolor ?? ColorRes.smokeWhite1,
+                fontSize: 50,
+              ),
         ),
       ),
     );
@@ -268,10 +272,12 @@ class ImageNotFoundOval extends StatelessWidget {
         child: Center(
           child: Text(
             ':-('.toUpperCase(),
-            style: kBoldThemeTextStyle.copyWith(
-              color: tintcolor ?? ColorRes.smokeWhite1,
-              fontSize: fontSize ?? 50,
-            ),
+            style: context.bodyMedium!
+                .copyWith(fontWeight: FontWeight.bold)
+                .copyWith(
+                  color: tintcolor ?? ColorRes.smokeWhite1,
+                  fontSize: fontSize ?? 50,
+                ),
           ),
         ),
       ),
@@ -291,10 +297,12 @@ class LoadingImage extends StatelessWidget {
       child: Center(
         child: Text(
           '...'.toUpperCase(),
-          style: kBoldThemeTextStyle.copyWith(
-            color: ColorRes.smokeWhite1,
-            fontSize: 50,
-          ),
+          style: context.bodyMedium!
+              .copyWith(fontWeight: FontWeight.bold)
+              .copyWith(
+                color: ColorRes.smokeWhite1,
+                fontSize: 50,
+              ),
         ),
       ),
     );
@@ -341,7 +349,7 @@ class LoadingData extends StatelessWidget {
     )
 
         // CircularProgressIndicator(
-        //   color: ColorRes.themeColor,
+        //   color: context.colorScheme.primary,
         // ),
         );
   }

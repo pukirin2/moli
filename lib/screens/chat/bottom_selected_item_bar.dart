@@ -1,8 +1,7 @@
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:moli/utils/extensions.dart';
 
 class BottomSelectedItemBar extends StatelessWidget {
   final VoidCallback onBackTap;
@@ -10,11 +9,10 @@ class BottomSelectedItemBar extends StatelessWidget {
   final VoidCallback onItemDelete;
 
   const BottomSelectedItemBar(
-      {Key? key,
+      {super.key,
       required this.onBackTap,
       required this.selectedItemCount,
-      required this.onItemDelete})
-      : super(key: key);
+      required this.onItemDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +20,7 @@ class BottomSelectedItemBar extends StatelessWidget {
       // padding: const EdgeInsets.symmetric(vertical: 4),
       padding: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
       width: Get.width,
-      decoration: const BoxDecoration(color: ColorRes.smokeWhite),
+      decoration: BoxDecoration(color: context.colorScheme.surface),
       child: SafeArea(
         bottom: false,
         child: Stack(
@@ -34,9 +32,9 @@ class BottomSelectedItemBar extends StatelessWidget {
                   : Alignment.centerLeft,
               child: InkWell(
                 onTap: onBackTap,
-                child: const Icon(
-                  Icons.arrow_back_rounded,
-                  color: ColorRes.charcoal,
+                child: Icon(
+                  Icons.arrow_back_ios_new_outlined,
+                  color: context.colorScheme.primary,
                 ),
               ),
             ),
@@ -52,12 +50,14 @@ class BottomSelectedItemBar extends StatelessWidget {
                   child: Text(
                     '$selectedItemCount\t\t',
                     key: ValueKey<int>(selectedItemCount),
-                    style: kSemiBoldTextStyle,
+                    style: context.bodyLarge!
+                        .copyWith(fontWeight: FontWeight.w300),
                   ),
                 ),
                 Text(
                   AppLocalizations.of(context)!.selectMsg,
-                  style: kSemiBoldTextStyle,
+                  style:
+                      context.bodyLarge!.copyWith(fontWeight: FontWeight.w300),
                 ),
               ],
             ),
@@ -67,9 +67,9 @@ class BottomSelectedItemBar extends StatelessWidget {
                   : Alignment.centerRight,
               child: InkWell(
                 onTap: onItemDelete,
-                child: const Icon(
+                child: Icon(
                   Icons.delete,
-                  color: ColorRes.themeColor,
+                  color: context.colorScheme.primary,
                 ),
               ),
             ),

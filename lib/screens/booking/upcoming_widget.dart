@@ -1,17 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:moli/model/bookings/booking.dart';
 import 'package:moli/screens/bookingdetail/booking_detail_screen.dart';
 import 'package:moli/utils/app_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:moli/utils/extensions.dart';
 
 class UpcomingBookingWidget extends StatelessWidget {
-  const UpcomingBookingWidget({Key? key, required this.bookings})
-      : super(key: key);
+  const UpcomingBookingWidget({super.key, required this.bookings});
   final List<BookingData> bookings;
 
   @override
@@ -33,9 +32,9 @@ class UpcomingBookingWidget extends StatelessWidget {
 
 class ItemUpcomingBooking extends StatelessWidget {
   const ItemUpcomingBooking({
-    Key? key,
+    super.key,
     required this.bookingData,
-  }) : super(key: key);
+  });
   final BookingData bookingData;
 
   @override
@@ -89,8 +88,8 @@ class ItemUpcomingBooking extends StatelessWidget {
                         pattern: 'EE, MMM dd, yyyy',
                         isUtc: false,
                       )} : ${AppRes.convert24HoursInto12Hours(bookingData.time, locale: curentLocale)}',
-                      style: kLightWhiteTextStyle.copyWith(
-                        color: ColorRes.themeColor,
+                      style: context.bodyMedium!.copyWith(
+                        color: context.colorScheme.primary,
                         fontSize: 16,
                       ),
                     ),
@@ -99,7 +98,7 @@ class ItemUpcomingBooking extends StatelessWidget {
                     ),
                     Text(
                       bookingData.salonData?.salonName ?? '',
-                      style: kSemiBoldTextStyle.copyWith(
+                      style: context.bodyMedium!.copyWith(
                         color: ColorRes.nero,
                         fontSize: 20,
                       ),
@@ -109,7 +108,7 @@ class ItemUpcomingBooking extends StatelessWidget {
                     ),
                     Text(
                       bookingData.salonData?.salonAddress ?? '',
-                      style: kThinWhiteTextStyle.copyWith(
+                      style: context.bodyMedium!.copyWith(
                         color: ColorRes.titleText,
                       ),
                     ),

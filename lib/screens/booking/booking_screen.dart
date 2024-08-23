@@ -1,17 +1,16 @@
-import 'package:moli/bloc/bookinghistory/booking_history_bloc.dart';
-import 'package:moli/screens/booking/history_widget.dart';
-import 'package:moli/screens/main/main_screen.dart';
-import 'package:moli/utils/color_res.dart';
-import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:moli/bloc/bookinghistory/booking_history_bloc.dart';
+import 'package:moli/screens/booking/history_widget.dart';
+import 'package:moli/screens/main/main_screen.dart';
+import 'package:moli/utils/custom/custom_widget.dart';
+import 'package:moli/utils/extensions.dart';
 
 class MyBookingScreen extends StatelessWidget {
   final Function()? onMenuClick;
 
-  const MyBookingScreen({Key? key, this.onMenuClick}) : super(key: key);
+  const MyBookingScreen({super.key, this.onMenuClick});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,6 @@ class MyBookingScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            color: ColorRes.themeColor5,
             padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 15),
             child: SafeArea(
               bottom: false,
@@ -36,9 +34,9 @@ class MyBookingScreen extends StatelessWidget {
                   ),
                   Text(
                     AppLocalizations.of(context)!.myBookings,
-                    style: kLightWhiteTextStyle.copyWith(
+                    style: context.bodyMedium!.copyWith(
                       fontSize: 20,
-                      color: ColorRes.themeColor,
+                      color: context.colorScheme.primary,
                     ),
                   ),
                 ],
@@ -69,7 +67,6 @@ class MyBookingScreen extends StatelessWidget {
               },
             ),
           ),
-          // const UpcomingBookingWidget(),
         ],
       ),
     );

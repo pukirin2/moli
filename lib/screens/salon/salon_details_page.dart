@@ -1,21 +1,21 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:moli/bloc/salon/salon_details_bloc.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/utils/app_res.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:moli/utils/extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SalonDetailsPage extends StatelessWidget {
-  const SalonDetailsPage({Key? key}) : super(key: key);
+  const SalonDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,108 +31,133 @@ class SalonDetailsPage extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(salonDetailsBloc.salonData?.salonAbout ?? '',
-                  style: kLightWhiteTextStyle.copyWith(
-                      color: ColorRes.empress, fontSize: 16))),
-          const SizedBox(height: 10),
-          Container(
-            color: ColorRes.smokeWhite,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: Row(
-              children: [
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(AppLocalizations.of(context)!.contactUs,
-                      style: kSemiBoldThemeTextStyle),
-                  const SizedBox(height: 2),
-                  Text(AppLocalizations.of(context)!.forQuestionsAndQueries,
-                      style: kLightWhiteTextStyle.copyWith(
-                          color: ColorRes.empress))
-                ]),
-                const Spacer(),
-                RoundCornerWithImageWidget(
-                  image: AssetRes.icCall,
-                  onTap: () {
-                    launchUrl(Uri.parse(
-                        'tel:${salonDetailsBloc.salonData?.salonPhone}'));
-                  },
+                  style: context.bodyMedium!.copyWith(
+                      color: context.bodyMedium!.color!.withOpacity(0.5)))),
+          const SizedBox(height: 15),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Card(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                child: Row(
+                  children: [
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(AppLocalizations.of(context)!.contactUs,
+                              style: context.bodyLarge!
+                                  .copyWith(fontWeight: FontWeight.w300)),
+                          const SizedBox(height: 2),
+                          Text(
+                              AppLocalizations.of(context)!
+                                  .forQuestionsAndQueries,
+                              style: context.bodyMedium!
+                                  .copyWith(color: context.colorScheme.outline))
+                        ]),
+                    const Spacer(),
+                    RoundCornerWithImageWidget(
+                      image: AssetRes.icCall,
+                      imageColor: context.colorScheme.tertiary,
+                      onTap: () {
+                        launchUrl(Uri.parse(
+                            'tel:${salonDetailsBloc.salonData?.salonPhone}'));
+                      },
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    RoundCornerWithImageWidget(
+                      image: AssetRes.icMessage,
+                      imageColor: context.colorScheme.tertiary,
+                      onTap: () {
+                        salonDetailsBloc.onChatBtnTap();
+                      },
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  width: 15,
-                ),
-                RoundCornerWithImageWidget(
-                  image: AssetRes.icMessage,
-                  onTap: () {
-                    salonDetailsBloc.onChatBtnTap();
-                  },
-                ),
-              ],
+              ),
             ),
           ),
           const SizedBox(height: 15),
-          Container(
-            color: ColorRes.smokeWhite,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(AppLocalizations.of(context)!.availability,
-                    style: kSemiBoldThemeTextStyle),
-                const SizedBox(height: 20),
-                Column(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Card(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(AppLocalizations.of(context)!.availability,
+                        style: context.bodyLarge!
+                            .copyWith(fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 10),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.mondayFriday,
+                              style: context.bodyMedium!.copyWith(
+                                color:
+                                    context.bodyMedium!.color!.withOpacity(.8),
+                                fontSize: 16,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.monFriFrom, locale: curentLocale)}'
+                              ' - '
+                              '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.monFriTo, locale: curentLocale)}',
+                              style: context.bodyMedium!
+                                  .copyWith(fontWeight: FontWeight.w300)
+                                  .copyWith(
+                                    fontSize: 16,
+                                    color: context.bodyMedium!.color!
+                                        .withOpacity(.5),
+                                  ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 1,
+                          margin: const EdgeInsets.only(top: 15, bottom: 15),
+                          color: context.colorScheme.onSurface.withOpacity(.8),
+                        ),
+                      ],
+                    ),
                     Row(
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.mondayFriday,
-                          style: kLightWhiteTextStyle.copyWith(
-                            color: ColorRes.empress,
+                          AppLocalizations.of(context)!.saturdaySunday,
+                          style: context.bodyMedium!.copyWith(
+                            color: context.bodyMedium!.color!.withOpacity(.8),
                             fontSize: 16,
                           ),
                         ),
                         const Spacer(),
                         Text(
-                          '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.monFriFrom, locale: curentLocale)}'
+                          '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.satSunFrom, locale: curentLocale)}'
                           ' - '
-                          '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.monFriTo, locale: curentLocale)}',
-                          style: kSemiBoldTextStyle.copyWith(
-                            fontSize: 16,
-                            color: ColorRes.charcoal,
-                          ),
+                          '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.satSunTo, locale: curentLocale)}',
+                          style: context.bodyMedium!
+                              .copyWith(fontWeight: FontWeight.w300)
+                              .copyWith(
+                                fontSize: 16,
+                                color:
+                                    context.bodyMedium!.color!.withOpacity(.5),
+                              ),
                         ),
                       ],
                     ),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      margin: const EdgeInsets.only(top: 15, bottom: 15),
-                      color: ColorRes.smokeWhite1,
+                    const SizedBox(
+                      height: 10,
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.saturdaySunday,
-                      style: kLightWhiteTextStyle.copyWith(
-                        color: ColorRes.empress,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const Spacer(),
-                    Text(
-                      '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.satSunFrom, locale: curentLocale)}'
-                      ' - '
-                      '${AppRes.convert24HoursInto12Hours(salonDetailsBloc.salonData?.satSunTo, locale: curentLocale)}',
-                      style: kSemiBoldTextStyle.copyWith(
-                        fontSize: 16,
-                        color: ColorRes.charcoal,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
+              ),
             ),
           ),
           const SizedBox(
@@ -173,7 +198,7 @@ class SalonDetailsPage extends StatelessWidget {
                           Radius.circular(10),
                         ),
                         child: Container(
-                          color: ColorRes.themeColor,
+                          color: context.colorScheme.primary,
                           width: 130,
                           height: 45,
                           child: Center(
@@ -191,7 +216,8 @@ class SalonDetailsPage extends StatelessWidget {
                                 ),
                                 Text(
                                   AppLocalizations.of(context)!.navigate,
-                                  style: kRegularWhiteTextStyle.copyWith(
+                                  style: context.bodyMedium!.copyWith(
+                                    color: ColorRes.white,
                                     fontSize: 16,
                                   ),
                                 ),
@@ -221,14 +247,14 @@ class RoundCornerWithImageWidget extends StatelessWidget {
   final Function()? onTap;
 
   const RoundCornerWithImageWidget({
-    Key? key,
+    super.key,
     required this.image,
     this.imagePadding,
     this.cornerRadius,
     this.bgColor,
     this.imageColor,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -236,7 +262,7 @@ class RoundCornerWithImageWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: bgColor ?? ColorRes.themeColor5,
+          color: bgColor ?? context.colorScheme.tertiary.withOpacity(.5),
           borderRadius: BorderRadius.all(Radius.circular(cornerRadius ?? 10)),
         ),
         height: 45,

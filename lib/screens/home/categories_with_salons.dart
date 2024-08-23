@@ -1,15 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/route_manager.dart';
 import 'package:moli/model/home/home_page_data.dart';
 import 'package:moli/screens/categories/salon_by_cat_screen.dart';
 import 'package:moli/screens/service/service_detail_screen.dart';
 import 'package:moli/utils/app_res.dart';
-import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/const_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/route_manager.dart';
+import 'package:moli/utils/extensions.dart';
 
 class CategoriesWithSalonsWidget extends StatelessWidget {
   const CategoriesWithSalonsWidget({
@@ -29,7 +28,6 @@ class CategoriesWithSalonsWidget extends StatelessWidget {
         CategoriesWithService categoriesWithService =
             categoriesWithServices[index];
         return Container(
-          color: ColorRes.smokeWhite,
           padding: const EdgeInsets.only(left: 15, right: 10, top: 15),
           child: Column(
             children: [
@@ -37,28 +35,30 @@ class CategoriesWithSalonsWidget extends StatelessWidget {
                 children: [
                   Text(
                     categoriesWithService.title?.toUpperCase() ?? '',
-                    style: kThinWhiteTextStyle.copyWith(
-                      color: ColorRes.themeColor,
+                    style: context.bodyMedium!.copyWith(
+                      color: context.colorScheme.primary,
                       fontSize: 16,
                       letterSpacing: 2,
                     ),
                   ),
                   const Spacer(),
                   CustomCircularInkWell(
-                    onTap: () {
-                      Get.to(
-                        () => const CategoryDetailScreen(),
-                        arguments:
-                            Categories.fromJson(categoriesWithService.toJson()),
-                      );
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.seeAll,
-                      style: kRegularEmpressTextStyle.copyWith(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
+                      onTap: () {
+                        Get.to(
+                          () => const CategoryDetailScreen(),
+                          arguments: Categories.fromJson(
+                              categoriesWithService.toJson()),
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          Text(AppLocalizations.of(context)!.seeAll,
+                              style: context.bodySmall),
+                          const SizedBox(width: 5),
+                          const Icon(Icons.arrow_forward_ios, size: 8),
+                          const SizedBox(width: 10),
+                        ],
+                      )),
                 ],
               ),
               SizedBox(
@@ -105,8 +105,8 @@ class ItemCategoriesWithSalons extends StatelessWidget {
       },
       child: AspectRatio(
         aspectRatio: 1 / 1,
-        child: Container(
-          padding: const EdgeInsets.all(5.0),
+        child: Card(
+          margin: const EdgeInsets.all(5.0),
           child: ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(15)),
             child: Column(
@@ -122,7 +122,7 @@ class ItemCategoriesWithSalons extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  color: ColorRes.white,
+                  color: context.colorScheme.surface.withOpacity(.4),
                   padding: const EdgeInsets.only(
                     top: 5,
                     bottom: 10,
@@ -134,8 +134,8 @@ class ItemCategoriesWithSalons extends StatelessWidget {
                     children: [
                       Text(
                         services?.title ?? '',
-                        style: kBoldWhiteTextStyle.copyWith(
-                          color: ColorRes.nero,
+                        style: context.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
                         maxLines: 2,
@@ -147,25 +147,21 @@ class ItemCategoriesWithSalons extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            '${AppRes.currency}${AppRes.formatCurrency((services?.price ?? 0) - AppRes.calculateDiscountByPercentage(services?.price?.toInt() ?? 0, services?.discount?.toInt() ?? 0).toInt())}',
-                            style: kBoldThemeTextStyle.copyWith(
-                              fontSize: 20,
-                            ),
-                          ),
+                              '${AppRes.formatCurrency((services?.price ?? 0) - AppRes.calculateDiscountByPercentage(services?.price?.toInt() ?? 0, services?.discount?.toInt() ?? 0).toInt())} ${AppRes.currency}',
+                              style: context.bodyMedium!.copyWith(
+                                color: context.colorScheme.tertiary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              )),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: Text(
-                              '-',
-                              style: kThinWhiteTextStyle.copyWith(
-                                color: ColorRes.mortar,
-                              ),
-                            ),
+                            child: Text('-', style: context.bodyMedium),
                           ),
                           Text(
                             '${AppRes.convertTimeForService(context, services?.serviceTime?.toInt() ?? 0)} ',
-                            style: kThinWhiteTextStyle.copyWith(
-                              color: ColorRes.mortar,
-                            ),
+                            style: context.bodyMedium!.copyWith(
+                                color: context.bodyMedium!.color!
+                                    .withOpacity(0.8)),
                           ),
                         ],
                       ),

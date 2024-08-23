@@ -1,11 +1,11 @@
-import 'package:moli/model/user/salon_user.dart';
-import 'package:moli/service/api_service.dart';
-import 'package:moli/utils/app_res.dart';
-import 'package:moli/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:moli/model/user/salon_user.dart';
+import 'package:moli/service/api_service.dart';
+import 'package:moli/utils/app_res.dart';
+import 'package:moli/utils/shared_pref.dart';
 
 part 'withdraw_event.dart';
 part 'withdraw_state.dart';
@@ -27,35 +27,37 @@ class WithdrawBloc extends Bloc<WithdrawEvent, WithdrawState> {
   TextEditingController holdersNameController = TextEditingController();
   TextEditingController swiftCodeController = TextEditingController();
 
-  void tapOnContinue() async {
+  void tapOnContinue(
+    BuildContext context,
+  ) async {
     if (bankNameController.text.isEmpty) {
       AppRes.showSnackBar(
-          AppLocalizations.of(Get.context!)!.enterBankName, false);
+          context, AppLocalizations.of(Get.context!)!.enterBankName, false);
       return;
     }
     if (accountNumberController.text.isEmpty) {
-      AppRes.showSnackBar(
+      AppRes.showSnackBar(context,
           AppLocalizations.of(Get.context!)!.enterAccountNumber, false);
       return;
     }
     if (reAccountNumberController.text.isEmpty) {
-      AppRes.showSnackBar(
+      AppRes.showSnackBar(context,
           AppLocalizations.of(Get.context!)!.enterReaccountNumber, false);
       return;
     }
     if (reAccountNumberController.text != accountNumberController.text) {
-      AppRes.showSnackBar(
+      AppRes.showSnackBar(context,
           AppLocalizations.of(Get.context!)!.accountNumberDoestMatched, false);
       return;
     }
     if (holdersNameController.text.isEmpty) {
       AppRes.showSnackBar(
-          AppLocalizations.of(Get.context!)!.enterHoldersName, false);
+          context, AppLocalizations.of(Get.context!)!.enterHoldersName, false);
       return;
     }
     if (swiftCodeController.text.isEmpty) {
       AppRes.showSnackBar(
-          AppLocalizations.of(Get.context!)!.enterSwiftCode, false);
+          context, AppLocalizations.of(Get.context!)!.enterSwiftCode, false);
       return;
     }
     AppRes.showCustomLoader();

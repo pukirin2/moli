@@ -1,17 +1,17 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:moli/bloc/topratedsalon/top_rated_salon_bloc.dart';
 import 'package:moli/model/user/salon.dart';
 import 'package:moli/screens/fav/salon_screen.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
+import 'package:moli/utils/extensions.dart';
 
 class TopRatedSalonScreen extends StatelessWidget {
-  const TopRatedSalonScreen({Key? key}) : super(key: key);
+  const TopRatedSalonScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +62,8 @@ class TopRatedSalonScreen extends StatelessWidget {
 
 class TopBarOfTopRatedWidget extends StatelessWidget {
   const TopBarOfTopRatedWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +108,7 @@ class TopBarOfTopRatedWidget extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 15, right: 5),
                   child: Text(
                     AppLocalizations.of(context)!.topRated.toUpperCase(),
-                    style: kMediumTextStyle.copyWith(
+                    style: context.bodyMedium!.copyWith(
                       color: ColorRes.white,
                       fontSize: 14,
                     ),
@@ -118,8 +118,8 @@ class TopBarOfTopRatedWidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 18, vertical: 5),
                   // child: Text(
                   //   'Offering best Massage services',
-                  //   style: kLightWhiteTextStyle.copyWith(
-                  //     color: ColorRes.empress,
+                  //   style: context.bodyMedium.copyWith(
+                  //     color: context.colorScheme.outline,
                   //     fontSize: 18,
                   //   ),
                   // ),
@@ -141,13 +141,13 @@ class TopBarOfTopRatedWidget extends StatelessWidget {
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: AppLocalizations.of(context)!.search,
-                      hintStyle: kRegularTextStyle.copyWith(
+                      hintStyle: context.bodyMedium!.copyWith(
                         color: ColorRes.darkGray,
                       ),
                     ),
                     controller: topRatedSalonBloc.searchController,
                     textCapitalization: TextCapitalization.sentences,
-                    style: kRegularTextStyle.copyWith(
+                    style: context.bodyMedium!.copyWith(
                       color: ColorRes.charcoal50,
                     ),
                   ),

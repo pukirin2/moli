@@ -1,19 +1,21 @@
 import 'dart:ui';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/route_manager.dart';
 import 'package:moli/bloc/emaillogin/email_login_bloc.dart';
 import 'package:moli/screens/login/email_registration_screen.dart';
 import 'package:moli/screens/login/forgot_password.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
+import 'package:moli/utils/extensions.dart';
 import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/route_manager.dart';
 
 class EmailLoginScreen extends StatelessWidget {
-  const EmailLoginScreen({Key? key}) : super(key: key);
+  const EmailLoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,8 @@ class EmailLoginScreen extends StatelessWidget {
                               onPressed: () {
                                 Get.back();
                               },
-                              icon: const Icon(Icons.arrow_back_rounded)),
+                              icon: const Icon(
+                                  Icons.arrow_back_ios_new_outlined)),
                           Expanded(
                             child: Padding(
                               padding:
@@ -63,28 +66,24 @@ class EmailLoginScreen extends StatelessWidget {
                                 children: [
                                   const Expanded(
                                     child: Center(
-                                      child: AppLogo(
-                                        textSize: 40,
-                                      ),
+                                      child: AppLogo(textSize: 40),
                                     ),
                                   ),
                                   Text(
                                     AppLocalizations.of(context)!
                                         .signInToContinue,
-                                    style: kSemiBoldWhiteTextStyle.copyWith(
-                                        fontWeight: FontWeight.bold),
+                                    style: context.bodyMedium!.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
+                                  const SizedBox(height: 10),
                                   Text(
                                     AppLocalizations.of(context)!
                                         .findAndBookHairCutMassageSpaWaxingColoringServicesAnytime,
-                                    style: kLightWhiteTextStyle,
+                                    style: context.bodyMedium!
+                                        .copyWith(fontSize: 12),
                                   ),
-                                  const SizedBox(
-                                    height: 35,
-                                  ),
+                                  const SizedBox(height: 35),
                                   TextWithTextFieldWidget(
                                     title: AppLocalizations.of(context)!
                                         .emailAddress,
@@ -113,7 +112,7 @@ class EmailLoginScreen extends StatelessWidget {
                                       child: Text(
                                         AppLocalizations.of(context)!
                                             .forgotPassword_,
-                                        style: kRegularWhiteTextStyle,
+                                        style: context.bodyMedium,
                                       ),
                                     ),
                                   ),
@@ -129,13 +128,13 @@ class EmailLoginScreen extends StatelessWidget {
                                       },
                                       child: Text(
                                         AppLocalizations.of(context)!.continue_,
-                                        style: kThemeButtonTextStyle,
+                                        style: context.bodyMedium!.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red),
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 35,
-                                  ),
+                                  const SizedBox(height: 35),
                                   InkWell(
                                     onTap: () {
                                       Get.to(() =>
@@ -157,13 +156,11 @@ class EmailLoginScreen extends StatelessWidget {
                                           Text(
                                               AppLocalizations.of(context)!
                                                   .newUser,
-                                              style: kRegularWhiteTextStyle),
+                                              style: context.bodyMedium),
                                           Text(
                                             " ${AppLocalizations.of(context)!.registerHere}",
-                                            style:
-                                                kRegularWhiteTextStyle.copyWith(
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                            style: context.bodyMedium!.copyWith(
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ],
                                       ),
@@ -203,11 +200,11 @@ class TextWithTextFieldWidget extends StatelessWidget {
   final TextEditingController? controller;
 
   const TextWithTextFieldWidget({
-    Key? key,
+    super.key,
     required this.title,
     this.isPassword,
     this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -216,28 +213,18 @@ class TextWithTextFieldWidget extends StatelessWidget {
       children: [
         Text(
           title,
-          style: kRegularWhiteTextStyle,
+          style: context.bodyMedium,
         ),
-        Container(
-          decoration: BoxDecoration(
-            color: ColorRes.white.withOpacity(0.1),
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            border: Border.all(
-              color: ColorRes.smokeWhite,
-              width: 0.5,
-            ),
-          ),
-          margin: const EdgeInsets.only(top: 5),
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: TextField(
-            controller: controller,
-            decoration: const InputDecoration(border: InputBorder.none),
-            style: kRegularWhiteTextStyle,
-            obscureText: isPassword ?? false,
-            textCapitalization: TextCapitalization.sentences,
-            enableSuggestions: isPassword != null ? !isPassword! : true,
-            autocorrect: isPassword != null ? !isPassword! : true,
-          ),
+        const SizedBox(height: 10),
+        TextField(
+          controller: controller,
+          decoration:
+              const InputDecoration(border: InputBorder.none, filled: false),
+          style: context.bodyMedium,
+          obscureText: isPassword ?? false,
+          textCapitalization: TextCapitalization.sentences,
+          enableSuggestions: isPassword != null ? !isPassword! : true,
+          autocorrect: isPassword != null ? !isPassword! : true,
         ),
       ],
     );

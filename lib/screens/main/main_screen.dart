@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:moli/bloc/main/main_screen_bloc.dart';
 import 'package:moli/bloc/main/main_screen_state.dart';
 import 'package:moli/screens/booking/booking_screen.dart';
@@ -9,14 +13,10 @@ import 'package:moli/screens/profile/profile_screen.dart';
 import 'package:moli/utils/asset_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:moli/utils/extensions.dart';
 
 class MainScreen extends StatelessWidget {
-  MainScreen({Key? key}) : super(key: key);
+  MainScreen({super.key});
 
   final GlobalKey<ScaffoldState> _globalKey =
       GlobalKey(debugLabel: 'mainScreen');
@@ -48,7 +48,7 @@ class MainScreen extends StatelessWidget {
               decoration: BoxDecoration(boxShadow: [
                 BoxShadow(
                     color: ColorRes.black.withOpacity(0.1), blurRadius: 10)
-              ], color: ColorRes.white),
+              ], color: context.colorScheme.surface),
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: SafeArea(
@@ -146,14 +146,14 @@ class BottomMenuItem extends StatelessWidget {
   final Function()? onTap;
 
   const BottomMenuItem({
-    Key? key,
+    super.key,
     required this.image,
     required this.imageSize,
     required this.title,
     required this.menuIsSelected,
     this.nonSelectedImageSize,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +162,9 @@ class BottomMenuItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(100)),
-          color: menuIsSelected ? ColorRes.lavender : ColorRes.transparent,
+          color: menuIsSelected
+              ? context.colorScheme.primary
+              : ColorRes.transparent,
         ),
         height: 40,
         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -171,7 +173,9 @@ class BottomMenuItem extends StatelessWidget {
             Image(
               image: AssetImage(image),
               height: menuIsSelected ? imageSize : nonSelectedImageSize,
-              color: menuIsSelected ? ColorRes.themeColor : ColorRes.darkGray,
+              color: menuIsSelected
+                  ? context.colorScheme.onPrimary
+                  : ColorRes.darkGray,
             ),
             Visibility(
               visible: menuIsSelected,
@@ -183,8 +187,8 @@ class BottomMenuItem extends StatelessWidget {
               visible: menuIsSelected,
               child: Text(
                 title,
-                style: kRegularTextStyle.copyWith(
-                  color: ColorRes.themeColor,
+                style: context.bodyMedium!.copyWith(
+                  color: context.colorScheme.onPrimary,
                 ),
               ),
             ),
@@ -205,7 +209,7 @@ class BgRoundImageWidget extends StatelessWidget {
   final Function()? onTap;
 
   const BgRoundImageWidget({
-    Key? key,
+    super.key,
     required this.image,
     this.imagePadding,
     this.onTap,
@@ -213,7 +217,7 @@ class BgRoundImageWidget extends StatelessWidget {
     this.bgColor,
     this.height,
     this.width,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -223,7 +227,7 @@ class BgRoundImageWidget extends StatelessWidget {
         height: height ?? 40,
         width: width ?? 40,
         decoration: BoxDecoration(
-          // color: bgColor ?? ColorRes.themeColor10,
+          // color: bgColor ?? context.colorScheme.primary10,
           color: bgColor ?? ColorRes.lavender,
           borderRadius: const BorderRadius.all(Radius.circular(100)),
         ),
@@ -247,7 +251,7 @@ class BgRoundIconWidget extends StatelessWidget {
   final Function()? onTap;
 
   const BgRoundIconWidget({
-    Key? key,
+    super.key,
     required this.icon,
     this.imagePadding,
     this.onTap,
@@ -255,7 +259,7 @@ class BgRoundIconWidget extends StatelessWidget {
     this.bgColor,
     this.height,
     this.width,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -266,11 +270,11 @@ class BgRoundIconWidget extends StatelessWidget {
           width: width ?? 40,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: bgColor ?? ColorRes.lavender,
+            color: bgColor ?? context.colorScheme.primaryContainer,
             borderRadius: const BorderRadius.all(Radius.circular(100)),
           ),
           padding: EdgeInsets.all(imagePadding ?? 0),
-          child: Icon(icon, color: iconColor ?? ColorRes.themeColor)
+          child: Icon(icon, color: iconColor ?? context.colorScheme.primary)
           // Image(
           //   image: AssetImage(image),
           //   color: imageColor,

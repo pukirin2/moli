@@ -1,13 +1,13 @@
-import 'package:moli/bloc/chnagepassword/change_password_bloc.dart';
-import 'package:moli/screens/login/email_registration_screen.dart';
-import 'package:moli/screens/search/filter_bottom_sheet.dart';
-import 'package:moli/utils/style_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:moli/bloc/chnagepassword/change_password_bloc.dart';
+import 'package:moli/screens/login/email_registration_screen.dart';
+import 'package:moli/screens/search/filter_bottom_sheet.dart';
+import 'package:moli/utils/extensions.dart';
 
 class ChangePasswordBottomSheet extends StatelessWidget {
-  const ChangePasswordBottomSheet({Key? key}) : super(key: key);
+  const ChangePasswordBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,8 @@ class ChangePasswordBottomSheet extends StatelessWidget {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.changePassword,
-                        style: kBoldThemeTextStyle,
+                        style: context.bodyMedium!
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                       const Spacer(),
                       const CloseButtonWidget(),
@@ -79,11 +80,20 @@ class ChangePasswordBottomSheet extends StatelessWidget {
                     width: double.infinity,
                     height: 55,
                     child: TextButton(
-                      style: kButtonThemeStyle,
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(Colors.red),
+                        shape: WidgetStateProperty.all(
+                          const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                        ),
+                        overlayColor:
+                            WidgetStateProperty.all(Colors.transparent),
+                      ),
                       onPressed: changePasswordBloc.onTapContinue,
                       child: Text(
                         AppLocalizations.of(context)!.continue_,
-                        style: kRegularWhiteTextStyle,
+                        style: context.bodyMedium,
                       ),
                     ),
                   ),

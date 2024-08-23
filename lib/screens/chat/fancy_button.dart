@@ -1,5 +1,6 @@
-import 'package:moli/utils/color_res.dart';
 import 'package:flutter/material.dart';
+import 'package:moli/utils/color_res.dart';
+import 'package:moli/utils/extensions.dart';
 
 class FancyButton extends StatefulWidget {
   final VoidCallback onGalleryTap;
@@ -37,7 +38,7 @@ class FancyButtonState extends State<FancyButton>
     isOpened = widget.isOpen;
     setState(() {});
     _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500))
+        vsync: this, duration: const Duration(milliseconds: 100))
       ..addListener(() {
         setState(() {});
       });
@@ -91,19 +92,19 @@ class FancyButtonState extends State<FancyButton>
       child: Container(
         height: 40,
         width: 40,
-        decoration: const BoxDecoration(
-          color: ColorRes.themeColor,
+        decoration: BoxDecoration(
+          color: context.colorScheme.primary,
           shape: BoxShape.circle,
         ),
         margin: EdgeInsets.only(bottom: isOpened ? 10 : 0),
         child: FloatingActionButton(
-          backgroundColor: ColorRes.themeColor,
+          backgroundColor: context.colorScheme.primary,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
           onPressed: onTap,
           heroTag: icon,
           elevation: isOpened ? 5 : 0,
-          child: Icon(icon),
+          child: Icon(icon, color: Colors.white),
         ),
       ),
     );
@@ -115,12 +116,12 @@ class FancyButtonState extends State<FancyButton>
       child: Container(
         height: 40,
         width: 40,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: ColorRes.themeColor,
+          color: context.colorScheme.primary,
         ),
         child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 100),
           transitionBuilder: (child, anim) {
             return RotationTransition(
               turns: child.key == const ValueKey('icon1')

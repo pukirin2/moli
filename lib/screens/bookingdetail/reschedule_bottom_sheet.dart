@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:moli/bloc/bookingdetail/booking_detail_bloc.dart';
 import 'package:moli/bloc/confirmbooking/confirm_booking_bloc.dart';
 import 'package:moli/bloc/reschedule/re_schedule_bloc.dart';
@@ -6,19 +10,15 @@ import 'package:moli/screens/search/filter_bottom_sheet.dart';
 import 'package:moli/utils/app_res.dart';
 import 'package:moli/utils/color_res.dart';
 import 'package:moli/utils/custom/custom_widget.dart';
-import 'package:moli/utils/style_res.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
+import 'package:moli/utils/extensions.dart';
 
 class ReScheduleBottomSheet extends StatelessWidget {
   final BookingDetailBloc bookingDetailBloc;
 
   const ReScheduleBottomSheet({
-    Key? key,
+    super.key,
     required this.bookingDetailBloc,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +34,9 @@ class ReScheduleBottomSheet extends StatelessWidget {
           }
           return Container(
             decoration: const BoxDecoration(
-                color: Colors.white,
                 borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(20),
-                )),
+              top: Radius.circular(20),
+            )),
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +45,9 @@ class ReScheduleBottomSheet extends StatelessWidget {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.reschedule,
-                      style: kBoldThemeTextStyle,
+                      style: context.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const Spacer(),
                     const CloseButtonWidget(),
@@ -62,15 +63,15 @@ class ReScheduleBottomSheet extends StatelessWidget {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.selectDate,
-                      style: kLightWhiteTextStyle.copyWith(
+                      style: context.bodyMedium!.copyWith(
                         fontSize: 16,
-                        color: ColorRes.empress,
+                        color: context.colorScheme.outline,
                       ),
                     ),
                     const Spacer(),
                     Text(
                       '${AppRes.convertMonthNumberToName(context, reScheduleBloc.month)} ${reScheduleBloc.year}',
-                      style: kMediumTextStyle.copyWith(
+                      style: context.bodyMedium!.copyWith(
                         fontSize: 17,
                       ),
                     )
@@ -91,12 +92,12 @@ class ReScheduleBottomSheet extends StatelessWidget {
                       return CustomCircularInkWell(
                         onTap: () {
                           reScheduleBloc.onClickCalenderDay(
-                              day, reScheduleBloc);
+                              context, day, reScheduleBloc);
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             color: isSelected
-                                ? ColorRes.themeColor
+                                ? context.colorScheme.primary
                                 : ColorRes.smokeWhite,
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -109,7 +110,7 @@ class ReScheduleBottomSheet extends StatelessWidget {
                               children: [
                                 Text(
                                   DateFormat('EE').format(day).toUpperCase(),
-                                  style: kRegularThemeTextStyle.copyWith(
+                                  style: context.bodyMedium!.copyWith(
                                     color: isSelected
                                         ? ColorRes.white
                                         : ColorRes.charcoal,
@@ -119,7 +120,8 @@ class ReScheduleBottomSheet extends StatelessWidget {
                                 ),
                                 Text(
                                   day.day.toString(),
-                                  style: kBoldThemeTextStyle.copyWith(
+                                  style: context.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.bold,
                                     fontSize: 20,
                                     color: isSelected
                                         ? ColorRes.white
@@ -139,9 +141,9 @@ class ReScheduleBottomSheet extends StatelessWidget {
                 ),
                 Text(
                   AppLocalizations.of(context)!.selectTime,
-                  style: kLightWhiteTextStyle.copyWith(
+                  style: context.bodyMedium!.copyWith(
                     fontSize: 16,
-                    color: ColorRes.empress,
+                    color: context.colorScheme.outline,
                   ),
                 ),
                 const SizedBox(
@@ -163,7 +165,7 @@ class ReScheduleBottomSheet extends StatelessWidget {
                                 child: Text(
                                   AppLocalizations.of(context)!
                                       .noSlotsAvailable,
-                                  style: kRegularEmpressTextStyle.copyWith(
+                                  style: context.bodyMedium!.copyWith(
                                     color: ColorRes.darkGray,
                                   ),
                                 ),
@@ -219,7 +221,7 @@ class ReScheduleBottomSheet extends StatelessWidget {
                                         width: 95,
                                         decoration: BoxDecoration(
                                           color: slotData.time == selectedTime
-                                              ? ColorRes.themeColor
+                                              ? context.colorScheme.primary
                                               : ColorRes.smokeWhite,
                                           borderRadius: const BorderRadius.all(
                                             Radius.circular(5),
@@ -231,7 +233,8 @@ class ReScheduleBottomSheet extends StatelessWidget {
                                           AppRes.convert24HoursInto12Hours(
                                               slotData.time,
                                               locale: curentLocale),
-                                          style: kBoldWhiteTextStyle.copyWith(
+                                          style: context.bodyMedium!.copyWith(
+                                            fontWeight: FontWeight.bold,
                                             color: slotData.time == selectedTime
                                                 ? ColorRes.white
                                                 : isShowDisable
@@ -246,7 +249,7 @@ class ReScheduleBottomSheet extends StatelessWidget {
                                             ? AppLocalizations.of(context)!
                                                 .notAvailable
                                             : '${slotData.remainSlot} ${AppLocalizations.of(context)!.slotsAvailable}',
-                                        style: kRegularTextStyle.copyWith(
+                                        style: context.bodyMedium!.copyWith(
                                           color: isShowDisable
                                               ? ColorRes.darkGray
                                               : ColorRes.islamicGreen,
@@ -260,7 +263,7 @@ class ReScheduleBottomSheet extends StatelessWidget {
                                       //   width: 95,
                                       //   decoration: BoxDecoration(
                                       //     color: slotData.time == selectedTime
-                                      //         ? ColorRes.themeColor
+                                      //         ? context.colorScheme.primary
                                       //         : ColorRes.smokeWhite,
                                       //     borderRadius: const BorderRadius.all(
                                       //       Radius.circular(5),
@@ -288,7 +291,7 @@ class ReScheduleBottomSheet extends StatelessWidget {
                                       //       ? AppLocalizations.of(context)!
                                       //           .notAvailable
                                       //       : '${slotData.remainSlot} ${AppLocalizations.of(context)!.slotsAvailable}',
-                                      //   style: kRegularTextStyle.copyWith(
+                                      //   style: context.bodyMedium.copyWith(
                                       //     color: slotData.remainSlot == 0
                                       //         ? ColorRes.darkGray
                                       //         : ColorRes.islamicGreen,
@@ -307,14 +310,21 @@ class ReScheduleBottomSheet extends StatelessWidget {
                   width: double.infinity,
                   height: 55,
                   child: TextButton(
-                    style: kButtonThemeStyle,
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(Colors.red),
+                      shape: WidgetStateProperty.all(
+                        const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                      ),
+                      overlayColor: WidgetStateProperty.all(Colors.transparent),
+                    ),
                     onPressed: () {
                       reScheduleBloc.onSubmitClick();
                     },
-                    child: Text(
-                      AppLocalizations.of(context)!.submit,
-                      style: kRegularWhiteTextStyle,
-                    ),
+                    child: Text(AppLocalizations.of(context)!.submit,
+                        style:
+                            context.bodyMedium!.copyWith(color: Colors.white)),
                   ),
                 ),
                 const SizedBox(

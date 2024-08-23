@@ -252,8 +252,8 @@
 //       customization: Customization(title: "Wallet Payment"),
 //       isTestMode: true,
 //       // style: FlutterwaveStyle(
-//       //   buttonColor: ColorRes.themeColor,
-//       //   buttonTextStyle: kRegularTextStyle,
+//       //   buttonColor: context.colorScheme.primary,
+//       //   buttonTextStyle: context.bodyMedium,
 //       //   appBarColor: ColorRes.smokeWhite,
 //       //   appBarTitleTextStyle: kBoldWhiteTextStyle.copyWith(
 //       //     color: ColorRes.charcoal,

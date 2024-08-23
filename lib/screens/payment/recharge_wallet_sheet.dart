@@ -37,7 +37,7 @@
 //                         children: [
 //                           Text(
 //                             AppLocalizations.of(Get.context!)!.rechargeWallet,
-//                             style: kSemiBoldThemeTextStyle.copyWith(
+//                             style: context.bodyMedium!.copyWith(fontWeight: FontWeight.w300).copyWith(
 //                               fontSize: 20,
 //                             ),
 //                           ),
@@ -47,7 +47,7 @@
 //                           Text(
 //                             AppLocalizations.of(Get.context!)!
 //                                 .addMoneyToYourWalletToRecharge,
-//                             style: kLightWhiteTextStyle.copyWith(
+//                             style: context.bodyMedium.copyWith(
 //                               color: ColorRes.empress,
 //                               fontSize: 14,
 //                             ),
@@ -70,7 +70,7 @@
 //                           padding: const EdgeInsets.all(5),
 //                           child: const Icon(
 //                             Icons.close_rounded,
-//                             color: ColorRes.themeColor,
+//                             color: context.colorScheme.primary,
 //                           ),
 //                         ),
 //                       ),
@@ -86,7 +86,7 @@
 //                         children: [
 //                           Text(
 //                             '${AppRes.currency}${rechargeWalletBloc.userData?.data?.wallet ?? 0}',
-//                             style: kBoldThemeTextStyle.copyWith(
+//                             style: context.bodyMedium!.copyWith(                                              fontWeight: FontWeight.bold).copyWith(
 //                               fontSize: 35,
 //                             ),
 //                           ),
@@ -96,7 +96,7 @@
 //                           Text(
 //                             AppLocalizations.of(Get.context!)!
 //                                 .pleaseRechargeYourWalletToContinueBooking,
-//                             style: kLightWhiteTextStyle.copyWith(
+//                             style: context.bodyMedium.copyWith(
 //                               color: ColorRes.empress,
 //                               fontSize: 16,
 //                             ),
@@ -106,7 +106,7 @@
 //                           ),
 //                           Text(
 //                             AppLocalizations.of(Get.context!)!.selectAmount,
-//                             style: kSemiBoldThemeTextStyle,
+//                             style: context.bodyMedium!.copyWith(fontWeight: FontWeight.w300),
 //                           ),
 //                           const SizedBox(
 //                             height: 10,
@@ -122,7 +122,7 @@
 //                                     margin: const EdgeInsets.only(right: 10),
 //                                     decoration: BoxDecoration(
 //                                       color: rechargeWalletBloc.type == 0
-//                                           ? ColorRes.themeColor
+//                                           ? context.colorScheme.primary
 //                                           : ColorRes.smokeWhite,
 //                                       borderRadius: const BorderRadius.all(
 //                                           Radius.circular(100)),
@@ -132,7 +132,7 @@
 //                                     child: Center(
 //                                       child: Text(
 //                                         '${AppRes.currency}50',
-//                                         style: kBoldThemeTextStyle.copyWith(
+//                                         style: context.bodyMedium!.copyWith(                                              fontWeight: FontWeight.bold).copyWith(
 //                                             fontSize: 16,
 //                                             color: rechargeWalletBloc.type == 0
 //                                                 ? ColorRes.white
@@ -150,7 +150,7 @@
 //                                   child: Container(
 //                                     decoration: BoxDecoration(
 //                                       color: rechargeWalletBloc.type == 1
-//                                           ? ColorRes.themeColor
+//                                           ? context.colorScheme.primary
 //                                           : ColorRes.smokeWhite,
 //                                       borderRadius: const BorderRadius.all(
 //                                           Radius.circular(100)),
@@ -160,7 +160,7 @@
 //                                     child: Center(
 //                                       child: Text(
 //                                         '${AppRes.currency}100',
-//                                         style: kBoldThemeTextStyle.copyWith(
+//                                         style: context.bodyMedium!.copyWith(                                              fontWeight: FontWeight.bold).copyWith(
 //                                           fontSize: 16,
 //                                           color: rechargeWalletBloc.type == 1
 //                                               ? ColorRes.white
@@ -180,7 +180,7 @@
 //                                     margin: const EdgeInsets.only(left: 10),
 //                                     decoration: BoxDecoration(
 //                                       color: rechargeWalletBloc.type == 2
-//                                           ? ColorRes.themeColor
+//                                           ? context.colorScheme.primary
 //                                           : ColorRes.smokeWhite,
 //                                       borderRadius: const BorderRadius.all(
 //                                           Radius.circular(100)),
@@ -190,7 +190,7 @@
 //                                     child: Center(
 //                                       child: Text(
 //                                         '${AppRes.currency}150',
-//                                         style: kBoldThemeTextStyle.copyWith(
+//                                         style: context.bodyMedium!.copyWith(                                              fontWeight: FontWeight.bold).copyWith(
 //                                           fontSize: 16,
 //                                           color: rechargeWalletBloc.type == 2
 //                                               ? ColorRes.white
@@ -210,7 +210,7 @@
 //                             child: Container(
 //                               decoration: BoxDecoration(
 //                                 color: rechargeWalletBloc.type == 3
-//                                     ? ColorRes.themeColor
+//                                     ? context.colorScheme.primary
 //                                     : ColorRes.smokeWhite,
 //                                 borderRadius: const BorderRadius.all(
 //                                     Radius.circular(100)),
@@ -222,7 +222,7 @@
 //                                 AppLocalizations.of(Get.context!)!
 //                                     .other
 //                                     .toUpperCase(),
-//                                 style: kBoldThemeTextStyle.copyWith(
+//                                 style: context.bodyMedium!.copyWith(                                              fontWeight: FontWeight.bold).copyWith(
 //                                   fontSize: 14,
 //                                   color: rechargeWalletBloc.type == 3
 //                                       ? ColorRes.white
@@ -252,7 +252,7 @@
 //                                     rechargeWalletBloc.amountTextController,
 //                                 textAlign: TextAlign.center,
 //                                 keyboardType: TextInputType.number,
-//                                 style: kSemiBoldThemeTextStyle.copyWith(
+//                                 style: context.bodyMedium!.copyWith(fontWeight: FontWeight.w300).copyWith(
 //                                   fontSize: 16,
 //                                   color: ColorRes.black,
 //                                 ),
@@ -268,7 +268,17 @@
 //                     height: 55,
 //                     margin: const EdgeInsets.symmetric(vertical: 15),
 //                     child: TextButton(
-//                       style: kButtonThemeStyle,
+//                       style: ButtonStyle(
+                                    //   backgroundColor:
+                                    //       WidgetStateProperty.all(Colors.red),
+                                    //   shape: WidgetStateProperty.all(
+                                    //     const RoundedRectangleBorder(
+                                    //         borderRadius = BorderRadius.all(
+                                    //             Radius.circular(10))),
+                                    //   ),
+                                    //   overlayColor: WidgetStateProperty.all(
+                                    //       Colors.transparent),
+                                    // ),
 //                       onPressed: () {
 //                         rechargeWalletBloc.onContinueTap();
 //                       },

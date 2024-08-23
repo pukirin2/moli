@@ -1,9 +1,9 @@
-import 'package:moli/utils/app_res.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:moli/utils/app_res.dart';
 
 part 'registration_event.dart';
 part 'registration_state.dart';
@@ -12,34 +12,36 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
   RegistrationBloc() : super(RegistrationInitial()) {
     on<ContinueRegistrationEvent>((event, emit) {
       if (fullNameTextController.text.isEmpty) {
-        AppRes.showSnackBar(
+        AppRes.showSnackBar(Get.context!,
             AppLocalizations.of(Get.context!)!.pleaseEnterFullname, false);
         return;
       }
       if (emailTextController.text.isEmpty) {
-        AppRes.showSnackBar(
+        AppRes.showSnackBar(Get.context!,
             AppLocalizations.of(Get.context!)!.pleaseEnterEmailAddress, false);
         return;
       }
       if (!emailTextController.text.isEmail) {
         AppRes.showSnackBar(
+            Get.context!,
             AppLocalizations.of(Get.context!)!.pleaseEnterValidEmailAddress,
             false);
         return;
       }
       if (passwordTextController.text.isEmpty) {
-        AppRes.showSnackBar(
+        AppRes.showSnackBar(Get.context!,
             AppLocalizations.of(Get.context!)!.pleaseEnterPassword, false);
         return;
       }
       if (confirmPasswordTextController.text.isEmpty) {
         AppRes.showSnackBar(
+            Get.context!,
             AppLocalizations.of(Get.context!)!.pleaseEnterConfirmPassword,
             false);
         return;
       }
       if (confirmPasswordTextController.text != passwordTextController.text) {
-        AppRes.showSnackBar(
+        AppRes.showSnackBar(Get.context!,
             AppLocalizations.of(Get.context!)!.passwordDoesNotMatch, false);
         return;
       }
@@ -72,18 +74,21 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
           case "wrong-password":
           case "user-not-found":
             {
-              AppRes.showSnackBar("Wrong email address or password.", false);
+              AppRes.showSnackBar(
+                  Get.context!, "Wrong email address or password.", false);
               break;
             }
           case "too-many-requests":
           case "user-disabled":
             {
-              AppRes.showSnackBar("This account is disabled", false);
+              AppRes.showSnackBar(
+                  Get.context!, "This account is disabled", false);
               break;
             }
           case "email-already-in-use":
             {
               AppRes.showSnackBar(
+                  Get.context!,
                   "The email address is already in use by another account",
                   false);
               break;
